@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [SpiritZone]">
+  <test thread-count="5" name="Spirit_Popular_028(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Popular Brands for Bacardi"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Popular_028"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Popular_028(failed) -->
+</suite> <!-- Failed suite [SpiritZone] -->

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [SpiritZone]">
+  <test thread-count="5" name="Spirit_Category_001(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (Whiskey) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_001"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_001(failed) -->
+  <test thread-count="5" name="Spirit_Category_003(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (Whiskey) and Price High To Low to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_003"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_003(failed) -->
+  <test thread-count="5" name="Spirit_Category_005(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (VODKA) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_005"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_005(failed) -->
+  <test thread-count="5" name="Spirit_Category_009(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (GIN) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_009"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_009(failed) -->
+  <test thread-count="5" name="Spirit_Category_013(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (TEQUILA) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_013"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_013(failed) -->
+  <test thread-count="5" name="Spirit_Category_017(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (BRANDY) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_017"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_017(failed) -->
+  <test thread-count="5" name="Spirit_Category_021(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (WINE) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_021"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_021(failed) -->
+  <test thread-count="5" name="Spirit_Category_025(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (BEER) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_025"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_025(failed) -->
+  <test thread-count="5" name="Spirit_Category_029(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (RUM) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_029"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_029(failed) -->
+  <test thread-count="5" name="Spirit_Category_033(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Allowing to select Product via Category module and add Filter (OTHERS) to Place Order"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Category_033"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Category_033(failed) -->
+</suite> <!-- Failed suite [SpiritZone] -->

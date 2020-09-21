@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [SpiritZone]">
+  <test thread-count="5" name="Spirit_Login_0001(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateSpiritLogin"/>
+        <parameter name="executionAutomationDescription" value="To verify whether system is allowing the user to Login With Valid Credentials provided"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Login_0001"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Login_0001(failed) -->
+</suite> <!-- Failed suite [SpiritZone] -->

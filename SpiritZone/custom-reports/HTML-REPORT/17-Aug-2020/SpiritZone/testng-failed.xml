@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [SpiritZone]">
+  <test thread-count="5" name="Spirit_Search_004(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateSearchLiquiorOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Restricting  User to Place order from Cart value &lt; ₹1000"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Search_004"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Search_004(failed) -->
+  <test thread-count="5" name="Spirit_Search_005(failed)">
+    <classes>
+      <class name="com.spiritzone.AutomationDriverScript">
+        <parameter name="executionAutomationScripterName" value="Anmol"/>
+        <parameter name="executionAutomationScriptReference" value="CreateSearchLiquiorOrder"/>
+        <parameter name="executionAutomationDescription" value="To verify if System is Restricting  User to Place order Selecting Yes on Permit Section  Without  Permit number"/>
+        <parameter name="executionTestSuite_Reference" value="Spirit_Search_005"/>
+        <methods>
+          <include name="quitDriver"/>
+          <include name="scriptExecutioner" invocation-numbers="0"/>
+        </methods>
+      </class> <!-- com.spiritzone.AutomationDriverScript -->
+    </classes>
+  </test> <!-- Spirit_Search_005(failed) -->
+</suite> <!-- Failed suite [SpiritZone] -->
