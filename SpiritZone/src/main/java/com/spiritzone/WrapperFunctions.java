@@ -22,7 +22,7 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.JavascriptExecutor;
 
-import com.Pages.PlaceOrderPage;
+
 import com.google.common.base.Function;
 
 import io.appium.java_client.AppiumDriver;
@@ -34,7 +34,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 
 public class WrapperFunctions {
-	PlaceOrderPage Placeorderobj;
+//	PlaceOrderPage Placeorderobj;
 	FrameworkServices Frameobj;
 	Pojo objPojo;
 

@@ -18,7 +18,7 @@ public class TestLauncher {
 		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMM-yyyy");
 		String folderDate=simpleDateFormat.format(date);
 		excutionFolderHTML = System.getProperty("user.dir") + "/custom-reports/HTML-REPORT/"+ folderDate;
-		excutionFolderEXCELFile= System.getProperty("user.dir") + "/custom-reports/EXCEL-REPORT/"+ folderDate+".xlsx";
+		excutionFolderEXCELFile= System.getProperty("user.dir") + "\\custom-reports\\EXCEL-REPORT\\"+ folderDate+".xlsx";
  		
 		Uploader uploader = new Uploader();		
 		uploader.createExecutionRecords();

@@ -23,16 +23,16 @@
       <![CDATA[Step Description--> <B>Traversed TO Home Page to Perform Liquor Category Updates </B>]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Click on Beer ]]>
+      <![CDATA[Step Description--> Click on VODKA ]]>
     </line>
     <line>
       <![CDATA[Step Description--> Click on Second Product]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Price of The Product is ₹ 95]]>
+      <![CDATA[Step Description--> Price of The Product is ₹ 640]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Name of The Product is Haywards 2000 Strong]]>
+      <![CDATA[Step Description--> Name of The Product is Romanov Vodka]]>
     </line>
     <line>
       <![CDATA[Step Description--> Availability status : IN STOCK]]>
@@ -50,7 +50,7 @@
       <![CDATA[Step Description--> One Day Permit Cost is ₹ 5]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Total Amount is ₹ 1,050]]>
+      <![CDATA[Step Description--> Total Amount is ₹ 1,285]]>
     </line>
     <line>
       <![CDATA[Step Description--> Click on Pay On Delivery ]]>
@@ -62,7 +62,7 @@
       <![CDATA[Step Description--> Clicked on Orderstatus Button ]]>
     </line>
     <line>
-      <![CDATA[Step Description--> <B> Order No. 26511</B>]]>
+      <![CDATA[Step Description--> <B> Order No. 26525</B>]]>
     </line>
     <line>
       <![CDATA[Step Description--> Traversed to Order Details]]>
@@ -71,16 +71,16 @@
       <![CDATA[Step Description--> Order Sucessfully Placed]]>
     </line>
   </reporter-output>
-  <suite started-at="2020-09-21T06:20:14Z" name="SpiritZone" finished-at="2020-09-21T06:22:09Z" duration-ms="114993">
+  <suite started-at="2020-09-21T09:30:00Z" name="SpiritZone" finished-at="2020-09-21T09:32:01Z" duration-ms="120582">
     <groups>
     </groups>
-    <test started-at="2020-09-21T06:20:14Z" name="Spirit_Category_026" finished-at="2020-09-21T06:22:09Z" duration-ms="114993">
+    <test started-at="2020-09-21T09:30:00Z" name="Spirit_Category_006" finished-at="2020-09-21T09:32:01Z" duration-ms="120582">
       <class name="com.spiritzone.AutomationDriverScript">
-        <test-method signature="scriptExecutioner(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.spiritzone.AutomationDriverScript@2235eaab]" started-at="2020-09-21T06:20:14Z" name="scriptExecutioner" finished-at="2020-09-21T06:22:08Z" duration-ms="114231" status="PASS">
+        <test-method signature="scriptExecutioner(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.spiritzone.AutomationDriverScript@505a9d7c]" started-at="2020-09-21T09:30:00Z" name="scriptExecutioner" finished-at="2020-09-21T09:32:01Z" duration-ms="120182" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Spirit_Category_026]]>
+                <![CDATA[Spirit_Category_006]]>
               </value>
             </param>
             <param index="1">
@@ -95,7 +95,7 @@
             </param>
             <param index="3">
               <value>
-                <![CDATA[To verify if System is Allowing to select Product via Category module and add Filter (BEER) to Place Order]]>
+                <![CDATA[To verify if System is Allowing to select Product via Category module and add Filter (VODKA) to Place Order]]>
               </value>
             </param>
           </params>
@@ -122,16 +122,16 @@
               <![CDATA[Step Description--> <B>Traversed TO Home Page to Perform Liquor Category Updates </B>]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Click on Beer ]]>
+              <![CDATA[Step Description--> Click on VODKA ]]>
             </line>
             <line>
               <![CDATA[Step Description--> Click on Second Product]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Price of The Product is ₹ 95]]>
+              <![CDATA[Step Description--> Price of The Product is ₹ 640]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Name of The Product is Haywards 2000 Strong]]>
+              <![CDATA[Step Description--> Name of The Product is Romanov Vodka]]>
             </line>
             <line>
               <![CDATA[Step Description--> Availability status : IN STOCK]]>
@@ -149,7 +149,7 @@
               <![CDATA[Step Description--> One Day Permit Cost is ₹ 5]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Total Amount is ₹ 1,050]]>
+              <![CDATA[Step Description--> Total Amount is ₹ 1,285]]>
             </line>
             <line>
               <![CDATA[Step Description--> Click on Pay On Delivery ]]>
@@ -161,7 +161,7 @@
               <![CDATA[Step Description--> Clicked on Orderstatus Button ]]>
             </line>
             <line>
-              <![CDATA[Step Description--> <B> Order No. 26511</B>]]>
+              <![CDATA[Step Description--> <B> Order No. 26525</B>]]>
             </line>
             <line>
               <![CDATA[Step Description--> Traversed to Order Details]]>
@@ -171,11 +171,11 @@
             </line>
           </reporter-output>
         </test-method> <!-- scriptExecutioner -->
-        <test-method is-config="true" signature="quitDriver()[pri:0, instance:com.spiritzone.AutomationDriverScript@2235eaab]" started-at="2020-09-21T06:22:08Z" name="quitDriver" finished-at="2020-09-21T06:22:09Z" duration-ms="142" status="PASS">
+        <test-method is-config="true" signature="quitDriver()[pri:0, instance:com.spiritzone.AutomationDriverScript@505a9d7c]" started-at="2020-09-21T09:32:01Z" name="quitDriver" finished-at="2020-09-21T09:32:01Z" duration-ms="258" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- quitDriver -->
       </class> <!-- com.spiritzone.AutomationDriverScript -->
-    </test> <!-- Spirit_Category_026 -->
+    </test> <!-- Spirit_Category_006 -->
   </suite> <!-- SpiritZone -->
 </testng-results>
