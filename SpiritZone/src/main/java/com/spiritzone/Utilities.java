@@ -21,6 +21,9 @@ import org.testng.Reporter;
 import com.TestSpiritZone.TestLauncher;
 import com.codoid.products.exception.FilloException;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.model.Status;
+
 
 public class Utilities {
 	private Pojo objPojo;
@@ -77,11 +80,13 @@ public class Utilities {
 			e.printStackTrace();
 		}
 		if (resultLog) {
+			Allure.step(strLog, Status.PASSED);
 			Reporter.log("Step Description--> " + strLog);
 			logger.info("Step Description--> " + objPojo.getTestCaseID() + "---" + strLog);
 			Assert.assertTrue(true);
 		} else 
 		{
+			Allure.step(strLog, Status.FAILED);
 			java.util.Date date=new java.util.Date();
 			SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMM-yyyy");
 			String folderDate=simpleDateFormat.format(date);
