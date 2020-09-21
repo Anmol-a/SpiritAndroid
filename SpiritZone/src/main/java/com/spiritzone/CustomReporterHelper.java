@@ -48,6 +48,7 @@ public class CustomReporterHelper extends Pojo {
 			String packageName = completeTestClassPath.substring(0, completeTestClassPath.lastIndexOf("."));
 			String testClassName = result.getTestClass().getRealClass().getSimpleName();
 			String methodName = result.getMethod().getMethodName();
+			String sample = TestLauncher.excutionFolderEXCELFile;
 			double executionTime = (double) (result.getEndMillis() - result.getStartMillis()) / 1000.0D;
 			objPojo = (Pojo) result.getInstance();
 			String TCID = objPojo.getTestCaseID();
@@ -60,6 +61,7 @@ public class CustomReporterHelper extends Pojo {
 			
 			File reportFile = new File(this.strExcelFilePath);
 			String exception;
+			Thread.sleep(1200);
 			if (!reportFile.exists()) {
 				(new File(System.getProperty("user.dir") + "/Excel_reports")).mkdirs();
 				reportFile.createNewFile();

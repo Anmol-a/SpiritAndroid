@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Spirit_Category_006</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>1/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Mon Sep 21 15:36:29 IST 2020</td>
+<td>Started on:</td><td>Mon Sep 21 17:18:58 IST 2020</td>
 </tr>
-<tr><td>Total time:</td><td>106 seconds (106618 ms)</td>
+<tr><td>Total time:</td><td>141 seconds (141033 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,8 +67,8 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-passed'>
-<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td width="30%"><b>Exception</b></td>
 <td width="10%"><b>Time (seconds)</b></td>
@@ -76,10 +76,10 @@ function toggleAllBoxes() {
 </tr>
 <tr>
 <td title='com.spiritzone.AutomationDriverScript.scriptExecutioner()'><b>scriptExecutioner</b><br>Test class: com.spiritzone.AutomationDriverScript<br>Parameters: Spirit_Category_006, CreateOrder, Anmol, To verify if System is Allowing to select Product via Category module and add Filter (VODKA) to Place Order<br/>
-<a href="#Output-62739928" onClick='toggleBox("Output-62739928", this, "Show output", "Hide output");'>Show output</a>
+<a href="#Output-1710634247" onClick='toggleBox("Output-1710634247", this, "Show output", "Hide output");'>Show output</a>
 
-<a href="#Output-62739928" onClick="toggleAllBoxes();">Show all outputs</a>
-<div class='log' id="Output-62739928">
+<a href="#Output-1710634247" onClick="toggleAllBoxes();">Show all outputs</a>
+<div class='log' id="Output-1710634247">
 Step Description--> <B><u>StepNumber-</u>1<i><Font Color = /'#00008B/'> Executing : CreateSpiritLogin </Font></i></B><br/>
 Step Description-->  Entering Userid as anmolmishra0304@gmail.com<br/>
 Step Description-->  Entering Password as steveJOBS@123<br/>
@@ -89,25 +89,107 @@ Step Description--> <B><u>StepNumber-</u>2<i><Font Color = /'#00008B/'> Executin
 Step Description--> <B>Traversed TO Home Page to Perform Liquor Category Updates </B><br/>
 Step Description--> Click on VODKA <br/>
 Step Description--> Click on Second Product<br/>
-Step Description--> Price of The Product is ₹ 320<br/>
+Step Description--> Price of The Product is ? 160<br/>
 Step Description--> Name of The Product is Romanov Vodka<br/>
 Step Description--> Availability status : IN STOCK<br/>
 Step Description--> Clicked on Add to cart<br/>
 Step Description--> Traversed TO CART<br/>
 Step Description--> Permit Not Applied <br/>
-Step Description--> One Day Permit Cost is ₹ 5<br/>
-Step Description--> Total Amount is ₹ 1,605<br/>
+Step Description--> One Day Permit Cost is ? 5<br/>
+Step Description--> Total Amount is ? 165<br/>
 Step Description--> Click on Pay On Delivery <br/>
 Step Description--> Clicked Submit Button <br/>
 Step Description--> Clicked on Orderstatus Button <br/>
-Step Description--> <B> Order No. 26535</B><br/>
-Step Description--> Traversed to Order Details<br/>
-Step Description--> Order Sucessfully Placed<br/>
 </div>
 </td>
-<td></td>
-<td>106</td>
-<td>com.spiritzone.AutomationDriverScript@15d49048</td></tr>
+<td><div><pre>java.lang.AssertionError: expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:96)
+	at org.testng.Assert.failNotEquals(Assert.java:776)
+	at org.testng.Assert.assertTrue(Assert.java:44)
+	at org.testng.Assert.assertTrue(Assert.java:54)
+	at com.spiritzone.Utilities.addAssertTakeScreenShot(Utilities.java:100)
+	at com.spiritzone.Utilities.logReporter(Utilities.java:36)
+	at com.Pages.SpiritZoneHomeOrder.TraversingToCartDetails(SpiritZoneHomeOrder.java:402)
+	at com.Pages.SpiritZoneHomeOrder.fillAndSubmitHomeOrder(SpiritZoneHomeOrder.java:741)
+	at com.spiritzone.KeywordHelper.CreateOrder(KeywordHelper.java:55)
+	at com.spiritzone.FunctionalKeyword.executeStep(FunctionalKeyword.java:40)
+	at com.spiritzone.AutomationDriverScript.scriptExecutioner(AutomationDriverScript.java:61)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+	at org.testng.TestRunner.run(TestRunner.java:505)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+	at org.testng.TestNG.runSuites(TestNG.java:1049)
+	at org.testng.TestNG.run(TestNG.java:1017)
+	at com.spiritzone.Uploader.launchExecution(Uploader.java:237)
+	at com.TestSpiritZone.TestLauncher.main(TestLauncher.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.codehaus.mojo.exec.ExecJavaMojo$1.run(ExecJavaMojo.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:830)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1710634247", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1710634247'><pre>java.lang.AssertionError: expected [true] but found [false]
+	at org.testng.Assert.fail(Assert.java:96)
+	at org.testng.Assert.failNotEquals(Assert.java:776)
+	at org.testng.Assert.assertTrue(Assert.java:44)
+	at org.testng.Assert.assertTrue(Assert.java:54)
+	at com.spiritzone.Utilities.addAssertTakeScreenShot(Utilities.java:100)
+	at com.spiritzone.Utilities.logReporter(Utilities.java:36)
+	at com.Pages.SpiritZoneHomeOrder.TraversingToCartDetails(SpiritZoneHomeOrder.java:402)
+	at com.Pages.SpiritZoneHomeOrder.fillAndSubmitHomeOrder(SpiritZoneHomeOrder.java:741)
+	at com.spiritzone.KeywordHelper.CreateOrder(KeywordHelper.java:55)
+	at com.spiritzone.FunctionalKeyword.executeStep(FunctionalKeyword.java:40)
+	at com.spiritzone.AutomationDriverScript.scriptExecutioner(AutomationDriverScript.java:61)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+	at org.testng.TestRunner.privateRun(TestRunner.java:648)
+	at org.testng.TestRunner.run(TestRunner.java:505)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+	at org.testng.TestNG.runSuites(TestNG.java:1049)
+	at org.testng.TestNG.run(TestNG.java:1017)
+	at com.spiritzone.Uploader.launchExecution(Uploader.java:237)
+	at com.TestSpiritZone.TestLauncher.main(TestLauncher.java:25)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.codehaus.mojo.exec.ExecJavaMojo$1.run(ExecJavaMojo.java:282)
+	at java.base/java.lang.Thread.run(Thread.java:830)
+</pre></div></td>
+<td>138</td>
+<td>com.spiritzone.AutomationDriverScript@15264d2c</td></tr>
 </table><p>
 </body>
 </html>

@@ -23,16 +23,19 @@
       <![CDATA[Step Description--> <B>Traversed TO Home Page to Perform Liquor Category Updates </B>]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Click on VODKA ]]>
+      <![CDATA[Step Description--> Click on Beer ]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Click on Second Product]]>
+      <![CDATA[Step Description--> Applied HIGH TO LOW Filter]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Price of The Product is ₹ 320]]>
+      <![CDATA[Step Description--> Click on First Product]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Name of The Product is Romanov Vodka]]>
+      <![CDATA[Step Description--> Price of The Product is ₹ 360]]>
+    </line>
+    <line>
+      <![CDATA[Step Description--> Name of The Product is Asahi Super Dry]]>
     </line>
     <line>
       <![CDATA[Step Description--> Availability status : IN STOCK]]>
@@ -50,19 +53,25 @@
       <![CDATA[Step Description--> One Day Permit Cost is ₹ 5]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Total Amount is ₹ 1,605]]>
+      <![CDATA[Step Description--> Total Amount is ₹ 1,805]]>
     </line>
     <line>
-      <![CDATA[Step Description--> Click on Pay On Delivery ]]>
+      <![CDATA[Step Description--> Clicked on Pay On Order ]]>
     </line>
     <line>
       <![CDATA[Step Description--> Clicked Submit Button ]]>
     </line>
     <line>
+      <![CDATA[Step Description--> Clicked on Test Wallet]]>
+    </line>
+    <line>
+      <![CDATA[Step Description--> Clicked on Success ]]>
+    </line>
+    <line>
       <![CDATA[Step Description--> Clicked on Orderstatus Button ]]>
     </line>
     <line>
-      <![CDATA[Step Description--> <B> Order No. 26535</B>]]>
+      <![CDATA[Step Description--> <B> Order No. 26551</B>]]>
     </line>
     <line>
       <![CDATA[Step Description--> Traversed to Order Details]]>
@@ -71,16 +80,16 @@
       <![CDATA[Step Description--> Order Sucessfully Placed]]>
     </line>
   </reporter-output>
-  <suite started-at="2020-09-21T10:06:29Z" name="SpiritZone" finished-at="2020-09-21T10:08:16Z" duration-ms="106618">
+  <suite started-at="2020-09-21T12:02:47Z" name="SpiritZone" finished-at="2020-09-21T12:05:12Z" duration-ms="144920">
     <groups>
     </groups>
-    <test started-at="2020-09-21T10:06:29Z" name="Spirit_Category_006" finished-at="2020-09-21T10:08:16Z" duration-ms="106618">
+    <test started-at="2020-09-21T12:02:47Z" name="Spirit_Category_027" finished-at="2020-09-21T12:05:12Z" duration-ms="144920">
       <class name="com.spiritzone.AutomationDriverScript">
-        <test-method signature="scriptExecutioner(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.spiritzone.AutomationDriverScript@15d49048]" started-at="2020-09-21T10:06:29Z" name="scriptExecutioner" finished-at="2020-09-21T10:08:16Z" duration-ms="106389" status="PASS">
+        <test-method signature="scriptExecutioner(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.spiritzone.AutomationDriverScript@3a60845e]" started-at="2020-09-21T12:02:47Z" name="scriptExecutioner" finished-at="2020-09-21T12:05:09Z" duration-ms="142734" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Spirit_Category_006]]>
+                <![CDATA[Spirit_Category_027]]>
               </value>
             </param>
             <param index="1">
@@ -95,7 +104,7 @@
             </param>
             <param index="3">
               <value>
-                <![CDATA[To verify if System is Allowing to select Product via Category module and add Filter (VODKA) to Place Order]]>
+                <![CDATA[To verify if System is Allowing to select Product via Category module and add Filter (BEER) and Price High To Low to Place Order]]>
               </value>
             </param>
           </params>
@@ -122,16 +131,19 @@
               <![CDATA[Step Description--> <B>Traversed TO Home Page to Perform Liquor Category Updates </B>]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Click on VODKA ]]>
+              <![CDATA[Step Description--> Click on Beer ]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Click on Second Product]]>
+              <![CDATA[Step Description--> Applied HIGH TO LOW Filter]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Price of The Product is ₹ 320]]>
+              <![CDATA[Step Description--> Click on First Product]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Name of The Product is Romanov Vodka]]>
+              <![CDATA[Step Description--> Price of The Product is ₹ 360]]>
+            </line>
+            <line>
+              <![CDATA[Step Description--> Name of The Product is Asahi Super Dry]]>
             </line>
             <line>
               <![CDATA[Step Description--> Availability status : IN STOCK]]>
@@ -149,19 +161,25 @@
               <![CDATA[Step Description--> One Day Permit Cost is ₹ 5]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Total Amount is ₹ 1,605]]>
+              <![CDATA[Step Description--> Total Amount is ₹ 1,805]]>
             </line>
             <line>
-              <![CDATA[Step Description--> Click on Pay On Delivery ]]>
+              <![CDATA[Step Description--> Clicked on Pay On Order ]]>
             </line>
             <line>
               <![CDATA[Step Description--> Clicked Submit Button ]]>
             </line>
             <line>
+              <![CDATA[Step Description--> Clicked on Test Wallet]]>
+            </line>
+            <line>
+              <![CDATA[Step Description--> Clicked on Success ]]>
+            </line>
+            <line>
               <![CDATA[Step Description--> Clicked on Orderstatus Button ]]>
             </line>
             <line>
-              <![CDATA[Step Description--> <B> Order No. 26535</B>]]>
+              <![CDATA[Step Description--> <B> Order No. 26551</B>]]>
             </line>
             <line>
               <![CDATA[Step Description--> Traversed to Order Details]]>
@@ -171,11 +189,11 @@
             </line>
           </reporter-output>
         </test-method> <!-- scriptExecutioner -->
-        <test-method is-config="true" signature="quitDriver()[pri:0, instance:com.spiritzone.AutomationDriverScript@15d49048]" started-at="2020-09-21T10:08:16Z" name="quitDriver" finished-at="2020-09-21T10:08:16Z" duration-ms="196" status="PASS">
+        <test-method is-config="true" signature="quitDriver()[pri:0, instance:com.spiritzone.AutomationDriverScript@3a60845e]" started-at="2020-09-21T12:05:11Z" name="quitDriver" finished-at="2020-09-21T12:05:12Z" duration-ms="217" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- quitDriver -->
       </class> <!-- com.spiritzone.AutomationDriverScript -->
-    </test> <!-- Spirit_Category_006 -->
+    </test> <!-- Spirit_Category_027 -->
   </suite> <!-- SpiritZone -->
 </testng-results>
