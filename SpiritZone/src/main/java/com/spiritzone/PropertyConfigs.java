@@ -18,6 +18,8 @@ public class PropertyConfigs {
 	 public static final String MyName = "MyName";
 	 
 	 public static final String ToEmailID = "ToEmailID";
+	 
+	 public static final String ConfigEmail = "ConfigMailReport";
 
 	 public static final String SOURCE_FOLDER_TO_ZIP = "SOURCE_FOLDER_TO_ZIP";
 	 

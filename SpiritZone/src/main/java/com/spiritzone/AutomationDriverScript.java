@@ -29,6 +29,7 @@ import org.testng.reporters.TestHTMLReporter;
 
 import com.Pages.SpiritZoneHomeAddress;
 import com.Pages.SpiritZoneHomeOrder;
+import com.TestSpiritZone.TestLauncher;
 
 public class AutomationDriverScript extends FunctionalKeyword {
 	
@@ -73,10 +74,23 @@ public class AutomationDriverScript extends FunctionalKeyword {
 		this.getDriver().quit();
 	}
 
-/*	
+	
 	@AfterSuite
 	public void afterSuite() throws Exception {
-		String SOURCE_FOLDER= ConfigReader.getInstance().getValue(PropertyConfigs.SOURCE_FOLDER_TO_ZIP);
+		
+		String ConfigMailReport = ConfigReader.getInstance().getValue(PropertyConfigs.ConfigEmail);
+		
+		if (ConfigMailReport.equalsIgnoreCase("Yes"))
+		{
+			
+		System.out.println("----------------------------------------------------");
+		System.out.println("----------------------------------------------------");
+		System.out.println("---------Starting Procedure to Send Mail------------");
+		System.out.println("----------------------------------------------------");
+		System.out.println("----------------------------------------------------");
+		
+		String SOURCE_FOLDER = TestLauncher.excutionFolderEXCELFile;
+		//String SOURCE_FOLDER= ConfigReader.getInstance().getValue(PropertyConfigs.SOURCE_FOLDER_TO_ZIP);
 		String OUTPUT_ZIP_FILE=ConfigReader.getInstance().getValue(PropertyConfigs.OUTPUT_ZIP_FILE);
 		
 		ZipUtils appZip = new ZipUtils();
@@ -152,10 +166,7 @@ public class AutomationDriverScript extends FunctionalKeyword {
 		//zip.delete();
 	}	
 		
-	
-		
-		
-	*/
+	}
 
 
 }
