@@ -192,6 +192,23 @@
 		
 		
 		
+		
+		
+		
+		<dependency>
+    <groupId>com.browserstack</groupId>
+    <artifactId>automate-testassist</artifactId>
+    <version>1.1.0</version>
+</dependency>
+		
+		
+		
+		
+		
+		
+		
+		
+		
 <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
 <dependency>
     <groupId>io.qameta.allure</groupId>
@@ -348,8 +365,24 @@
 
 
 
-
-
+<!-- <plugin>
+        <groupId>com.browserstack</groupId>
+        <artifactId>automate-maven-plugin</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <configuration>
+            <source>${jdk.source.version}</source>
+            <target>${jdk.target.version}</target>
+            <complianceLevel>${jdk.source.version}</complianceLevel>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+ -->
 
 
 
