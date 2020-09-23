@@ -231,8 +231,45 @@
 	
 	
 	
+	
+	
+	<pluginRepositories>
+  <pluginRepository>
+   <id>sonatype-nexus-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+  </pluginRepository>
+</pluginRepositories>
+	
+	
+	
 <build>
+
+
+
+
+
+
+
+
+
+
+
+
+
         <plugins>
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
  <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-jar-plugin</artifactId>
