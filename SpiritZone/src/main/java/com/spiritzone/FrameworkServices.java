@@ -29,6 +29,8 @@ public class FrameworkServices {
 		
 		String userName = "anmol64";
 		String accessKey = "ZPYpJ2azCLPhVEBZmSZW";
+		String browserstackLocal = System.getenv("BROWSERSTACK_LOCAL");
+		String browserstackLocalIdentifier = System.getenv("BROWSERSTACK_LOCAL_IDENTIFIER");
 		
 		String apkpath=System.getProperty("user.dir")+"/Application-APK/SpiritZoneAlpha1.5.40.apk";
 		File app=new File(apkpath);
@@ -56,6 +58,8 @@ public class FrameworkServices {
      	cap.setCapability("app", "bs://543ae7145999f8811730280b99036c29a0977e2a");
 		cap.setCapability("device", "Google Pixel 3");
 		cap.setCapability("os_version", "9.0");
+		cap.setCapability("browserstack.local", browserstackLocal);
+		cap.setCapability("browserstack.localIdentifier", browserstackLocalIdentifier);
 		
 		//cap.setCapability("app",apkpath);
 		cap.setCapability("newCommandTimeout", 220);
