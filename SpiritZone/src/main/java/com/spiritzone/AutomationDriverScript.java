@@ -43,7 +43,7 @@ public class AutomationDriverScript extends FunctionalKeyword {
 	// @Test(groups = { "functional" })
 	@Test
 	public void scriptExecutioner(String executionTestSuite_Reference, String executionAutomationScriptReference,
-			String executionAutomationScripterName, String executionDescription) {
+			String executionAutomationScripterName, String executionDescription) throws Exception {
 		System.out.println("executionTestSuite_Reference  - " + executionTestSuite_Reference);
 		System.out.println("executionAutomationScriptReference - " + executionAutomationScriptReference);
 		System.out.println("executionAutomationScripterName - " + executionAutomationScripterName);
@@ -70,7 +70,8 @@ public class AutomationDriverScript extends FunctionalKeyword {
 	
 
 	@AfterClass
-	public void quitDriver() {	
+	public void quitDriver() 
+	{	
 		this.getDriver().quit();
 	}
 

@@ -25,7 +25,9 @@ public class FrameworkServices {
 //	}
 
 
-	public static AppiumDriver<MobileElement> getWebDriverInstance() {
+	public static AppiumDriver<MobileElement> getWebDriverInstance() throws Exception {
+		
+		String BrowserStackDevice = ConfigReader.getInstance().getValue(PropertyConfigs.BrowserStackDevice);
 		
 		String userName = "anmol64";
 		String accessKey = "ZPYpJ2azCLPhVEBZmSZW";
@@ -47,21 +49,28 @@ public class FrameworkServices {
 //		cap.setCapability("platformVersion", "8.1.0");
 //		cap.setCapability("udid", "emulator-5554");
 		
-//		cap.setCapability("deviceName", "OnePlus 6t");
-//		cap.setCapability("platformVersion", "10.0");
-//		cap.setCapability("udid", "eba48b80");
+	
 		
-//	    cap.setCapability("username", "Anmol.007");
-//	    cap.setCapability("accessKey", "a253f893-225c-4e58-ac4b-28bd8dcf744c");
-		
-		
+		if(BrowserStackDevice.equalsIgnoreCase("Yes"))
+		{
+			System.out.println("-------------Browsertack-Device-------------");
      	cap.setCapability("app", "bs://543ae7145999f8811730280b99036c29a0977e2a");
 		cap.setCapability("device", "Google Pixel 3");
 		cap.setCapability("os_version", "9.0");
 		cap.setCapability("browserstack.local", browserstackLocal);
 		cap.setCapability("browserstack.localIdentifier", browserstackLocalIdentifier);
+		}
 		
-		//cap.setCapability("app",apkpath);
+		else if (BrowserStackDevice.equalsIgnoreCase("No"))
+		{
+			System.out.println("-------------Real-Device-------------");
+			cap.setCapability("deviceName", "OnePlus 6t");
+			cap.setCapability("platformVersion", "10.0");
+			cap.setCapability("udid", "eba48b80");
+			cap.setCapability("app",apkpath);
+		}
+		
+		
 		cap.setCapability("newCommandTimeout", 220);
 		cap.setCapability("appPackage", "com.boxwishlabs.spiritzone");
 		cap.setCapability("noReset", false);
@@ -73,9 +82,19 @@ public class FrameworkServices {
 		String gridURL = Uploader.prop.getProperty("GridURL");
 
 		try {
-			//driver = new AndroidDriver<MobileElement>(new URL(gridURL), cap);
+			
+			if(BrowserStackDevice.equalsIgnoreCase("Yes"))
+			{
 			driver = new AndroidDriver<MobileElement>(new URL("https://"+userName+":"+accessKey+"@hub-cloud.browserstack.com/wd/hub"), cap);
-		} catch (MalformedURLException e) {
+			}
+			else if(BrowserStackDevice.equalsIgnoreCase("No"))
+			{
+				driver = new AndroidDriver<MobileElement>(new URL(gridURL), cap);
+			}
+			
+		}
+		catch (MalformedURLException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

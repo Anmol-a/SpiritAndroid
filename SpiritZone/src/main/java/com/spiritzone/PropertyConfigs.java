@@ -28,5 +28,7 @@ public class PropertyConfigs {
 	 public static final String mailHost = "mailHost";
 	 
 	 public static final String mailPort = "mailPort";
+	 
+	 public static final String BrowserStackDevice = "BrowserStackDevice";
 
 }
