@@ -12,7 +12,7 @@ public class ZipUtils {
 
     private List <String> fileList = new ArrayList < String > ();;
     private static final String OUTPUT_ZIP_FILE = "C:\\Users\\Nishant\\Desktop\\Quosphere-2\\SampleZip\\OutputZip.zip";
-    private static final String SOURCE_FOLDER = "C:\\Users\\Nishant\\Desktop\\Quosphere\\SpiritZone\\custom-reports"; // SourceFolder path
+    private static final String SOURCE_FOLDER = "C:\\Users\\Nishant\\Desktop\\Quosphere\\SpiritZone\\custom-reports\\EXCEL-REPORT"; // SourceFolder path
 
  
     

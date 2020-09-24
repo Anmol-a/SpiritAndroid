@@ -204,15 +204,21 @@ public class WrapperFunctions {
 	
 	
 	// Send keys anmol
-	public boolean clearAndSendKeySios(MobileElement locator, String fieldValue) {
-
-//		waitForElementPresence(locator);
-//		waitForElementVisibilityLocated(locator);
-		MobileElement webElement = locator;
-//		clearElement(webElement);
-//		webElement.clear();
-		webElement.setValue(fieldValue);
+	public boolean clearAndSendKeysNull(By locator, String fieldValue ,String FieldName) {
+		try
+		{
+		MobileElement webElement = getElementFluent(locator);
+		clearElement(webElement);
+		webElement.clear();
+		webElement.sendKeys(fieldValue);
+		objPojo.getDriver().hideKeyboard();
 		return true;
+		}
+		catch (Exception exception) {
+			objPojo.setCustomException("NoSuchElement Exception at "+FieldName);
+			exception.printStackTrace();
+			return false;
+		}
 	}
 
 	// sample -anmol
