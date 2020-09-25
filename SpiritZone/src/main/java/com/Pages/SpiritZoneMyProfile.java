@@ -19,7 +19,7 @@ import io.appium.java_client.MobileElement;
 
 import com.Pages.SpiritZoneHomeOrder;
 
-public class MyProfile {
+public class SpiritZoneMyProfile {
 	
 	SpiritZoneHomeOrder HomeOrder;
 	TestScenarios TestScanerio;
@@ -36,6 +36,7 @@ public class MyProfile {
 	By MyProfileText;
 	
 	//Mr Order Moudles 
+	By Myordertext;
 	By Customercare;
 	By InprocessOrder;
 	By FailedOrder;
@@ -60,6 +61,7 @@ public class MyProfile {
 	By EditAddress;
 	By DeleteAddress;
 	By UseasShippingAddress;
+	By EnableGPSbutton;
 	
 	
 	//SettingsModule
@@ -70,7 +72,8 @@ public class MyProfile {
 	By NewPasswdField;
 	By RepeatNewPasswdField;
 	By SavePasswordBtn;
-	
+	By YesChangePassword;
+	By ConfirmedOkPassword;
 	
 	//LogoutModule
 	By Logout;
@@ -85,7 +88,7 @@ public class MyProfile {
 	By NoTransactionTransaction;
 	
 	
-	public MyProfile(Pojo objPojo) {
+	public SpiritZoneMyProfile(Pojo objPojo) {
 		this.objPojo = objPojo;
 		EntityRunner = objPojo.getEntityRunner();
 		
@@ -102,6 +105,7 @@ public class MyProfile {
 		
 		
 		//My-Orders 
+		Myordertext = By.xpath("//android.widget.TextView[@text='MY ORDERS']");
 		Customercare = By.xpath("//android.widget.TextView[@text='Need some Help?']");
 		InprocessOrder = By.xpath("//android.widget.TextView[@text='In Process']");
 		TrackINOrderDetails = By.xpath("//android.widget.TextView/following-sibling::android.widget.ImageView");
@@ -135,18 +139,19 @@ public class MyProfile {
 		EditAddress = By.xpath("(//android.widget.TextView[@text='Edit'])[2]");
 		DeleteAddress = By.xpath("(//android.widget.TextView[@text='Use as the shipping address'])[2]/following-sibling::android.widget.ImageView");
 		UseasShippingAddress = By.xpath("(//android.widget.CheckBox)[2]");
-		
+		EnableGPSbutton = By.xpath("//android.widget.TextView[@text='Current Location']");
 		
 		
 		//Settings
 		SettingsText = By.xpath("//android.widget.TextView[@text='Settings']");
 		ChangePassword = By.xpath("//android.widget.TextView[@text='CHANGE PASSWORD']");		
 		SalesnPromotions = By.xpath("(//android.widget.Switch)");
-		OldPasswdField = By.xpath("//android.widget.TextView[@text='Old Password']/following-sibling::android.widget.FrameLayout/android.view.ViewGroup/android.widget.EditText");
-		NewPasswdField = By.xpath("//android.widget.TextView[@text='New Password']/following-sibling::android.widget.FrameLayout/android.view.ViewGroup/android.widget.EditText");
-		RepeatNewPasswdField = By.xpath("//android.widget.TextView[@text='Repeat New Password']/following-sibling::android.widget.FrameLayout/android.view.ViewGroup/android.widget.EditText");
+		OldPasswdField = By.xpath("//android.widget.TextView[@text='Old Password']/preceding::android.widget.EditText[1]");
+		NewPasswdField = By.xpath("//android.widget.TextView[@text='New Password']/preceding::android.widget.EditText[1]");
+		RepeatNewPasswdField = By.xpath("//android.widget.TextView[@text='Repeat New Password']/preceding::android.widget.EditText[1]");
 		SavePasswordBtn = By.xpath("//android.widget.Button[@text='SAVE PASSWORD']");
-		
+		YesChangePassword = By.xpath("//android.widget.Button[@text='YES']");
+		ConfirmedOkPassword = By.xpath("//android.widget.TextView[@text='OK']");
 		
 		//LogoutBtn
 		Logout = By.xpath("");
@@ -168,8 +173,21 @@ public class MyProfile {
 		
 		//Click on Your Orders
 		objPojo.getObjUtilities().logReporter("Clicked On My Orders Button ",objPojo.getObjWrapperFunctions().click(MyOrdersButton));
-		String OrderType = objPojo.getEntityRunner().getStringValueForField("OrderType");
 		
+		//Assert My Orders Section
+		String myordertextString = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='MY ORDERS']")).getText();
+		if(myordertextString.equalsIgnoreCase("MY ORDERS"))
+		{
+			objPojo.getObjUtilities().logReporter(" Traversed to My Orders is  Successful ", true);
+		}
+		else
+		{
+			objPojo.getObjUtilities().logReporter(" Traversed to My Orders is  UnSuccessful ", false);	
+		}
+		
+		
+		//Order type
+		String OrderType = objPojo.getEntityRunner().getStringValueForField("OrderType");
 		if(OrderType.equalsIgnoreCase("Failed"))
 		{
 			objPojo.getObjUtilities().logReporter("Traversed TO Failed Order Section",true);
@@ -331,29 +349,80 @@ public class MyProfile {
 		objPojo.getObjUtilities().logReporter("Clicked On Customer Care Section ",
 				objPojo.getObjWrapperFunctions().click(Customercare));
 		
+		
+		
 	}
 	
 	
 	
 	
 	//My Address
-	public void FillMyProfileMyAddress() {
+	public void FillMyProfileMyAddress() throws InterruptedException {
 		
 		String AddressAction = objPojo.getEntityRunner().getStringValueForField("AddressAction");
 		objPojo.getObjUtilities().logReporter("Clicked on My Address Button "
 				,objPojo.getObjWrapperFunctions().click(MyAddressButton));
 		
+		
+		Thread.sleep(1300);
+		//Assert My Address
+		String ShippingAddressStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='SHIPPING ADDRESSES']")).getText();
+		if(ShippingAddressStr.equalsIgnoreCase("SHIPPING ADDRESSES"))
+			{
+			objPojo.getObjUtilities().logReporter("<B> Traversed to Shipping Succesfully </B>", true);
+			}
+		else
+		{
+			objPojo.getObjUtilities().logReporter("<B> Unable to Traverse To Shipping </B>", false);
+		}
+		
+		
+		
+		//Performing Other Actions
 		if(AddressAction.equalsIgnoreCase("AddAddress"))
 		{
 			objPojo.getObjUtilities().logReporter("Clicked on AddUp Address",
 					objPojo.getObjWrapperFunctions().click(AddupADDRESS));
+			
+			Thread.sleep(1400);
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Current Location']")).size()!=0)
+			{
+				Thread.sleep(1400);
+				objPojo.getObjWrapperFunctions().clickException(EnableGPSbutton, "Enable GPS button");
+			}
+			
+			Thread.sleep(1400);
+			//Assert 
+			String DeliverLocaationStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Select Delivery Location']")).getText();
+			if(DeliverLocaationStr.equalsIgnoreCase("Select Delivery Location"))
+			{
+				objPojo.getObjUtilities().logReporter("<B> Traversed to Adding Delivery Address Module</B>", true);
+			}
+			else
 			//Traverse To Address Module
+			{
+				objPojo.getObjUtilities().logReporter("<B> Failed to Traverse to Adding Delivery Address Module</B>", true);
+			}
+			
+			
 		}
 		
 		if(AddressAction.equalsIgnoreCase("EditAddress"))
 		{
 			objPojo.getObjUtilities().logReporter("Clicked On Edit Address Button ",
 					objPojo.getObjWrapperFunctions().click(EditAddress));
+			
+			Thread.sleep(1400);
+			//Assert 
+			String DeliverLocaationStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Select Delivery Location']")).getText();
+			if(DeliverLocaationStr.equalsIgnoreCase("Select Delivery Location"))
+			{
+				objPojo.getObjUtilities().logReporter("<B> Traversed to Editing Delivery Address Module</B>", true);
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter("<B> Failed to Traverse to Editing Delivery Address Module</B>", true);
+			}
 			//Traverse To Address Module
 		}
 		
@@ -365,18 +434,37 @@ public class MyProfile {
 		
 		if(AddressAction.equalsIgnoreCase("UseAsShipping"))
 		{
+			if(objPojo.getDriver().findElements(By.xpath("(//android.widget.CheckBox)[2]")).size()!=0)
+			{
 			objPojo.getObjUtilities().logReporter("Clicked On Use as Shipping Address Button",
-					objPojo.getObjWrapperFunctions().click(UseasShippingAddress));
+					objPojo.getObjWrapperFunctions().clickException(UseasShippingAddress,"UseasShippingAddressButton"));
 		}
-		
+			else
+			{
+				objPojo.getObjUtilities().logReporter("Sorry Extra Address is Added up to Change from Shipping Address",true);	
+			}
+			
+	  }	 
 	}
 	
 	//Settings
-	public void FillMyProfileSettings() {
+	public void FillMyProfileSettings() throws InterruptedException {
 		
 		String LogoutOption = objPojo.getEntityRunner().getStringValueForField("ProfileType");
 		objPojo.getObjUtilities().logReporter("Clicked On Settings Button ",
 				objPojo.getObjWrapperFunctions().click(SettingsButton));
+		
+		//Asserting if traversed to Settings 
+		String SettingsStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Settings']")).getText();
+		if(SettingsStr.equalsIgnoreCase("Settings"))
+		{
+			objPojo.getObjUtilities().logReporter("<B> Traversed to Settings  SuccessfulLy </B>", true);
+		}
+		else
+		{
+			objPojo.getObjUtilities().logReporter("<B> Traversed to Setting is UnSuccessful </B>", false);
+		}
+		
 		
 		
 		if(LogoutOption.equalsIgnoreCase("Settings-Password"))
@@ -388,18 +476,57 @@ public class MyProfile {
 					objPojo.getObjWrapperFunctions().click(OldPasswdField));
 			
 			objPojo.getObjUtilities().logReporter("Typing Old Password.....",
-					objPojo.getObjWrapperFunctions().clearAndSendKeys(OldPasswdField, "steveJOBS@123"));
+					objPojo.getObjWrapperFunctions().clearAndSendKeys(OldPasswdField, objPojo.getEntityRunner().getStringValueForField("OldPassword")));
 		
 			objPojo.getObjUtilities().logReporter("Clicked On NewPassword Field",
 					objPojo.getObjWrapperFunctions().click(NewPasswdField));
 			
 			objPojo.getObjUtilities().logReporter("Typing New Password.....",
-					objPojo.getObjWrapperFunctions().clearAndSendKeys(NewPasswdField, "steveJOBS@123"));
+					objPojo.getObjWrapperFunctions().clearAndSendKeys(NewPasswdField, objPojo.getEntityRunner().getStringValueForField("NewPassword")));
 			
 		objPojo.getObjWrapperFunctions().click(RepeatNewPasswdField);
 		
 		objPojo.getObjUtilities().logReporter("ReTyping New Password.....",
-				objPojo.getObjWrapperFunctions().clearAndSendKeys(RepeatNewPasswdField, "steveJOBS@123"));
+				objPojo.getObjWrapperFunctions().clearAndSendKeys(RepeatNewPasswdField, objPojo.getEntityRunner().getStringValueForField("ConfirmPassword")));
+		
+		//Save password Button
+		objPojo.getObjWrapperFunctions().click(SavePasswordBtn);
+		
+		//Verifying Password Type
+		String ScanerioType = objPojo.getEntityRunner().getStringValueForField("ScanerioType");
+		if(ScanerioType.equalsIgnoreCase("Positive-Password"))
+		{
+			//ConfirmPassword
+			Thread.sleep(1000);
+			objPojo.getObjWrapperFunctions().click(YesChangePassword);
+			
+			//Assert if Password Change
+			Thread.sleep(1800);
+			String PasswordChangeStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Password Changed']")).getText();
+			if(PasswordChangeStr.equalsIgnoreCase("Password Changed"))
+			{
+				objPojo.getObjUtilities().logReporter("<B> Password Saved Succesfully </B>", true);
+				objPojo.getObjWrapperFunctions().clickException(ConfirmedOkPassword, "ConfirmedOkPassword");
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter("<B> Unable to Save Password </B>", false);
+			}
+		}
+	    if(ScanerioType.equalsIgnoreCase("Negative-Password"))
+		{
+			Thread.sleep(1800);
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='OK']")).size()==0)
+			{
+				objPojo.getObjUtilities().logReporter("<B> Unable To change Password - Negtive Scanerio Passed  </B>", true);
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter("<B> Netaive Password Scanerio Failed </B>", false);
+			}
+		}
+		
+		
 		
 		}
 		
@@ -412,14 +539,22 @@ public class MyProfile {
 	}
 	
 	//Log-Out
-	public void FillMyProfileLogout() {
-		
-		try {
-			Thread.sleep(2500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void FillMyProfileLogout() throws InterruptedException {
+			
+			//waiting for 2.5sec
+			Thread.sleep(1500);
+			
+		//Assert Logout Button
+		String logoutStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Log out']")).getText();	
+		if(logoutStr.equalsIgnoreCase("Log out"))
+		{
+			objPojo.getObjUtilities().logReporter("<B> Log Out Button is Displayed under My Profiles </B>", true);
 		}
+		else
+		{
+			objPojo.getObjUtilities().logReporter("<B> Unable to display Log Out Button under My Profiles </B>", false);
+		}
+		
 		
 		
 		//LOGING OUT! Bye
@@ -427,26 +562,50 @@ public class MyProfile {
 		 
 		if(LogoutOption.equalsIgnoreCase("Yes"))
 		{
-			try {
-				Thread.sleep(2500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			//waiting for 1.5sec
+				Thread.sleep(1500);
 		objPojo.getObjUtilities().logReporter("Clicked On LogOut Button and Selecting Yes",objPojo.getObjWrapperFunctions().click(LogoutButton));
 		objPojo.getObjWrapperFunctions().click(YesLogout);
+		Thread.sleep(1500);
+		
+		//Verify If logged out Properly
+		String Loginstr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Login to your account to get #spiritzoned!']")).getText();
+		if(Loginstr.equalsIgnoreCase("Login to your account to get #spiritzoned!"))
+		{
+			objPojo.getObjUtilities().logReporter("<B> Logged Out Succesfully </B>", true);
+		}
+		else
+		{
+			objPojo.getObjUtilities().logReporter("<B> Error in Logging Out</B>", false);
+		}
+		
+		
 		}
 		
 		if(LogoutOption.equalsIgnoreCase("No"))
 		{
 		objPojo.getObjUtilities().logReporter("Clicked On Logout Button and Selecting No ",objPojo.getObjWrapperFunctions().click(LogoutButton));
 		objPojo.getObjWrapperFunctions().click(NoLogout);
+		Thread.sleep(1500);
+		
+		//Verify If Not logged out
+				String myProfileStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text = 'My Profile']")).getText();
+				
+				if(myProfileStr.equalsIgnoreCase("My Profile"))
+				{
+					objPojo.getObjUtilities().logReporter("<B> Traversed to My Profile Successful </B>", true);
+				}
+				else
+				{
+					objPojo.getObjUtilities().logReporter("<B> Traversed to My Profile failed </B>", false);
+				}
+		
 		}	
 	}
 	
 	
-	public void FillMyProfileModules() {
+	public void FillMyProfileModules() throws InterruptedException 
+	{
 		
 		objPojo.getObjUtilities().logReporter("<B>Traversed to My Profiles</B>",true);
 		
@@ -454,38 +613,54 @@ public class MyProfile {
 		objPojo.getObjUtilities().logReporter("Clicked On My Profile ",objPojo.getObjWrapperFunctions().click(MyProfileButton));
 		objPojo.getObjWrapperFunctions().waitForElementToBeClickable(SettingsButton);
 		
+		
+		//Asserting if we're traversed to MY PROFILE
+		String myProfileStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text = 'My Profile']")).getText();
+		
+		if(myProfileStr.equalsIgnoreCase("My Profile"))
+		{
+			objPojo.getObjUtilities().logReporter("<B> Traversed to My Profile Successful </B>", true);
+		}
+		else
+		{
+			objPojo.getObjUtilities().logReporter("<B> Traversed to My Profile failed </B>", false);
+		}
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+		
 		//Type of Module we are gonna perform actions on
 		String ProfileModuleType = objPojo.getEntityRunner().getStringValueForField("ProfileType");
 		
 		if(ProfileModuleType.equalsIgnoreCase("MyOrder"))
 		{
+			
 		objPojo.getObjUtilities().logReporter("<B>Traversed TO My Order Section </B>",true);
 		FillMyProfileYourOrder();
 		}
-		
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 		if(ProfileModuleType.equalsIgnoreCase("MyAddress"))
 		{
 		objPojo.getObjUtilities().logReporter("<B>Traversed TO My Address </B>",true);
+		
 		FillMyProfileMyAddress();
 		}
-		
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 		if(ProfileModuleType.equalsIgnoreCase("CustomerService"))
 		{
 			objPojo.getObjUtilities().logReporter("<B>Traversed TO Home Page to Customer Service </B>",true);
 			CustomerService();
 		}
-		
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 		
 		
 		if(ProfileModuleType.equalsIgnoreCase("Settings") ||ProfileModuleType.equalsIgnoreCase("Settings-Password")|| ProfileModuleType.equalsIgnoreCase("Settings-Notification"))
 		{
 		FillMyProfileSettings();
 		}
-		
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 		if(ProfileModuleType.equalsIgnoreCase("Logout"))
 		{
 		FillMyProfileLogout();
 		}
-	
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	}
 }

@@ -6,7 +6,7 @@ import com.Pages.SpiritZoneSearch;
 import com.Pages.SpiritSupport;
 import com.Pages.SpiritZoneHomeAddress;
 import com.Pages.SpiritZoneHomeOrder;
-import com.Pages.MyProfile;
+import com.Pages.SpiritZoneMyProfile;
 import com.codoid.products.exception.FilloException;
 import com.codoid.products.fillo.Recordset;
 import com.spiritzone.EntityRunner;
@@ -91,12 +91,12 @@ public class KeywordHelper extends Pojo {
 	}
 	
 	
-	public String MyProfile(String stepGroup) throws FilloException {
+	public String MyProfile(String stepGroup) throws FilloException, InterruptedException {
 		Recordset recordset = EntityRunner.getEntityObject("DT_MyProfile", this,stepGroup);
 		while (recordset.next()) {
 			if (recordset.getField("Action").equals("add")) {
 				this.setEntityRunner(recordset);		
-				MyProfile obj = new MyProfile(this);
+				SpiritZoneMyProfile obj = new SpiritZoneMyProfile(this);
 				obj.FillMyProfileModules();
 				this.setEntityRunner(recordset);
 			}
