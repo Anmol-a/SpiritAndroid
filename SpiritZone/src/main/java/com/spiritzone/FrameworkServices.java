@@ -70,7 +70,7 @@ public class FrameworkServices {
 			cap.setCapability("app",apkpath);
 		}
 		
-		
+		cap.setCapability("gpsEnabled", true);
 		cap.setCapability("newCommandTimeout", 220);
 		cap.setCapability("appPackage", "com.boxwishlabs.spiritzone");
 		cap.setCapability("noReset", false);

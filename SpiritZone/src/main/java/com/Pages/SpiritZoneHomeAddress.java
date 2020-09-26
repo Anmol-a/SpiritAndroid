@@ -81,8 +81,12 @@ public class SpiritZoneHomeAddress {
 		
 		if(!(TypeOfAddress.equalsIgnoreCase("None") || (TestType.equalsIgnoreCase("Positive-ProfieEditAddress"))))
 		{
+		
+		if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Using GPS']")).size()!=0)
+		{
 		objPojo.getObjUtilities().logReporter("Clicked on CurrentLocation",
 				objPojo.getObjWrapperFunctions().clickException(usecurrentGPS,"Current GPS Icon"));
+		}
 		
 		String FLATno = "607 Shankar Apartments";
 		String NearLandmark = "Near Western Express Highway";

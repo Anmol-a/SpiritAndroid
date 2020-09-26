@@ -41,6 +41,7 @@ public class SpiritZoneMyProfile {
 	By InprocessOrder;
 	By FailedOrder;
 	By RetryOrder;
+	By ContinueReorder;
 	By Reorder;
 	By ContinueReOrder;
 	By CancelOrder;
@@ -114,6 +115,7 @@ public class SpiritZoneMyProfile {
 		Reorder = By.xpath("//android.widget.TextView[@text='REORDER']");
 		ContinueReOrder = By.xpath("//android.widget.TextView[@text='CONTINUE']");
 		RetryOrder = By.xpath("//android.widget.TextView[@text='RETRY']");
+		ContinueReorder = By.xpath("//android.widget.TextView[@text='CONTINUE']");
 		
 		DeliveredOrder = By.xpath("//android.widget.TextView[@text='Delivered']");
 		InvoiceOut = By.xpath("//android.widget.TextView[@text='INVOICE']");
@@ -169,7 +171,7 @@ public class SpiritZoneMyProfile {
 	}
 	
 	//Your Orders
-	public void FillMyProfileYourOrder() {
+	public void FillMyProfileYourOrder() throws InterruptedException {
 		
 		//Click on Your Orders
 		objPojo.getObjUtilities().logReporter("Clicked On My Orders Button ",objPojo.getObjWrapperFunctions().click(MyOrdersButton));
@@ -188,20 +190,24 @@ public class SpiritZoneMyProfile {
 		
 		//Order type
 		String OrderType = objPojo.getEntityRunner().getStringValueForField("OrderType");
+		
+		
 		if(OrderType.equalsIgnoreCase("Failed"))
 		{
 			objPojo.getObjUtilities().logReporter("Traversed TO Failed Order Section",true);
 			//Clicking On Failed 
 			//Scroll
-			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Customercare);
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
 
 			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Failed']")).size() == 0)
 			{
 				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
 			}
 			
+			
 			objPojo.getObjUtilities().logReporter("Clicked On FailedOrders Button",objPojo.getObjWrapperFunctions().clickException(FailedOrder,"Failed Order Product"));
-			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Failed']")).getText();
+			Thread.sleep(2000);
+			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='RETRY']")).getText();
 			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
 			System.out.println("Your Order type is "+ProcessText);
 			
@@ -212,7 +218,18 @@ public class SpiritZoneMyProfile {
 			//TO retry
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigReorder"))
 			{
-				objPojo.getObjUtilities().logReporter("Clicked On Retry Button ",	objPojo.getObjWrapperFunctions().click(RetryOrder));
+				objPojo.getObjUtilities().logReporter("Clicked On Retry Button ",	objPojo.getObjWrapperFunctions().clickException(RetryOrder,"Reorder button"));
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CONTINUE']")).size()!=0)
+				{
+					for(int x=0 ; x <2;x++)
+					{
+				objPojo.getObjUtilities().logReporter("Clicked On Continue Button ",	objPojo.getObjWrapperFunctions().clickException(ContinueReorder,"Reorder button"));
+				}
+				}
+				
+				
+				
 			}
 		}
 		
@@ -221,8 +238,8 @@ public class SpiritZoneMyProfile {
 		 	
 			//Clicking On Delivered 
 			//Scroll
-			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Customercare);
-			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Customercare);
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
 
 			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size() == 0)
 			{
@@ -231,7 +248,7 @@ public class SpiritZoneMyProfile {
 			
 		
 			objPojo.getObjUtilities().logReporter("Clicked On Delivered Order ",objPojo.getObjWrapperFunctions().click(DeliveredOrder));
-			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Delivered']")).getText();
+			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='REORDER']")).getText();
 			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
 			System.out.println("Your Order type is "+ProcessText);
 			
@@ -279,12 +296,9 @@ public class SpiritZoneMyProfile {
 				//Download Invoice Outside
 				objPojo.getObjUtilities().logReporter("Clicked On Invoice Download Button ",objPojo.getObjWrapperFunctions().click(InvoiceOut));
 				
-				try {
+				   // waiting for 5 seconds
 					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}	
 		}
 		
@@ -293,16 +307,19 @@ public class SpiritZoneMyProfile {
 		{
 			//Clicking On Delivered 
 			//Scroll
-			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Customercare);
-			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Customercare);
+
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
 
 			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='In Process']")).size() == 0)
 			{
 				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
 			}
 			
+			if (!objPojo.getEntityRunner().getBooleanValueForField("ConfigTRACKOutSide"))
+			{
+			objPojo.getObjUtilities().logReporter("Clicked On InProcess Button ",objPojo.getObjWrapperFunctions().click(InprocessOrder));
+			}
 			
-
 			
 			
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigTRACKInside"))
@@ -319,24 +336,18 @@ public class SpiritZoneMyProfile {
 				
 				objPojo.getObjUtilities().logReporter("Clicked On Track Order Details Button ",objPojo.getObjWrapperFunctions().click(TrackINOrderDetails));
 				
-				try {
+				
 					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}
 			
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigTRACKOutSide"))
 			{
 				objPojo.getObjUtilities().logReporter("Clicked On Track Order Details Button ",objPojo.getObjWrapperFunctions().click(TrackOUTOrderDetails));
 			
-				try {
+				
 					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
 			}	
 		}		
 	}
@@ -387,12 +398,14 @@ public class SpiritZoneMyProfile {
 			Thread.sleep(1400);
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Current Location']")).size()!=0)
 			{
-				Thread.sleep(1400);
+				Thread.sleep(2400);
 				objPojo.getObjWrapperFunctions().clickException(EnableGPSbutton, "Enable GPS button");
+				Thread.sleep(2400);
 			}
 			
-			Thread.sleep(1400);
+			Thread.sleep(7400);
 			//Assert 
+			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("//android.widget.TextView[@text='Select Delivery Location']"));
 			String DeliverLocaationStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Select Delivery Location']")).getText();
 			if(DeliverLocaationStr.equalsIgnoreCase("Select Delivery Location"))
 			{
