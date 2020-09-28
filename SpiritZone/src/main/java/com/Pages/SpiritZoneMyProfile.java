@@ -57,6 +57,14 @@ public class SpiritZoneMyProfile {
 	By orderStatusText;
 	
 	
+	//FeedBacck
+	By SuperFastDelivery;
+	By AmazingDeals;
+	By GoodOptions;
+	By Other;
+	By FeedBackSubmit;
+	By CustomTextFieldFeedBack;
+	
 	//MyAddressModule
 	By AddupADDRESS;
 	By EditAddress;
@@ -110,7 +118,7 @@ public class SpiritZoneMyProfile {
 		Customercare = By.xpath("//android.widget.TextView[@text='Need some Help?']");
 		InprocessOrder = By.xpath("//android.widget.TextView[@text='In Process']");
 		TrackINOrderDetails = By.xpath("//android.widget.TextView/following-sibling::android.widget.ImageView");
-		TrackOUTOrderDetails = By.xpath("//android.widget.TextView[@text = 'TRACK']");
+		TrackOUTOrderDetails = By.xpath("(//android.widget.ImageView/preceding::android.widget.TextView)[9]");
 		FailedOrder = By.xpath("//android.widget.TextView[@text='Failed']");
 		Reorder = By.xpath("//android.widget.TextView[@text='REORDER']");
 		ContinueReOrder = By.xpath("//android.widget.TextView[@text='CONTINUE']");
@@ -123,6 +131,15 @@ public class SpiritZoneMyProfile {
 		LeaveFeedback = By.xpath("//android.widget.TextView[@text='LEAVE FEEDBACK']");
 		
 		orderStatusText = By.xpath("(//android.widget.TextView)[5]");
+		
+		
+		//Feedback 
+		SuperFastDelivery = By.xpath("//android.widget.TextView[@text='Super-Fast Delivery']");
+		AmazingDeals = By.xpath("//android.widget.TextView[@text='Amazing Deals']");
+		GoodOptions = By.xpath("//android.widget.TextView[@text='Good Options']");
+		Other = By.xpath("//android.widget.TextView[@text='Other']");
+		FeedBackSubmit = By.xpath("//android.widget.Button[@text='SUBMIT']");
+		CustomTextFieldFeedBack = By.xpath("//android.widget.EditText[@text='Write your review']");
 		
 		//Only if out for delivery
 		OutForDelivery = By.xpath("//android.widget.TextView[@text='Out For Delivery']");
@@ -191,7 +208,7 @@ public class SpiritZoneMyProfile {
 		//Order type
 		String OrderType = objPojo.getEntityRunner().getStringValueForField("OrderType");
 		
-		
+		//----------------------------FAILED
 		if(OrderType.equalsIgnoreCase("Failed"))
 		{
 			objPojo.getObjUtilities().logReporter("Traversed TO Failed Order Section",true);
@@ -202,11 +219,17 @@ public class SpiritZoneMyProfile {
 			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Failed']")).size() == 0)
 			{
 				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='August 03, 10:13 PM']")).size() != 0)
+				{
+					objPojo.getObjUtilities().logReporter("<B> Sorry No Delivered Product here in your Ordered Items </B>",false);
+					break;	
+				}
 			}
 			
 			
 			objPojo.getObjUtilities().logReporter("Clicked On FailedOrders Button",objPojo.getObjWrapperFunctions().clickException(FailedOrder,"Failed Order Product"));
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='RETRY']")).getText();
 			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
 			System.out.println("Your Order type is "+ProcessText);
@@ -228,11 +251,20 @@ public class SpiritZoneMyProfile {
 				}
 				}
 				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='This Item is Out Of Stock']")).size()!=0)
+                {
+					objPojo.getObjUtilities().logReporter("--------------------------------------------------- ",true);
+					objPojo.getObjUtilities().logReporter("Scanerio Passed But Order is Out Of Stock!!!!!!!!!! ",true);
+					objPojo.getObjUtilities().logReporter("--------------------------------------------------- ",true);
+					
+					objPojo.getDriver().close();
+                 }
 				
 				
 			}
 		}
 		
+		//----------------------------DELIVERED
 		if(OrderType.equalsIgnoreCase("Delivered"))
 		{
 		 	
@@ -241,13 +273,43 @@ public class SpiritZoneMyProfile {
 			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
 			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
 
+		
+			Thread.sleep(2000);
 			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size() == 0)
 			{
+				
 				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
-			}
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='August 03, 10:13 PM']")).size() != 0)
+				{
+					objPojo.getObjUtilities().logReporter("<B> Sorry No Delivered Product here in your Ordered Items </B>",false);
+					break;	
+				}
+				
+		   }
 			
+//			else
+//			{
+//				objPojo.getObjUtilities().logReporter("No Delivered Porducts in cart ",true);
+//			}
 		
-			objPojo.getObjUtilities().logReporter("Clicked On Delivered Order ",objPojo.getObjWrapperFunctions().click(DeliveredOrder));
+			//Outside Invoice
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigDownloadInvoiceOutside"))
+			{
+				//Download Invoice Outside
+				Thread.sleep(2000);
+				objPojo.getObjUtilities().logReporter("Clicked On Invoice Download Button ",objPojo.getObjWrapperFunctions().clickException(InvoiceOut,"OutSide Invoice Download Button"));
+				
+				   // waiting for 5 seconds
+					Thread.sleep(5000);
+				
+			}	
+			
+			else
+			{
+				
+			objPojo.getObjUtilities().logReporter("Clicked On Delivered Orders Button",objPojo.getObjWrapperFunctions().clickException(DeliveredOrder,"Delivered Order Product"));
+			Thread.sleep(2000);
 			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='REORDER']")).getText();
 			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
 			System.out.println("Your Order type is "+ProcessText);
@@ -262,7 +324,51 @@ public class SpiritZoneMyProfile {
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedBack"))
 			{
 				//App Crashes
-				objPojo.getObjUtilities().logReporter("Clicked On LeaveFeedBack Button ",objPojo.getObjWrapperFunctions().click(LeaveFeedback));
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='LEAVE FEEDBACK']")).size()!=0)
+				{
+					
+				
+				objPojo.getObjUtilities().logReporter("Clicked On LeaveFeedBack Button ",objPojo.getObjWrapperFunctions().clickException(LeaveFeedback,"Leave FeedBack Button"));
+				
+				//As of Now only one option
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Super-Fast Delivery']")).size()!=0)
+				{
+				objPojo.getObjUtilities().logReporter("Clicked On SuperFastDelivery Button ",objPojo.getObjWrapperFunctions().clickException(SuperFastDelivery,"Super Fast Delivery Button"));
+				
+
+				
+				if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedBackOther"))
+				{
+					
+					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Other']")).size()!=0)
+					{
+					objPojo.getObjUtilities().logReporter("Clicked On Other Feed Back Button ",objPojo.getObjWrapperFunctions().clickException(Other,"Other Button"));
+					
+					objPojo.getObjWrapperFunctions().clearAndSendKeysCustomException(CustomTextFieldFeedBack, "Keep You Spirits High !!", "Custom Field TextField");
+					//SendKeys	
+				}
+				}
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.Button[@text='SUBMIT']")).size()!=0)
+				{
+				objPojo.getObjUtilities().logReporter("Clicked On LeaveFeedBack Button ",objPojo.getObjWrapperFunctions().clickException(FeedBackSubmit,"FeedBackSUbmit"));
+				}
+				}
+				else
+				{
+					objPojo.getObjUtilities().logReporter("<B>  Already Given FeedBack  </B>", true);
+				}
+				
+				
+				
+				
+				
+				
+				}	
+				else
+				{
+					objPojo.getObjUtilities().logReporter("<B>  Already Given FeedBack  </B>", true);
+				}
+				
 			}
 			
 			//Reorder
@@ -271,6 +377,23 @@ public class SpiritZoneMyProfile {
 				
 				objPojo.getObjUtilities().logReporter("Clicked On Reorder Button ",objPojo.getObjWrapperFunctions().click(Reorder));
 				objPojo.getObjWrapperFunctions().click(ContinueReOrder);
+				Thread.sleep(3000);
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='This Item is Out Of Stock']")).size()!=0)
+                {
+					objPojo.getObjUtilities().logReporter("--------------------------------------------------- ",true);
+					objPojo.getObjUtilities().logReporter("Scanerio Passed But Order is Out Of Stock!!!!!!!!!! ",true);
+					objPojo.getObjUtilities().logReporter("--------------------------------------------------- ",true);
+					
+					objPojo.getDriver().close();
+                 }
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CONTINUE']")).size()!=0)
+				{
+					objPojo.getObjWrapperFunctions().click(ContinueReOrder);
+				}
+				
+				
 				//Traverse to Product cart
 				//TraversingToCartDetails();
 			}
@@ -281,33 +404,24 @@ public class SpiritZoneMyProfile {
 				//Download Invoice Inside
 				objPojo.getObjWrapperFunctions().scrollDown();
 				objPojo.getObjUtilities().logReporter("Clicked On Download Invoice Button ",objPojo.getObjWrapperFunctions().click(InvoiceIn));
-				try {
+				
 					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+	
 			
 			}
-			
-			//Reorder
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigDownloadInvoiceOutside"))
-			{
-				//Download Invoice Outside
-				objPojo.getObjUtilities().logReporter("Clicked On Invoice Download Button ",objPojo.getObjWrapperFunctions().click(InvoiceOut));
-				
-				   // waiting for 5 seconds
-					Thread.sleep(5000);
-				
-			}	
 		}
+	}
+	
 		
 		//CAUTION : ONLY FOR DEV APPLICATION
 		if(OrderType.equalsIgnoreCase("InProcess"))
 		{
 			//Clicking On Delivered 
 			//Scroll
-
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
+			Thread.sleep(1300);
+			
 			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
 
 			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='In Process']")).size() == 0)
@@ -315,10 +429,30 @@ public class SpiritZoneMyProfile {
 				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
 			}
 			
-			if (!objPojo.getEntityRunner().getBooleanValueForField("ConfigTRACKOutSide"))
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigTRACKOutSide"))
+			{
+				objPojo.getObjUtilities().logReporter("Clicked On Track Order Details Button ",objPojo.getObjWrapperFunctions().click(TrackOUTOrderDetails));
+				Thread.sleep(1700);
+					//Assert
+					String AssertTrack= objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Order Received']")).getText();
+					if(AssertTrack.equalsIgnoreCase("Order Received"))
+					{
+						objPojo.getObjUtilities().logReporter("<B> Passed Track Order Test Case </B>",true);
+					}
+					else
+					{
+						objPojo.getObjUtilities().logReporter("<B> Failed Track Order Test Case </B>",false);
+					}
+					
+					Thread.sleep(5000);
+
+			}	
+			
+			
+			else
 			{
 			objPojo.getObjUtilities().logReporter("Clicked On InProcess Button ",objPojo.getObjWrapperFunctions().click(InprocessOrder));
-			}
+			
 			
 			
 			
@@ -335,23 +469,27 @@ public class SpiritZoneMyProfile {
 				
 				
 				objPojo.getObjUtilities().logReporter("Clicked On Track Order Details Button ",objPojo.getObjWrapperFunctions().click(TrackINOrderDetails));
+				Thread.sleep(1700);
+				//Assert
+				String AssertTrack= objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Order Received']")).getText();
+				if(AssertTrack.equalsIgnoreCase("Order Received"))
+				{
+					objPojo.getObjUtilities().logReporter("<B> Passed Track Order Test Case </B>",true);
+				}
+				else
+				{
+					objPojo.getObjUtilities().logReporter("<B> Failed Track Order Test Case </B>",false);
+				}
+
 				
 				
 					Thread.sleep(5000);
 				
 			}
 			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigTRACKOutSide"))
-			{
-				objPojo.getObjUtilities().logReporter("Clicked On Track Order Details Button ",objPojo.getObjWrapperFunctions().click(TrackOUTOrderDetails));
-			
-				
-					Thread.sleep(5000);
-
-			}	
 		}		
 	}
-	
+}	
 	public void CustomerService() {
 		
 		//For Customer Service
@@ -545,6 +683,8 @@ public class SpiritZoneMyProfile {
 		
 		if(LogoutOption.equalsIgnoreCase("Settings-Notification"))
 		{
+			
+			
 			objPojo.getObjUtilities().logReporter("Clicked on Sales and Promotions ",
 					objPojo.getObjWrapperFunctions().click(SalesnPromotions));
 		}
@@ -555,7 +695,7 @@ public class SpiritZoneMyProfile {
 	public void FillMyProfileLogout() throws InterruptedException {
 			
 			//waiting for 2.5sec
-			Thread.sleep(1500);
+			Thread.sleep(2500);
 			
 		//Assert Logout Button
 		String logoutStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Log out']")).getText();	
