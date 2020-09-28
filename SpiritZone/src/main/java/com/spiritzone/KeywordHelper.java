@@ -76,7 +76,7 @@ public class KeywordHelper extends Pojo {
 	}
 	
 	
-	public String Support(String stepGroup) throws FilloException {
+	public String Support(String stepGroup) throws FilloException, InterruptedException {
 		Recordset recordset = EntityRunner.getEntityObject("DT_Support", this,stepGroup);
 		while (recordset.next()) {
 			if (recordset.getField("Action").equals("add")) {

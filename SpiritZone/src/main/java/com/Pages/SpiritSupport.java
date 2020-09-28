@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.apache.commons.digester.ObjectParamRule;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -48,6 +49,14 @@ public class SpiritSupport {
 	By Invoice;
 	
 	
+	//OneTOFifth Product
+	By FirstProduct;
+	By SecondProduct;
+	By ThirdProduct;
+	By ForthProduct;
+	By FifthProduct;
+	
+	
 	
 	By ConcernInput;
 	By SubmitBtn;
@@ -67,8 +76,14 @@ public class SpiritSupport {
 		ViewOlderBtn = By.xpath("//android.widget.Button[@text='VIEW OLDER MESSAGES']");
 		FailedOrderID = By.xpath("(//android.widget.TextView)[6]");
 		DeliveredOrderID = By.xpath("(//android.widget.TextView)[10]");
-		ApprovedOrderID = By.xpath("(//android.widget.TextView)[7]");
+		ApprovedOrderID = By.xpath("//android.widget.FrameLayout/android.widget.TextView[contains(@text,'Approved')]");
 		
+		//One-to-Five
+		FirstProduct = By.xpath("(//android.widget.FrameLayout/android.widget.TextView[contains(@text,'OrderID')])[1]");
+		SecondProduct = By.xpath("(//android.widget.FrameLayout/android.widget.TextView[contains(@text,'OrderID')])2]");		
+		ThirdProduct = By.xpath("(//android.widget.FrameLayout/android.widget.TextView[contains(@text,'OrderID')])[3]");
+		ForthProduct = By.xpath("(//android.widget.FrameLayout/android.widget.TextView[contains(@text,'OrderID')])[4]");
+		FifthProduct = By.xpath("(//android.widget.FrameLayout/android.widget.TextView[contains(@text,'OrderID')])[5]");
 		
 		
 		//Questions
@@ -88,26 +103,119 @@ public class SpiritSupport {
 		Invoice = By.xpath("//android.widget.TextView[@text='I want an invoice for this order']");
 			
 		ConcernInput = By.xpath("//android.widget.EditText[@text='Type here...']");
-		SubmitBtn = By.xpath("(//android.view.ViewGroup/android.widget.ImageView)[7]");
+		SubmitBtn = By.xpath("(//android.view.ViewGroup/android.widget.ImageView)[8]");
 		
 	}
 	
 	
-	public void FillandSubmitSupportModule()
+	public void FillandSubmitSupportModule() throws InterruptedException
 	{
 		//Clicking on Support Module
 		
-		objPojo.getObjUtilities().logReporter("Clicked On Support Module Button ",objPojo.getObjWrapperFunctions().click(SupportModuleBtn));
+		objPojo.getObjUtilities().logReporter("Clicked On Support Module Button ",objPojo.getObjWrapperFunctions().clickException(SupportModuleBtn,"Support Module Button"));
+		
+		//Assertion for Support Module
+		Thread.sleep(2500);
+		String Support = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='SUPPORT']")).getText();
+		if(Support.equalsIgnoreCase("SUPPORT"))
+		{
+			objPojo.getObjUtilities().logReporter("<B> Traversed to Support Module </B>", true);
+		}
+		else
+		{
+			objPojo.getObjUtilities().logReporter("<B>  Failed To Travese to Support Module </B>", false);	
+		}
+		
+		
 		System.out.println("Traversed To SUPPORT MODULE!!!!!");
 		objPojo.getObjWrapperFunctions().waitForElementToBeClickable(FailedOrderID);
 		
 		
 		
-		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigOlderMessage")) {
+		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigOlderMessage"))
+		{
 			//Clicking Older Messages
 			objPojo.getObjUtilities().logReporter("Clicked On View Older Button ",objPojo.getObjWrapperFunctions().click(ViewOlderBtn));
-			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(FailedOrderID);
+			Thread.sleep(1000);
+			
+			String AssertOlder = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[@text='Welcome to spiritzone. Please select below orderID'])[1]")).getText();
+			if(AssertOlder.equalsIgnoreCase("Welcome to spiritzone. Please select below orderID"))
+			{
+				objPojo.getObjUtilities().logReporter("<B> Traversed to Older Messages in Support Module </B>", true);
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter("<B>  Failed To Travese to Older Messages in Support Module </B>", false);	
+			}	
+				
 		}
+		
+		
+		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigCheckClickable"))
+		{
+			String WhichOneToclick = objPojo.getEntityRunner().getStringValueForField("CheckClickable");
+			Thread.sleep(1700);
+			
+			if(WhichOneToclick.equalsIgnoreCase("First"))
+			{
+				objPojo.getObjWrapperFunctions().clickException(FirstProduct,"First Product");
+				
+			}
+			
+			else if(WhichOneToclick.equalsIgnoreCase("Second"))
+			{
+				objPojo.getObjWrapperFunctions().clickException(SecondProduct,"Second Product");
+			}
+			
+			else if(WhichOneToclick.equalsIgnoreCase("Third"))
+			{
+				objPojo.getObjWrapperFunctions().clickException(ThirdProduct,"Third Product");	
+			}
+			
+			else if(WhichOneToclick.equalsIgnoreCase("Forth"))
+			{
+				objPojo.getObjWrapperFunctions().clickException(ForthProduct,"Forth Product");
+			}
+			
+			else if(WhichOneToclick.equalsIgnoreCase("Fifth"))
+			{
+				objPojo.getObjWrapperFunctions().clickException(FifthProduct,"Fifth Product");
+			}
+			
+			
+			
+			//Assert if Clicked Correctly
+			Thread.sleep(6200);
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.FrameLayout/android.widget.TextView[contains(@text,'Default')]")).size()!=0)
+			{
+				objPojo.getObjUtilities().logReporter("Clicked Succesfully on "+WhichOneToclick+" Product which is a Default product which has issues", true);	
+			}
+			
+			else
+			{
+			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("//android.widget.TextView[@text='Please select questions for Approved']"));
+			String AssertCheckProductClicked = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Please select questions for Approved']")).getText();
+			if(AssertCheckProductClicked.equalsIgnoreCase("Please select questions for Approved"))
+			{
+				objPojo.getObjUtilities().logReporter("Clicked Succesfully on "+WhichOneToclick+" Product", true);
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter("Failed to Click Succesfully on "+WhichOneToclick+" Product", false);
+			}
+				
+			}
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -127,8 +235,21 @@ public class SpiritSupport {
 		
 		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigApprovedOrderID")) {
 			//SECOND ORDER ID
+			//Assert if Clicked Correctly
+			//Thread.sleep(6200);
+			
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.FrameLayout/android.widget.TextView[contains(@text,'Approved')]")).size()!=0)
+			{	
 			objPojo.getObjUtilities().logReporter("Clicked On Approved Order Module ",objPojo.getObjWrapperFunctions().click(ApprovedOrderID));
+			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("//android.widget.TextView[@text='Please select questions for Approved']"));
+
 			System.out.println("Clicked on Delivered Order ID");
+			}
+			
+			else
+			{
+				objPojo.getObjUtilities().logReporter("<B>  No Approved Order Found </B>",false);
+			}
 			
 		}
 		
@@ -198,16 +319,29 @@ public class SpiritSupport {
 			}
 			
 			//Clearing and sending input as String
-			objPojo.getObjWrapperFunctions().waitForElementInVisibilityLocated(ConcernInput);
+			Thread.sleep(2500);
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(ConcernInput);
 			objPojo.getObjUtilities().logReporter("Typed Issue as ",objPojo.getObjWrapperFunctions().clearAndSendKeys(ConcernInput,issue));	
+			//Urgent change submit button xpath
 			objPojo.getObjUtilities().logReporter("Clicked On Submit Button ",objPojo.getObjWrapperFunctions().click(SubmitBtn));
-			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(FailedOrderID);
+			
+			
+			//assertion
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[contains(@text,'Thank you for raising the ticket.')]"));
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[contains(@text,'Thank you for raising the ticket.')]")).size()!=0)
+			{
+				objPojo.getObjUtilities().logReporter("<B>  Sucessfully Typed into Input Field </B>",true);
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter("<B>  Failed to type into input field </B>",false);
+			}
 		
 		}
 		
 	}
 		
-	public void fillSupportModule() {
+	public void fillSupportModule() throws InterruptedException {
 		objPojo.getObjUtilities().logReporter("<B>Traversed TO Support Module </B>",true);
 		FillandSubmitSupportModule();
 	}
