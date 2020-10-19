@@ -128,7 +128,7 @@ public class SpiritSupport {
 		
 		
 		System.out.println("Traversed To SUPPORT MODULE!!!!!");
-		objPojo.getObjWrapperFunctions().waitForElementToBeClickable(FailedOrderID);
+		//objPojo.getObjWrapperFunctions().waitForElementToBeClickable(FailedOrderID);
 		
 		
 		
@@ -150,7 +150,7 @@ public class SpiritSupport {
 				
 		}
 		
-		
+		//First 5 product to be clicked
 		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigCheckClickable"))
 		{
 			String WhichOneToclick = objPojo.getEntityRunner().getStringValueForField("CheckClickable");

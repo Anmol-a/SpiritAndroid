@@ -2,8 +2,6 @@ package com.TestSpiritZone;
 
 import java.text.SimpleDateFormat;
 
-import org.apache.log4j.BasicConfigurator;
-
 import com.spiritzone.Uploader;
 
 public class TestLauncher {

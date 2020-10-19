@@ -2,8 +2,6 @@ package com.spiritzone;
 
 import java.util.ArrayList;
 
-import com.codoid.products.exception.FilloException;
-
 public class FunctionalKeyword extends KeywordHelper {
 
 	protected void executeStep(MasterAutomationScriptSteps masterAutomationScriptSteps) throws Exception 

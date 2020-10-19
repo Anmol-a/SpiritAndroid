@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -25,15 +26,13 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.testng.TestRunner;
+import org.testng.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import org.testng.reporters.TestHTMLReporter;
 
-import com.Pages.SpiritZoneHomeAddress;
-import com.Pages.SpiritZoneHomeOrder;
 import com.TestSpiritZone.TestLauncher;
 
 public class AutomationDriverScript extends FunctionalKeyword {
@@ -42,6 +41,7 @@ public class AutomationDriverScript extends FunctionalKeyword {
 	SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd-MMM-yyyy");
 	String folderDate=simpleDateFormat.format(date);
 	StorePassWord storedPassword;
+	private static HashMap<String, String> scenarioStatus = new HashMap<>();
 
 	@Parameters({ "executionTestSuite_Reference", "executionAutomationScriptReference",
 			"executionAutomationScripterName", "executionAutomationDescription" })
@@ -65,9 +65,14 @@ public class AutomationDriverScript extends FunctionalKeyword {
 		this.setObjUtilities(new Utilities(this));
 		try {
 			executeStep(MasterAutomationScriptSteps);
-		} catch (Exception e) {
-			e.printStackTrace();
+			Reporter.log("Test Scenario has been passed");
+			
+		} 
+		catch (Exception e) 
+		{
+			Reporter.log(e.getCause().getMessage());
 			System.out.println("unable to call executeStep() in FUNCTIONAL KEYWORD");
+			Assert.assertEquals(true,false);
 		}
 
 	}

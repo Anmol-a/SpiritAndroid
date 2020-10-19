@@ -40,6 +40,8 @@ public class SpiritZoneMyProfile {
 	By Customercare;
 	By InprocessOrder;
 	By FailedOrder;
+	By CancelOrderType;
+	By BackToStoreOrder;
 	By RetryOrder;
 	By ContinueReorder;
 	By Reorder;
@@ -125,6 +127,8 @@ public class SpiritZoneMyProfile {
 		RetryOrder = By.xpath("//android.widget.TextView[@text='RETRY']");
 		ContinueReorder = By.xpath("//android.widget.TextView[@text='CONTINUE']");
 		
+		BackToStoreOrder = By.xpath("//android.widget.TextView[@text='BackToStore']");
+		CancelOrderType = By.xpath("//android.widget.TextView[@text='Cancel']");
 		DeliveredOrder = By.xpath("//android.widget.TextView[@text='Delivered']");
 		InvoiceOut = By.xpath("//android.widget.TextView[@text='INVOICE']");
 		InvoiceIn = By.xpath("//android.widget.TextView[@text='DOWNLOAD INVOICE']");
@@ -188,7 +192,8 @@ public class SpiritZoneMyProfile {
 	}
 	
 	//Your Orders
-	public void FillMyProfileYourOrder() throws InterruptedException {
+	public void FillMyProfileYourOrder() throws InterruptedException 
+	{
 		
 		//Click on Your Orders
 		objPojo.getObjUtilities().logReporter("Clicked On My Orders Button ",objPojo.getObjWrapperFunctions().click(MyOrdersButton));
@@ -208,6 +213,116 @@ public class SpiritZoneMyProfile {
 		//Order type
 		String OrderType = objPojo.getEntityRunner().getStringValueForField("OrderType");
 		
+		if(OrderType.equalsIgnoreCase("Cancel"))
+		{
+			objPojo.getObjUtilities().logReporter("Traversing TO Cancel Order Section",true);
+			//Clicking On Failed 
+			//Scroll
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
+			
+			
+			
+			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Cancel']")).size() == 0)
+			{
+				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='August 03, 10:13 PM']")).size() != 0)
+				{
+					objPojo.getObjUtilities().logReporter("<B> Sorry No Cancel Product here in your Ordered Items </B>",false);
+					break;	
+				}
+			}
+			
+			
+			
+			objPojo.getObjUtilities().logReporter("Clicked On Cancel Orders Button",objPojo.getObjWrapperFunctions().clickException(CancelOrderType,"Cancel Order Product"));
+			Thread.sleep(3000);
+			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Cancel']")).getText();
+			//Assert 
+			if(ProcessText.equalsIgnoreCase("Cancel"))
+			{
+				objPojo.getObjUtilities().logReporter(" Traversed to Cancel Orders Succesfull",true);
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter(" Failed Traversed to Cancel Orders Succesfull",false);
+			}	
+			
+			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
+			System.out.println("Your Order type is "+ProcessText);
+			
+			//Order No
+			String OrderNo = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[2]")).getText();
+			objPojo.getObjUtilities().logReporter(" "+OrderNo,true);
+
+			
+			
+		}
+		
+		if(OrderType.equalsIgnoreCase("BackToStore"))
+		{
+			objPojo.getObjUtilities().logReporter("Traversing TO BackToStore Order Section",true);
+			//Clicking On Failed 
+			//Scroll
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
+			
+			
+			
+			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='BackToStore']")).size() == 0)
+			{
+				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='August 03, 10:13 PM']")).size() != 0)
+				{
+					objPojo.getObjUtilities().logReporter("<B> Sorry No BackToStoreOrder Product here in your Ordered Items </B>",false);
+					break;	
+				}
+			}
+			
+			
+			
+			
+			objPojo.getObjUtilities().logReporter("Clicked On BackTOStore Orders Button",objPojo.getObjWrapperFunctions().clickException(BackToStoreOrder,"Cancel Order Product"));
+			Thread.sleep(3000);
+			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='BackToStore']")).getText();
+			//Assert 
+			if(ProcessText.equalsIgnoreCase("BackToStore"))
+			{
+				objPojo.getObjUtilities().logReporter(" Traversed to BackToStore Orders Succesfull",true);
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter(" Failed Traversed to BackToStore Orders Succesfull",false);
+			}
+			
+			
+			
+			
+			
+			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
+			System.out.println("Your Order type is "+ProcessText);
+			
+			//Order No
+			String OrderNo = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[2]")).getText();
+			objPojo.getObjUtilities().logReporter(" "+OrderNo,true);
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		//----------------------------FAILED
 		if(OrderType.equalsIgnoreCase("Failed"))
 		{
@@ -222,7 +337,7 @@ public class SpiritZoneMyProfile {
 				
 				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='August 03, 10:13 PM']")).size() != 0)
 				{
-					objPojo.getObjUtilities().logReporter("<B> Sorry No Delivered Product here in your Ordered Items </B>",false);
+					objPojo.getObjUtilities().logReporter("<B> Sorry No Failed Product here in your Ordered Items </B>",false);
 					break;	
 				}
 			}
