@@ -373,11 +373,11 @@ public class SpiritZoneLoginPage {
 		}
 		else
 		{
-			objPojo.getObjUtilities().logReporter("Failed", false);		
+			objPojo.getObjUtilities().logReporter("Failed Scanerio at SIGNUP MODULE", false);		
 		}
 	}
 	
-	
+	else
 	{
 		//Change in Later Update of 1.6
 		if (objPojo.getEntityRunner().getStringValueForField("TestType").equalsIgnoreCase("SignUpNegative")) 
@@ -388,7 +388,7 @@ public class SpiritZoneLoginPage {
 		}
 		else
 		{
-			objPojo.getObjUtilities().logReporter("Failed", false);			
+			objPojo.getObjUtilities().logReporter("Failed Scanerio at SIGNUP MODULE", false);			
 		}
 	}
 	

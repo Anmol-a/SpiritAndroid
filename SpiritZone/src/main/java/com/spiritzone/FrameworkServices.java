@@ -53,7 +53,7 @@ public class FrameworkServices {
 		if(BrowserStackDevice.equalsIgnoreCase("Yes"))
 		{
 			System.out.println("-------------Browsertack-Device-------------");
-     	cap.setCapability("app", "bs://543ae7145999f8811730280b99036c29a0977e2a");
+		cap.setCapability("app", "bs://2d741d118db41b7ccababe643543a01858cdbe79");
 		cap.setCapability("device", "Google Pixel 3");
 		cap.setCapability("os_version", "9.0");
 		cap.setCapability("browserstack.local", browserstackLocal);

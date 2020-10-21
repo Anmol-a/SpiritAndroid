@@ -125,7 +125,8 @@ public class SpiritZoneHomeOrder {
 	
 	
 	//LIQOR CATEGORIES	
-	public void FillHomeOrderForCategoryModules() throws InterruptedException {
+	public void FillHomeOrderForCategoryModules() throws InterruptedException 
+	{
 		
 		
 		Thread.sleep(2000);
@@ -628,6 +629,8 @@ public class SpiritZoneHomeOrder {
 		{
 		objPojo.getObjWrapperFunctions().scrollDown();
 		}
+		
+		
 		HashMap< String, Integer> PopularBrandsHash = new HashMap<String, Integer>();
 		PopularBrandsHash.put("Johnnie Walker", 1);
 		PopularBrandsHash.put("Chivas Regal", 2);
@@ -639,7 +642,7 @@ public class SpiritZoneHomeOrder {
 		PopularBrandsHash.put("Sensi", 8);
 		PopularBrandsHash.put("Fruzzante", 9);
 		PopularBrandsHash.put("Kingfisher", 10);
-		PopularBrandsHash.put("Bira", 11);
+		PopularBrandsHash.put("Bira 91", 11);
 		PopularBrandsHash.put("Tuborg", 12);
 		PopularBrandsHash.put("Old Monk", 13);
 		PopularBrandsHash.put("Bacardi", 14);

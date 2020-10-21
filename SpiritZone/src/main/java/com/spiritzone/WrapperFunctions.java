@@ -1,7 +1,9 @@
 package com.spiritzone;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -41,6 +43,12 @@ public class WrapperFunctions {
 	WebDriverWait objWebDriverWait;
 	private int webDriverWait = 10;
 	private int fluentPooling = 1;
+	
+	
+	
+	
+
+	
 
 	public WrapperFunctions(Pojo objPojo) {
 		this.objPojo = objPojo;
@@ -609,6 +617,7 @@ public class WrapperFunctions {
 		try
 		{
 		waitForElementPresence(locator);
+		Thread.sleep(1000);
 		TouchAction action = new TouchAction(objPojo.getDriver());
 		MobileElement mobileElement = objPojo.getDriver().findElement(locator);
 		int i = mobileElement.getLocation().getY() + (mobileElement.getSize().getHeight() / 2);

@@ -140,7 +140,7 @@ public class AutomationDriverScript extends FunctionalKeyword {
 					// outMail login Details
 					final String outmailUsername = MyEmailID;
 					final String outmailPassword = storedPassword.decrypt("AhYqFi8DFBQy6Jm5gI3upw==");
-					//final String outmailPassword = "Kox44414";
+//					final String outmailPassword = storedPassword.decrypt("Kox44414");
 					
 					Authenticator auth = new Authenticator() {
 						protected PasswordAuthentication getPasswordAuthentication() {
@@ -167,7 +167,7 @@ public class AutomationDriverScript extends FunctionalKeyword {
 								+ "All scenarios have been executed. Please find the attached report of the execution.  \n"
 								+ "\n"
 								+ "Thanks,\n"
-								+ "Anmol.");
+								+ "Anmol Mishra");
 						Multipart multipart = new MimeMultipart();
 
 						// Set text message part

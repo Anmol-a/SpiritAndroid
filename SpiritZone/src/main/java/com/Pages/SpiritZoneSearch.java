@@ -1,13 +1,18 @@
 package com.Pages;
 
+import java.util.HashMap;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.ClickAction;
 import org.openqa.selenium.interactions.touch.TouchActions;
+import org.testng.Assert;
 import org.testng.Reporter;
 
 import com.spiritzone.EntityRunner;
 import com.spiritzone.Pojo;
 import com.spiritzone.TestScenarios;
+import com.spiritzone.WrapperFunctions;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -18,7 +23,27 @@ public class SpiritZoneSearch {
 	Pojo objPojo;
 	EntityRunner EntityRunner;
 	
-	By SearchBar;
+	//Search Bars
+	By HomeSearchBar;
+	By CategorySearchBar;
+	By ExclusiveSearchBar;
+	By ReserveBrandsSearchBar;
+	By PopularBrandsSearchBar;
+	
+	//Category
+	By Whiskey;
+	By Vodka;
+	By Gin;
+	By Tequila;
+	By Brandy;
+	By Wine;
+	By Beer;
+	By Rum;
+	By Others;
+	By ScrollingLiquorContainer;
+	By ViewAll;
+	By ReserveTitle;
+	
 	By FirstLiquiourProduct;
 	By NotifyBtn;
 	By AddtoCart;
@@ -32,6 +57,7 @@ public class SpiritZoneSearch {
 	By PermitNoInput;
 	By OnedayPermitCost;
 	By TotalAmount;
+	
 	
 	
 	//mode of paytment
@@ -48,7 +74,8 @@ public class SpiritZoneSearch {
 	By Success;
 	By OrderStatusBtn;
 	
-	
+	By MyProfile;
+	By Home;
 	
 	
 	
@@ -56,10 +83,26 @@ public class SpiritZoneSearch {
 		this.objPojo = objPojo;
 		EntityRunner = objPojo.getEntityRunner();
 
-	
-		//SearchBar = By.xpath("//android.widget.EditText[@text='Search..']");
-		SearchBar = By.xpath("//android.widget.EditText[@text='Beer, Rum, Vodka and More']");
 		
+		ScrollingLiquorContainer = By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]//android.view.ViewGroup[@clickable='true']");
+		//SearchBar = By.xpath("//android.widget.EditText[@text='Search..']");
+		HomeSearchBar = By.xpath("//android.widget.EditText[@text='Beer, Rum, Vodka and More']");
+		CategorySearchBar = By.xpath("");
+		ExclusiveSearchBar = By.xpath("");
+		ReserveBrandsSearchBar = By.xpath("");
+		PopularBrandsSearchBar = By.xpath("");
+		
+		Whiskey = By.xpath("//android.widget.TextView[@text='WHISKEY']");
+		Vodka = By.xpath("//android.widget.TextView[@text='VODKA']");
+		Gin = By.xpath("//android.widget.TextView[@text='GIN']");
+		Tequila = By.xpath("//android.widget.TextView[@text='TEQUILA']");
+		Brandy = By.xpath("//android.widget.TextView[@text='BRANDY']");
+		Wine = By.xpath("//android.widget.TextView[@text='WINE']");
+		Beer = By.xpath("//android.widget.TextView[@text='BEER']");
+		Rum = By.xpath("//android.widget.TextView[@text='RUM']");
+		Others = By.xpath("//android.widget.TextView[@text='OTHERS']");
+		ViewAll = By.xpath("//android.widget.TextView[@text='View All']");
+		ReserveTitle = By.xpath("//android.widget.TextView[@text='THE RESERVE']");
 		
 		String Liquior = objPojo.getEntityRunner().getStringValueForField("LiquiorName");
 		FirstLiquiourProduct = By.xpath("//android.widget.TextView[@text='"+Liquior+"']");
@@ -90,36 +133,302 @@ public class SpiritZoneSearch {
 		Success = By.xpath("//android.widget.Button[@resource-id='successBtn']");	
 		SubmitBTN = By.xpath("//android.widget.Button[@text='SUBMIT']");
 		OrderStatusBtn = By.xpath("//android.widget.Button[@text='ORDER DETAILS']");
+		
+		MyProfile= By.xpath("//android.widget.TextView[@text='MY PROFILE']");	
+		Home = By.xpath("//android.widget.TextView[@text='HOME']");
 	
 	}
 
-	public void fillSearchLiquiorDetails() throws InterruptedException {
+	public void fillSearchLiquiorDetails() throws InterruptedException
+	{
+		String ConfigModule = objPojo.getEntityRunner().getStringValueForField("ConfigSearchModule");
+		String ConfigTestType = objPojo.getEntityRunner().getStringValueForField("TestType");
+		String Liquior = objPojo.getEntityRunner().getStringValueForField("LiquiorName");
+		String SubCategory = objPojo.getEntityRunner().getStringValueForField("SubCategory");
+		String PopularBrandName = objPojo.getEntityRunner().getStringValueForField("BrandName");
+		WrapperFunctions GenericMethod = objPojo.getObjWrapperFunctions();
+		By SearchButton = By.xpath("(//android.widget.ImageView)[2]");
+		By InnerSearchExpectHome = By.xpath("//android.widget.EditText[@text='Search']");
+		
+		
+		
 		
 		Thread.sleep(2000);	
 		//Clicking on Search Bar
+		
+			if(ConfigModule.equalsIgnoreCase("Home"))
+			{
+				GenericMethod.waitForElementToBeClickable(HomeSearchBar);
 			objPojo.getObjUtilities().logReporter("Clicked on Search Bar",
-				objPojo.getObjWrapperFunctions().clickException(SearchBar,"Search Bar Field"));		
-		
-		//Entered value in Search Bar
-			String Liquior = objPojo.getEntityRunner().getStringValueForField("LiquiorName");
+					GenericMethod.clickException(HomeSearchBar,"Search Bar Field"));
+			
+			
+			//Enter value in Search Bar
 				objPojo.getObjUtilities().logReporter("Typed on SearchBar as "+Liquior,
-										objPojo.getObjWrapperFunctions().clearAndSendKeysCustomException(SearchBar,
+						GenericMethod.clearAndSendKeysCustomException(HomeSearchBar,
 														Liquior,"Search Bar Field"));
+			}
 		
+			
+			else if(ConfigModule.equalsIgnoreCase("Category"))
+			{
+				//Wait for any Operation Till Page is Loaded
+				objPojo.getObjWrapperFunctions().waitForElementPresence(Vodka);
+				
+				
+			if(SubCategory.equalsIgnoreCase("Whiskey"))
+			{
+				GenericMethod.clickException(Whiskey, "Whiskey");
+				
+			}
+			if(SubCategory.equalsIgnoreCase("Vodka"))
+			{
+				GenericMethod.clickException(Vodka, "Vodka");
+			}
+			if(SubCategory.equalsIgnoreCase("Gin"))
+			{
+				GenericMethod.clickException(Gin, "Gin");
+			}
+			if(SubCategory.equalsIgnoreCase("Tequila"))
+			{
+				GenericMethod.clickException(Tequila, "Tequila");
+			}
+			if(SubCategory.equalsIgnoreCase("Brandy"))
+			{
+				GenericMethod.scrollRightForCategory(ScrollingLiquorContainer);
+				GenericMethod.clickException(Brandy, "Brandy");
+			}
+			if(SubCategory.equalsIgnoreCase("Wine"))
+			{
+				GenericMethod.scrollRightForCategory(ScrollingLiquorContainer);
+				GenericMethod.clickException(Wine, "Wine");
+			}
+			if(SubCategory.equalsIgnoreCase("Beer"))
+			{
+				GenericMethod.scrollRightForCategory(ScrollingLiquorContainer);
+				GenericMethod.clickException(Beer, "Beer");
+			}
+			if(SubCategory.equalsIgnoreCase("Rum"))
+			{
+				GenericMethod.scrollRightForCategory(ScrollingLiquorContainer);
+				GenericMethod.clickException(Rum, "Rum");
+			}
+			if(SubCategory.equalsIgnoreCase("Others"))
+			{
+				GenericMethod.scrollRightForCategory(ScrollingLiquorContainer);
+				GenericMethod.scrollRightForCategory(ScrollingLiquorContainer);
+				GenericMethod.clickException(Others, "Others");
+			}
+				
+			
+			//Asseretion
+			Thread.sleep(2000);
+			GenericMethod.waitForElementVisibility(objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[@text='"+SubCategory+"'])[1]")));
+			String Actual = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[@text='"+SubCategory+"'])[1]")).getText();
+			String Expected = SubCategory;
+			
+			if(!Actual.equalsIgnoreCase(Expected))
+			{
+			Assert.assertEquals(false, true,"Assertion Falied Clicked on Wrong Category");	
+				
+			}
+			
+			
+		}
+			
+			else if(ConfigModule.equalsIgnoreCase("Exclusive"))
+			{
+				//Wait for any Operation Till Page is Loaded
+				objPojo.getObjWrapperFunctions().waitForElementPresence(Vodka);
+				
+				objPojo.getObjWrapperFunctions().scrollDownSmall();
+				GenericMethod.clickException(ViewAll, "ExclusiveViewAll");
+				
+			}
+			
+			
+			else if(ConfigModule.equalsIgnoreCase("Reserve"))
+			{
+				//Wait for any Operation Till Page is Loaded
+				objPojo.getObjWrapperFunctions().waitForElementPresence(Vodka);
+				
+				//Scrolling to Reserve
+				for(int x=0 ;x<2;x++)
+				{
+					GenericMethod.scrollDownLong();
+				}
+				
+				
+				//Wait for any Operation Till Page is Loaded
+				GenericMethod.waitForElementPresence(ViewAll);
+				GenericMethod.clickException(ViewAll,"View All on Reserve");
+				GenericMethod.waitForElementPresence(ReserveTitle);
+			}
+			
+			
+			
+			else if(ConfigModule.equalsIgnoreCase("Popular Brands"))
+			{
+				By ScrollingLiquorContainer;
+				ScrollingLiquorContainer = By.xpath("((//androidx.recyclerview.widget.RecyclerView)[3]//android.view.ViewGroup[@clickable='true'])[2]");
+
+				//Wait for any Operation Till Page is Loaded
+				objPojo.getObjWrapperFunctions().waitForElementPresence(Vodka);
+				//Scrolling to PopularBrands
+				for(int x=0 ;x<2;x++)
+				{
+					GenericMethod.scrollDownLong();
+					Thread.sleep(700);
+				}
+				
+				
+				HashMap< String, Integer> PopularBrandsHash = new HashMap<String, Integer>();
+				PopularBrandsHash.put("Johnnie Walker", 1);
+				PopularBrandsHash.put("Chivas Regal", 2);
+				PopularBrandsHash.put("Jack Daniels", 3);
+				PopularBrandsHash.put("GLENFIDDICH", 4);
+				PopularBrandsHash.put("Absolut", 5);
+				PopularBrandsHash.put("Smirnoff", 6);
+				PopularBrandsHash.put("Sula", 7);
+				PopularBrandsHash.put("Sensi", 8);
+				PopularBrandsHash.put("Fruzzante", 9);
+				PopularBrandsHash.put("Kingfisher", 10);
+				PopularBrandsHash.put("BIRA 91", 11);
+				PopularBrandsHash.put("Tuborg", 12);
+				PopularBrandsHash.put("Old Monk", 13);
+				PopularBrandsHash.put("Bacardi", 14);
+				
+				//ForLoop
+				for(String ProductName: PopularBrandsHash.keySet())
+				{
+					if(ProductName.equalsIgnoreCase(PopularBrandName))
+					{
+						int scrollOccurence = PopularBrandsHash.get(PopularBrandName);
+						for(int x= 1; x<=scrollOccurence;x++)
+						{		
+							objPojo.getObjWrapperFunctions().scrollRightForPopularBrand(ScrollingLiquorContainer);	
+							Thread.sleep(700);
+						}
+					}
+				}
+//				int x =0;
+//				int scrollOccurence = PopularBrandsHash.get(PopularBrandName);
+//				while(x<scrollOccurence)
+//				{
+//					objPojo.getObjWrapperFunctions().scrollRightForPopularBrand(ScrollingLiquorContainer);	
+//					Thread.sleep(1000);
+//					x++;
+//				}
+				
+				//Clicking on our Brand
+				By BrandName;
+				By Bacardi;
+				//BrandName = By.xpath("(//android.widget.ImageView)[4]");
+				//
+				
+				
+				BrandName = By.xpath("(//android.widget.ImageView)[6]");
+				Bacardi = By.xpath("(//android.widget.ImageView)[7]");
+				
+				
+				Thread.sleep(2500);
+				if(!PopularBrandName.equalsIgnoreCase("Bacardi"))
+				{	
+				objPojo.getObjUtilities().logReporter("Clicked On Brand Name ",
+								objPojo.getObjWrapperFunctions().clickException(BrandName,"Popular Brand Name as "+PopularBrandName ));
+				
+							Thread.sleep(2000);
+					
+				}
+				else
+				{
+					objPojo.getObjUtilities().logReporter("Clicked On Brand Name ",
+							objPojo.getObjWrapperFunctions().clickException(Bacardi," Bacardi Brand "));
+					
+					Thread.sleep(2000);
+					
+				}
+				
+				//Asserting Proper Brand Name and Checking 
+				String PopularBrandNameAssert = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[1]")).getText();
+				
+				if(PopularBrandName.equalsIgnoreCase(PopularBrandNameAssert))
+				{
+					objPojo.getObjUtilities().logReporter("Selected Popular BrandName as "+PopularBrandNameAssert,true);
+				}
+				else
+				{
+					objPojo.getObjUtilities().logReporter("Wrong Popular Brand Selected as "+PopularBrandNameAssert,false);
+				}
+				
+				
+				
+			
+				
+			}
+			
+			
+			if(!ConfigModule.equalsIgnoreCase("Home"))
+			{
+				GenericMethod.click(SearchButton);
+				GenericMethod.click(InnerSearchExpectHome);
+				GenericMethod.clearAndSendKeysCustomException(InnerSearchExpectHome, Liquior, "Search Bar");
+				
+				
+			}
+			
+//			else
+//			{
+			
+			
+			
+			
 		//waiting for 2 seconds		
-		Thread.sleep(2000);
+		Thread.sleep(2700);
 		
-		//Clicked on our Specified Product at Search Bar after entering Products name
+		//Clicked on our Specified Product at Search Bar after entering Products name (ASSERT TO as Clicking is Concatinated)
 		objPojo.getObjUtilities().logReporter("Clicked on "+Liquior +" at Search Bar",
 				objPojo.getObjWrapperFunctions().clickException(FirstLiquiourProduct,Liquior+"Product at Search Bar"));
 		
-		// Clicked on our Specified Product at Product List
+		
+		
+		//Positive-Saved
+		if(ConfigTestType.equalsIgnoreCase("Positive-Saved"))
+	{
+		GenericMethod.clickException(MyProfile,"My Profile");
+		GenericMethod.clickException(Home,"Home Down Bar");
+		
+		if(ConfigModule.equalsIgnoreCase("Home"))
+		{
+			GenericMethod.waitForElementToBeClickable(HomeSearchBar);
+			objPojo.getObjUtilities().logReporter("Clicked on Search Bar",
+					GenericMethod.clickException(HomeSearchBar,"Search Bar Field"));
+			
+			
+			if(!Liquior.equalsIgnoreCase(objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='"+Liquior+"']")).getText()))
+			{
+				Assert.assertEquals(true, false,"No Saved Item for Search bar");
+			}	
+		}
+	}
+		
+		
+		
+		
+		else
+		{
+		
+		// Clicked on our Specified Product at Product List(ASSERT TO as Clicking is Concatinated)
 		objPojo.getObjUtilities().logReporter("Clicked on "+Liquior+" at Product List",
 				objPojo.getObjWrapperFunctions().clickException(FirstLiquiourProduct,Liquior+"Product After Search Bar"));
 		
 		
 		//waiting for 2.5 seconds	
 		Thread.sleep(2500);
+		
+
+		
+		
 		
 		//Getting text of Price and Availibility
 		String Availibility = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[6]")).getText();
@@ -129,6 +438,14 @@ public class SpiritZoneSearch {
 		
 		//ProductName
 		String ProductName = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[1]")).getText();
+		
+		//Assertion if Product on Cart is Same as product we Searched
+		if(!ProductName.equalsIgnoreCase(Liquior))
+		{
+			Assert.assertEquals(true, false,"Error At Cart Page Product Mismatches from one We Searched");
+		}
+		
+		
 		objPojo.getObjUtilities().logReporter("Name of The Product is "+ProductName,true);
 
 		//Scroll-Down
@@ -141,10 +458,9 @@ public class SpiritZoneSearch {
 			Reporter.log("<B> Passed!!! and Clicked On NotiyMe Button as Product is Out Of Stock! </B>",true);
 			Reporter.log("<B>--------------------------------------------------------------</B>",true);
 			
-			
-			objPojo.getDriver().close();
+	
 		}
-		
+	}	
 
 		//Traverse to Cart
 		String traverse = objPojo.getEntityRunner().getStringValueForField("TravserseCart");
@@ -160,9 +476,9 @@ public class SpiritZoneSearch {
 			
 				Thread.sleep(2000);		
 		}		
-	}
+	//}
 	
-	
+}	
 	public void TraversingToCartDetails() throws InterruptedException 
 	{
 	
@@ -311,10 +627,16 @@ public class SpiritZoneSearch {
 	
 	public void fillAndSubmitSearchDetails() throws Exception 
 	{
-		objPojo.getObjUtilities().logReporter("<B>Traversed TO Home Page to Perform Liquor Search Actions </B>",true);
+
+		String traverse = objPojo.getEntityRunner().getStringValueForField("TravserseCart");
+		objPojo.getObjUtilities().logReporter("<B>Traversed To Perform Liquor Search Actions </B>",true);
 		fillSearchLiquiorDetails();
+		if(traverse.equalsIgnoreCase("Yes"))
+		{
 		TraversingToCartDetails();
 		TraversingToAssertOrderDetails();
+	
+		}
 	}
 
 }
