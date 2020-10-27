@@ -2,16 +2,20 @@ package com.Pages;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.Reporter;
 
 import com.spiritzone.EntityRunner;
 import com.spiritzone.Pojo;
 import com.spiritzone.TestScenarios;
+import com.spiritzone.Utilities;
+import com.spiritzone.WrapperFunctions;
 
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
@@ -23,6 +27,7 @@ public class SpiritZoneHomeOrder {
 	TestScenarios TestScanerio;
 	Pojo objPojo;
 	EntityRunner EntityRunner;
+	 ArrayList<String> SubCategoriesTypeList;
 	
 	
 	By Whiskey;
@@ -70,6 +75,12 @@ public class SpiritZoneHomeOrder {
 	By Success;
 	By OrderStatusBtn;
 	
+	
+	By Filter;
+	By APPLYButton;
+	By DISCARButton;
+	
+	By SwipeFilterScroll;
 	
 	
 	
@@ -120,6 +131,11 @@ public class SpiritZoneHomeOrder {
 		SubmitBTN = By.xpath("//android.widget.Button[@text='SUBMIT']");
 		OrderStatusBtn = By.xpath("//android.widget.Button[@text='ORDER DETAILS']");
 		
+		DISCARButton = By.xpath("//android.widget.Button[@text='DISCARD']");
+		APPLYButton = By.xpath("//android.widget.Button[@text='APPLY']");
+		Filter = By.xpath("//android.widget.TextView[@text='Filters']");
+		
+		SwipeFilterScroll = By.xpath("(//androidx.recyclerview.widget.RecyclerView)[1]");
 		
 	}
 	
@@ -127,7 +143,7 @@ public class SpiritZoneHomeOrder {
 	//LIQOR CATEGORIES	
 	public void FillHomeOrderForCategoryModules() throws InterruptedException 
 	{
-		
+		WrapperFunctions GenericMethod = objPojo.getObjWrapperFunctions();
 		
 		Thread.sleep(2000);
 		String CategoryType = objPojo.getEntityRunner().getStringValueForField("CategoryType");
@@ -194,7 +210,119 @@ public class SpiritZoneHomeOrder {
 	}		
 		
 		
+	public void Filters() throws InterruptedException		
+	   {
 		
+		 String CategoryType = objPojo.getEntityRunner().getStringValueForField("CategoryType");
+		 String FilterButtonAction = objPojo.getEntityRunner().getStringValueForField("Button-Action");
+		 
+		//ArrayList SubCategories
+		String SubCategory = objPojo.getEntityRunner().getStringValueForField("Sub-Category");
+		ArrayList<String> SubCategories = new ArrayList<String>(Arrays.asList(SubCategory.split("\\,")));
+		
+		String str = CategoryType.toLowerCase();
+		String CategoryLocator = str.substring(0, 1).toUpperCase() + str.substring(1);
+		
+		
+		//ArrayList SwipeFilters
+		String SwipeFilters = objPojo.getEntityRunner().getStringValueForField("SwipeFilter");
+		ArrayList<String> SwipeFiltersList = new ArrayList<String>(Arrays.asList(SwipeFilters.split("\\,")));
+
+		 
+		
+		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigSwipeFilters"))
+		{
+			for(int x = 0;x<SwipeFiltersList.size();x++)
+			{
+				System.out.println("Outside Loop "+SwipeFiltersList.get(x));
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.FrameLayout/android.widget.TextView[@text='"+SwipeFiltersList.get(x)+"']")).size()==0)
+				{
+					Swipe All
+					System.out.println(SwipeFiltersList.get(x));
+					objPojo.getObjWrapperFunctions().SwipeForCategoryFilter(SwipeFilterScroll);
+					Thread.sleep(1000);
+				}
+				else
+				{
+					objPojo.getObjWrapperFunctions().clickException(By.xpath("//android.widget.FrameLayout/android.widget.TextView[@text='"+SwipeFiltersList.get(x)+"']"), "");	
+				
+					//Assert
+					String str1 = SwipeFiltersList.get(x).toLowerCase();
+					String AllProductsCategory = str1.substring(0, 1).toUpperCase() + str1.substring(1);
+					
+					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+SwipeFiltersList.get(x)+"']")).size()==0 || objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+AllProductsCategory+"']")).size()<4)
+					{
+						Assert.assertEquals(true, false,"Error In Assertion of Swipe Category Filters");
+					}
+				}
+			}
+			
+		}
+		
+		
+		
+		 
+		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigFilters")) 
+		
+		{	
+			Thread.sleep(1700);
+			objPojo.getObjWrapperFunctions().clickException(Filter, "Filter Button");
+
+			
+			
+			
+			//CATEGORIES
+			//Swipe First
+			if(CategoryType.equalsIgnoreCase("Beer") || CategoryType.equalsIgnoreCase("Rum") || CategoryType.equalsIgnoreCase("Others"))
+			{
+				//Swipe
+				objPojo.getObjWrapperFunctions().clickException(By.xpath("(//android.widget.TextView[@text='"+CategoryLocator+"'])[1]"), "Category Product");
+			}
+			
+			else
+			{
+				objPojo.getObjWrapperFunctions().clickException(By.xpath("(//android.widget.TextView[@text='"+CategoryLocator+"'])[1]"), "Category Product");
+				
+			}
+			
+			
+			//SUB-CATEGORIES
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigSubCategories")) 
+			{
+				objPojo.getObjWrapperFunctions().waitForElementVisibility(objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Sub Categories']")));
+				for(int i = 0 ;i<SubCategories.size();i++)
+				{
+					objPojo.getObjWrapperFunctions().clickException(By.xpath("(//android.widget.TextView[@text='"+SubCategories.get(i)+"'])[1]"), "Sub-Category Product");
+				}
+			}
+			
+			
+			//Apply or Discard
+			if(FilterButtonAction.equalsIgnoreCase("Apply"))
+			{
+				objPojo.getObjWrapperFunctions().clickException(APPLYButton, "APPLY Button");
+			}
+			else if(FilterButtonAction.equalsIgnoreCase("Discard"))
+			{
+				objPojo.getObjWrapperFunctions().clickException(DISCARButton, "DISCARD Button");
+			}
+		
+			//ASSERT FILTER
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Filter);
+			System.out.println(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+CategoryLocator+"']")).size());
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+CategoryLocator+"']")).size()==0)
+			{
+				Assert.assertEquals(false, true,"Failed After Applying Filters");
+			}	
+		}
+		
+
+		
+	   }
+	
+	
+	
+	
 		
    public void TraverseAllProducts() throws InterruptedException		
    {
@@ -739,10 +867,11 @@ public class SpiritZoneHomeOrder {
 			
 		objPojo.getObjUtilities().logReporter("<B>Traversed TO Home Page to Perform Liquor Category Updates </B>",true);	
 		FillHomeOrderForCategoryModules();
-		TraverseAllProducts();
-		TraverseToPrductDescription();
-		TraversingToCartDetails();
-		TraversingToAssertOrderDetails();
+		Filters();
+		//TraverseAllProducts();
+		//TraverseToPrductDescription();
+		//TraversingToCartDetails();
+		//TraversingToAssertOrderDetails();
 		}
 		
 		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigReOrder"))
@@ -755,6 +884,7 @@ public class SpiritZoneHomeOrder {
 		{
 		objPojo.getObjUtilities().logReporter("<B>Traversed TO Home Page to Perform ShowCase Category Updates </B>",true);
 		FillHomeOrderForShowCase();
+		
 		TraverseAllProducts();
 		TraverseToPrductDescription();
 		TraversingToCartDetails();

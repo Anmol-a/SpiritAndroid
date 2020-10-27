@@ -282,6 +282,7 @@ public class SpiritZoneSearch {
 				}
 				
 				
+				
 				HashMap< String, Integer> PopularBrandsHash = new HashMap<String, Integer>();
 				PopularBrandsHash.put("Johnnie Walker", 1);
 				PopularBrandsHash.put("Chivas Regal", 2);

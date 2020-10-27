@@ -46,8 +46,9 @@ public class KeywordHelper extends Pojo {
 	}
 	
 	
-	public String CreateOrder(String stepGroup) throws FilloException, InterruptedException {
-		Recordset recordset = EntityRunner.getEntityObject("DT_CreateOrder", this,stepGroup);
+	public String CreateCategory(String stepGroup) throws FilloException, InterruptedException 
+	{
+		Recordset recordset = EntityRunner.getEntityObject("DT_CreateCategory", this,stepGroup);
 		while (recordset.next()) {
 			if (recordset.getField("Action").equals("add")) {
 				this.setEntityRunner(recordset);

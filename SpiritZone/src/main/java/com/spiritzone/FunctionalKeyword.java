@@ -34,9 +34,13 @@ public class FunctionalKeyword extends KeywordHelper {
 				SearchOrder(stepGroup);
 				break;	
 				
-			case "CreateOrder":
-				CreateOrder(stepGroup);
-				break;	
+			case "CreateCategory":
+				CreateCategory(stepGroup);
+				break;		
+				
+//			case "CreateOrder":
+//				CreateOrder(stepGroup);
+//				break;	
 						
 			case "CreateSupport":
 				Support(stepGroup);

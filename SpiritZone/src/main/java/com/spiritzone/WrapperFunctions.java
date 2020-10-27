@@ -1,9 +1,7 @@
 package com.spiritzone;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
-import java.util.HashMap;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -11,27 +9,21 @@ import org.openqa.selenium.ElementNotInteractableException;
 import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.InvalidElementStateException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.JavascriptExecutor;
-
 
 import com.google.common.base.Function;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.touch.LongPressOptions;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 
@@ -45,7 +37,7 @@ public class WrapperFunctions {
 	private int fluentPooling = 1;
 	
 	
-	
+
 	
 
 	
@@ -546,6 +538,7 @@ public class WrapperFunctions {
 		Double screenHeightEnd = dimensions.getHeight() * 0.1;
 		int scrollEnd = screenHeightEnd.intValue();
 		TouchAction action = new TouchAction(objPojo.getDriver());
+		
 		action.longPress(PointOption.point(0, scrollStart)).moveTo(PointOption.point(0, scrollEnd)).release().perform();
 	}
 	
@@ -613,7 +606,8 @@ public class WrapperFunctions {
 				.moveTo(PointOption.point(200, i)).release().perform();
 	}
 	
-	public void scrollRightForPopularBrand(By locator) {
+	public void scrollRightForPopularBrand(By locator)
+	{
 		try
 		{
 		waitForElementPresence(locator);
@@ -630,7 +624,22 @@ public class WrapperFunctions {
 		}
 	}
 	
-	
+	public void SwipeForCategoryFilter(By locator)
+	{
+		try
+		{
+			waitForElementPresence(locator);
+			TouchAction action = new TouchAction(objPojo.getDriver());
+			MobileElement mobileElement = objPojo.getDriver().findElement(locator);
+			int i = mobileElement.getLocation().getY() + (mobileElement.getSize().getHeight() / 5);
+			int j = mobileElement.getSize().getWidth() - 300;
+			action.press(PointOption.point(j, i)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+					.moveTo(PointOption.point(200, i)).release().perform();
+		}
+		catch (Exception e) {
+			objPojo.setCustomException("Unable to Scroll Right");
+		}
+	}
 	
 
 	public boolean check(By locator, boolean status) {

@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.touch.TouchActions;
+import org.testng.Assert;
 
 import com.spiritzone.EntityRunner;
 import com.spiritzone.Pojo;
@@ -84,8 +85,8 @@ public class SpiritZoneHomeAddress {
 		
 		if(!(TestType.equalsIgnoreCase("Positive-Profie") || (TestType.equalsIgnoreCase("Positive-ProfieEditAddress"))))
 		{
-		objPojo.getObjUtilities().logReporter("Clicked on CurrentLocation",
-				GenericMethod.clickException(CurrentLocation,"Current Location Icon"));
+		objPojo.getObjUtilities().logReporter("Clicked on Home-Page-Address MODULE",
+				GenericMethod.clickException(CurrentLocation,"Home Address Location Icon"));
 		
 		}	
 		
@@ -169,7 +170,23 @@ public class SpiritZoneHomeAddress {
 				GenericMethod.clickException(SaveasOther,"Save As Other Icon in Address"));
 		}
 		
-		if(!(TypeOfAddress.equalsIgnoreCase("None")  && !(TestType.equalsIgnoreCase("Positive-Zoom")) ))
+		if(typeOfHome.equalsIgnoreCase("ChangeAddress"))
+	{
+		objPojo.getObjUtilities().logReporter("Clicked on CHANGE ADDRESS BUTTON",
+				GenericMethod.clickException(ChangeButton,"Change Button"));
+		
+		//Assert if Clicked on Changed
+		GenericMethod.waitForElementToBeClickable(SearchInputAddress);
+		if(objPojo.getDriver().findElements(By.xpath("//android.widget.EditText[@text='Search for area, street name...']")).size()==0)
+		{
+			Assert.assertEquals(true, false,"Failed at Change Address Button");
+		}
+	}
+		
+		else
+		{
+		
+		if(!(TypeOfAddress.equalsIgnoreCase("None")  && !(TestType.equalsIgnoreCase("Positive-Zoom"))))
 		{
 		objPojo.getObjUtilities().logReporter("Clicked on Confirm Location BTN",
 				GenericMethod.clickException(ConfirmLocation,"Confirm Location Button"));
@@ -178,7 +195,7 @@ public class SpiritZoneHomeAddress {
 		}
 	}
 
-
+}
 	public void AssertAddress() throws InterruptedException
 	{
 		String FLATaddress =objPojo.getEntityRunner().getStringValueForField("FLATaddress");
