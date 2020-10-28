@@ -593,6 +593,20 @@ public class WrapperFunctions {
 		action.longPress(PointOption.point(scrollWidth, scrollStart)).moveTo(PointOption.point(scrollWidth, scrollEnd)).release().perform();
 	}
 	
+	public void scrollDownLongProuctList() {
+		Dimension dimensions = objPojo.getDriver().manage().window().getSize();
+		Double screenHeightStart = dimensions.getHeight() * 0.9;
+		int scrollStart = screenHeightStart.intValue();
+		Double screenHeightEnd = dimensions.getHeight() * 0.1;
+		int scrollEnd = screenHeightEnd.intValue();
+		
+		
+		Double ScrollxConstant = dimensions.getWidth() * 0.5;
+		int scrollWidth = ScrollxConstant.intValue();
+		
+		TouchAction action = new TouchAction(objPojo.getDriver());
+		action.longPress(PointOption.point(scrollWidth, scrollStart)).moveTo(PointOption.point(scrollWidth, scrollEnd)).release().perform();
+	}
 	
 
 	@SuppressWarnings("rawtypes")

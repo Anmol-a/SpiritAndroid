@@ -234,27 +234,37 @@ public class SpiritZoneHomeOrder {
 		{
 			for(int x = 0;x<SwipeFiltersList.size();x++)
 			{
-				System.out.println("Outside Loop "+SwipeFiltersList.get(x));
-				if(objPojo.getDriver().findElements(By.xpath("//android.widget.FrameLayout/android.widget.TextView[@text='"+SwipeFiltersList.get(x)+"']")).size()==0)
+	
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.FrameLayout/android.widget.TextView[@text='"+SwipeFiltersList.get(x)+"']")).size()!=0)
 				{
-					Swipe All
-					System.out.println(SwipeFiltersList.get(x));
-					objPojo.getObjWrapperFunctions().SwipeForCategoryFilter(SwipeFilterScroll);
-					Thread.sleep(1000);
-				}
-				else
-				{
+					objPojo.getObjUtilities().logReporter("Clicking and Verifying for "+SwipeFiltersList.get(x),true);
 					objPojo.getObjWrapperFunctions().clickException(By.xpath("//android.widget.FrameLayout/android.widget.TextView[@text='"+SwipeFiltersList.get(x)+"']"), "");	
+			
 				
 					//Assert
 					String str1 = SwipeFiltersList.get(x).toLowerCase();
 					String AllProductsCategory = str1.substring(0, 1).toUpperCase() + str1.substring(1);
-					
 					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+SwipeFiltersList.get(x)+"']")).size()==0 || objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+AllProductsCategory+"']")).size()<4)
 					{
 						Assert.assertEquals(true, false,"Error In Assertion of Swipe Category Filters");
 					}
+				
+				
+				
 				}
+				
+				else
+				{
+					objPojo.getObjWrapperFunctions().SwipeForCategoryFilter(SwipeFilterScroll);
+					x=x-1;
+					Thread.sleep(1000);
+					
+					
+					
+				}
+
+				
+			
 			}
 			
 		}
@@ -270,10 +280,10 @@ public class SpiritZoneHomeOrder {
 
 			
 			
-			
+			//Category Code for Swiping Filters
 			//CATEGORIES
 			//Swipe First
-			if(CategoryType.equalsIgnoreCase("Beer") || CategoryType.equalsIgnoreCase("Rum") || CategoryType.equalsIgnoreCase("Others"))
+			if(CategoryType.equalsIgnoreCase("Beer") || CategoryType.equalsIgnoreCase("RUM") || CategoryType.equalsIgnoreCase("Others"))
 			{
 				//Swipe
 				objPojo.getObjWrapperFunctions().clickException(By.xpath("(//android.widget.TextView[@text='"+CategoryLocator+"'])[1]"), "Category Product");
@@ -301,19 +311,31 @@ public class SpiritZoneHomeOrder {
 			if(FilterButtonAction.equalsIgnoreCase("Apply"))
 			{
 				objPojo.getObjWrapperFunctions().clickException(APPLYButton, "APPLY Button");
+				
+				
+				//ASSERT FILTER For APPLY
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Filter);
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+CategoryLocator+"']")).size()==0)
+				{
+					Assert.assertEquals(false, true,"Failed After Applying Filters");
+				}
 			}
 			else if(FilterButtonAction.equalsIgnoreCase("Discard"))
 			{
 				objPojo.getObjWrapperFunctions().clickException(DISCARButton, "DISCARD Button");
+			
+			
+				//ASSERT FILTER For DISCARD
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Filter);
+				Thread.sleep(1700);
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Rio Strong']")).size()==0)
+				{
+					Assert.assertEquals(false, true,"Failed After Applying Filters");
+				}
+			
 			}
 		
-			//ASSERT FILTER
-			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(Filter);
-			System.out.println(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+CategoryLocator+"']")).size());
-			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+CategoryLocator+"']")).size()==0)
-			{
-				Assert.assertEquals(false, true,"Failed After Applying Filters");
-			}	
+	
 		}
 		
 
@@ -330,7 +352,8 @@ public class SpiritZoneHomeOrder {
 	   			Thread.sleep(3000);
 	   			
 	   			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigShowCaseCategoryType")) {	
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigShowCaseCategoryType")) 
+			{	
 				//Applying Category for ShowCase
 				By ShowCaseWHISKEY;
 				By ShowCaseVODKA;
@@ -359,15 +382,58 @@ public class SpiritZoneHomeOrder {
 				}
 			}
 			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigFilterHigh")) {	
+			//Filter Category
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigHighLow")) {	
+				
+				Thread.sleep(2000);
 				//Applying High Filter 
+				String LowestPriceProductName = objPojo.getDriver().findElement(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]")).getText();
+				String HighestPriceProductName = "";
+				
+				
 				objPojo.getObjUtilities().logReporter("Applied HIGH TO LOW Filter",objPojo.getObjWrapperFunctions().clickException(PriceFilterHigh,"High to Low Filter"));
+				HighestPriceProductName = objPojo.getDriver().findElement(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]")).getText();
+				
+				
+				
+				//Assert if HighestProduct Shown is Similar
+				objPojo.getObjWrapperFunctions().clickException(PriceFilterLow,"Low To High Filter");
+				
+				//Scroll to Last and Get Price for Highest
+				while(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+HighestPriceProductName+"']")).size()==0)
+				{
+					objPojo.getObjWrapperFunctions().scrollDownLongProuctList();
+					if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+HighestPriceProductName+"']")).size()!=0)
+					{
+						break;
+					}
+				}
+
+				//Main Assertion if Product is same
+				if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+HighestPriceProductName+"']//parent::android.view.ViewGroup//following::android.view.ViewGroup/android.widget.TextView[@text='HOME']")).size()==0)
+				{
+				Assert.assertEquals(false, true,"Failed at Filter High Low");	
+				}
+					
+				
+				
+				
+				
+				
+				
+				//Applying Low Filter - Dont Confuse with locator name
+				Thread.sleep(2700);
+				objPojo.getObjWrapperFunctions().clickException(PriceFilterHigh,"Low To High Filter");
+				
+				//assert-Low Filter
+				if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+LowestPriceProductName+"']")).size()==0)
+				{
+					Assert.assertEquals(false, true,"Failed at Filter Low High");		
+				}
+				
+			
 			}
 			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigFilterLow")) {	
-				//Applying High Filter 
-				objPojo.getObjWrapperFunctions().clickException(PriceFilterLow,"Low To High Filter");
-			}
 			
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigFirstProduct")) {	
 				//Applying High Filter 
@@ -378,7 +444,45 @@ public class SpiritZoneHomeOrder {
 				//Applying High Filter 
 				objPojo.getObjUtilities().logReporter("Click on Second Product",objPojo.getObjWrapperFunctions().clickException(SecondProduct,"Second Product"));
 			}		
-	}
+	
+			//Last Product
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLastProduct")) 
+			{	
+			Thread.sleep(2000);
+			String LastProductName = objPojo.getEntityRunner().getStringValueForField("LastProductName");
+			
+			//Scroll to Last and Get Price for Highest
+			while(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+LastProductName+"']")).size()==0)
+			{
+				objPojo.getObjWrapperFunctions().scrollDownLongProuctList();
+				if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+LastProductName+"']")).size()!=0)
+				{
+					break;
+				}
+			}
+				
+		//ASSERT
+		if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+LastProductName+"']")).size()==0)
+		{
+			Assert.assertEquals(false, true,"Failed at Traversing Last Page");	
+		}
+				
+			
+			
+			
+			
+			
+		
+			}	
+   
+   
+   
+   
+   
+   
+   
+   
+   }
    
    
    
@@ -868,7 +972,7 @@ public class SpiritZoneHomeOrder {
 		objPojo.getObjUtilities().logReporter("<B>Traversed TO Home Page to Perform Liquor Category Updates </B>",true);	
 		FillHomeOrderForCategoryModules();
 		Filters();
-		//TraverseAllProducts();
+		TraverseAllProducts();
 		//TraverseToPrductDescription();
 		//TraversingToCartDetails();
 		//TraversingToAssertOrderDetails();
