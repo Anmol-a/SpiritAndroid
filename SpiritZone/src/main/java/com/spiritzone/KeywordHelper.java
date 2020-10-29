@@ -3,10 +3,12 @@ package com.spiritzone;
 
 import com.Pages.SpiritZoneLoginPage;
 import com.Pages.SpiritZoneSearch;
+import com.Pages.SpiritProductDescription;
 import com.Pages.SpiritSupport;
 import com.Pages.SpiritZoneHomeAddress;
 import com.Pages.SpiritZoneHomeOrder;
 import com.Pages.SpiritZoneMyProfile;
+import com.Pages.SpiritProductCartPage;
 import com.codoid.products.exception.FilloException;
 import com.codoid.products.fillo.Recordset;
 import com.spiritzone.EntityRunner;
@@ -60,6 +62,44 @@ public class KeywordHelper extends Pojo {
 		}
 		return recordset.getField("Action").toString();
 	}
+	
+	
+	
+	public String ProductDescription(String stepGroup) throws FilloException , Exception{
+		Recordset recordset = EntityRunner.getEntityObject("DT_ProductDescription", this,stepGroup);
+		while (recordset.next()) {
+			if (recordset.getField("Action").equals("add")) {
+				this.setEntityRunner(recordset);
+				SpiritProductDescription obj = new SpiritProductDescription(this);
+				obj.productDescription();
+				this.setEntityRunner(recordset);
+			}
+
+		}
+		return recordset.getField("Action").toString();
+	}
+	
+	
+	public String SpiritProductCartPage(String stepGroup) throws FilloException , Exception{
+		Recordset recordset = EntityRunner.getEntityObject("DT_CartPage", this,stepGroup);
+		while (recordset.next()) {
+			if (recordset.getField("Action").equals("add")) {
+				this.setEntityRunner(recordset);
+				SpiritProductCartPage obj = new SpiritProductCartPage(this);
+				obj.fillCartOrder();
+				this.setEntityRunner(recordset);
+			}
+
+		}
+		return recordset.getField("Action").toString();
+	}	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public String SearchOrder(String stepGroup) throws FilloException , Exception{

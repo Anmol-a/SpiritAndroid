@@ -38,10 +38,16 @@ public class FunctionalKeyword extends KeywordHelper {
 				CreateCategory(stepGroup);
 				break;		
 				
-//			case "CreateOrder":
-//				CreateOrder(stepGroup);
-//				break;	
+			case "CreateCategoryProductDescription":
+				ProductDescription(stepGroup);
+				break;	
 						
+				
+			case "CreateCategoryProductCartOrder":
+				SpiritProductCartPage(stepGroup);
+				break;	
+			
+			
 			case "CreateSupport":
 				Support(stepGroup);
 				break;	

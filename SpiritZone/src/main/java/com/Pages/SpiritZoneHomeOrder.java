@@ -214,7 +214,7 @@ public class SpiritZoneHomeOrder {
 	   {
 		
 		 String CategoryType = objPojo.getEntityRunner().getStringValueForField("CategoryType");
-		 String FilterButtonAction = objPojo.getEntityRunner().getStringValueForField("Button-Action");
+		 String FilterButtonAction = objPojo.getEntityRunner().getStringValueForField("FilterButton-Action");
 		 
 		//ArrayList SubCategories
 		String SubCategory = objPojo.getEntityRunner().getStringValueForField("Sub-Category");
@@ -277,15 +277,15 @@ public class SpiritZoneHomeOrder {
 		{	
 			Thread.sleep(1700);
 			objPojo.getObjWrapperFunctions().clickException(Filter, "Filter Button");
-
-			
-			
-			//Category Code for Swiping Filters
+			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("//android.widget.TextView[@text='Category']"));
+	
 			//CATEGORIES
 			//Swipe First
 			if(CategoryType.equalsIgnoreCase("Beer") || CategoryType.equalsIgnoreCase("RUM") || CategoryType.equalsIgnoreCase("Others"))
 			{
 				//Swipe
+				Thread.sleep(700);
+				objPojo.getObjWrapperFunctions().SwipeForCategoryFilter(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[1]"));
 				objPojo.getObjWrapperFunctions().clickException(By.xpath("(//android.widget.TextView[@text='"+CategoryLocator+"'])[1]"), "Category Product");
 			}
 			
@@ -383,7 +383,8 @@ public class SpiritZoneHomeOrder {
 			}
 			
 			//Filter Category
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigHighLow")) {	
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigHighLow")) 
+			{	
 				
 				Thread.sleep(2000);
 				//Applying High Filter 
@@ -435,15 +436,41 @@ public class SpiritZoneHomeOrder {
 			}
 			
 			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigFirstProduct")) {	
-				//Applying High Filter 
-				objPojo.getObjUtilities().logReporter("Click on First Product",objPojo.getObjWrapperFunctions().clickException(FirstProduct,"First Product"));
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigCartTraverse")) {	
+				
+				
+				String CustomProductName = objPojo.getEntityRunner().getStringValueForField("CartTraverseProductName");
+				
+				
+				//Scroll to Last and Get Price for Highest
+				if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+CustomProductName+"']")).size()!=0)
+				{
+					Thread.sleep(1000);
+					objPojo.getObjWrapperFunctions().click(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+CustomProductName+"']"));
+
+				}
+				
+				else {
+				while(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+CustomProductName+"']")).size()==0)
+				{
+					objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+					if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+CustomProductName+"']")).size()!=0)
+					{
+						Thread.sleep(1000);
+						objPojo.getObjWrapperFunctions().click(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+CustomProductName+"']"));
+						break;
+					}
+				}
+			}	
+				
+				
+				
+				
+				
+				
 			}
 			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigSecondProduct")) {	
-				//Applying High Filter 
-				objPojo.getObjUtilities().logReporter("Click on Second Product",objPojo.getObjWrapperFunctions().clickException(SecondProduct,"Second Product"));
-			}		
+		
 	
 			//Last Product
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLastProduct")) 
@@ -467,73 +494,10 @@ public class SpiritZoneHomeOrder {
 			Assert.assertEquals(false, true,"Failed at Traversing Last Page");	
 		}
 				
-			
-			
-			
-			
-			
-		
-			}	
-   
-   
-   
-   
-   
-   
-   
-   
+		}	
    }
    
-   
-   
-	//TO PRODUCT DESCRIPTION
-	public void TraverseToPrductDescription() throws InterruptedException
-	{
-			//Wait for 2 seconds
-			Thread.sleep(2000);
-			String Price = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[5]")).getText();
-			objPojo.getObjUtilities().logReporter("Price of The Product is "+Price,true);
 
-			//ProductName
-			String ProductName = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[1]")).getText();
-			objPojo.getObjUtilities().logReporter("Name of The Product is "+ProductName,true);
-	
-			//Scroll-Down
-			Thread.sleep(3500);
-			String Availibility = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[6]")).getText();
-			objPojo.getObjUtilities().logReporter("Availability status : "+Availibility,true);
-			objPojo.getObjWrapperFunctions().scrollDown();	
-			//String Availibility = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='CURRENTLY UNAVAILABLE']")).getText();
-			
-			if(Availibility.equalsIgnoreCase("CURRENTLY UNAVAILABLE"))
-			{	
-				
-				Reporter.log("<B>--------------------------------------------------------------</B>",true);
-				Reporter.log("<B> Passed!!! and Clicked On NotiyMe Button as Product is Out Of Stock! </B>",true);
-				Reporter.log("<B>--------------------------------------------------------------</B>",true);
-				
-				
-				objPojo.getDriver().close();
-			}
-		
-			else
-			{
-				//Traverse to Cart
-				String traverse = objPojo.getEntityRunner().getStringValueForField("TravserseCart");
-				if(traverse.equalsIgnoreCase("Yes"))
-				{
-					//Adding to cart button
-					objPojo.getObjUtilities().logReporter("Clicked on Add to cart",
-							objPojo.getObjWrapperFunctions().clickException(AddtoCart,"Add To Cart Button"));
-					
-					objPojo.getObjUtilities().logReporter("Traversed TO CART",
-							objPojo.getObjWrapperFunctions().clickException(CartTravserse ,"CART ICON"));
-					
-				//Wait for 2 sec
-				Thread.sleep(2000);				
-			}	
-		}		
-	}
 	
 	
 	//TRAVERSE TO CART
@@ -650,7 +614,8 @@ public class SpiritZoneHomeOrder {
 		Thread.sleep(5000);
 	}
 	
-	public void TraversingToAssertOrderDetails() throws InterruptedException {
+	public void TraversingToAssertOrderDetails() throws InterruptedException 
+	{
 	
 		//Travsering and Asserting
 		Thread.sleep(2500);	
@@ -973,9 +938,6 @@ public class SpiritZoneHomeOrder {
 		FillHomeOrderForCategoryModules();
 		Filters();
 		TraverseAllProducts();
-		//TraverseToPrductDescription();
-		//TraversingToCartDetails();
-		//TraversingToAssertOrderDetails();
 		}
 		
 		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigReOrder"))
@@ -990,7 +952,6 @@ public class SpiritZoneHomeOrder {
 		FillHomeOrderForShowCase();
 		
 		TraverseAllProducts();
-		TraverseToPrductDescription();
 		TraversingToCartDetails();
 		TraversingToAssertOrderDetails();
 		}
@@ -1006,7 +967,6 @@ public class SpiritZoneHomeOrder {
 		{
 			FillHomeOrderForPopularBrand();
 			TraverseAllProducts();
-			TraverseToPrductDescription();
 			TraversingToCartDetails();
 			TraversingToAssertOrderDetails();
 		}
