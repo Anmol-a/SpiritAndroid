@@ -8,6 +8,7 @@ import com.Pages.SpiritSupport;
 import com.Pages.SpiritZoneHomeAddress;
 import com.Pages.SpiritZoneHomeOrder;
 import com.Pages.SpiritZoneMyProfile;
+import com.Pages.SpiritExclusiveReserve;
 import com.Pages.SpiritProductCartPage;
 import com.codoid.products.exception.FilloException;
 import com.codoid.products.fillo.Recordset;
@@ -56,6 +57,21 @@ public class KeywordHelper extends Pojo {
 				this.setEntityRunner(recordset);
 				SpiritZoneHomeOrder login1 = new SpiritZoneHomeOrder(this);
 				login1.fillAndSubmitHomeOrder();
+				this.setEntityRunner(recordset);
+			}
+
+		}
+		return recordset.getField("Action").toString();
+	}
+	
+	public String CreateExclusiveReserve(String stepGroup) throws FilloException, InterruptedException 
+	{
+		Recordset recordset = EntityRunner.getEntityObject("DT_CreateExclusiveReserve", this,stepGroup);
+		while (recordset.next()) {
+			if (recordset.getField("Action").equals("add")) {
+				this.setEntityRunner(recordset);
+				SpiritExclusiveReserve login1 = new SpiritExclusiveReserve(this);
+				login1.fillAndSubmitExclusiveReserve();
 				this.setEntityRunner(recordset);
 			}
 

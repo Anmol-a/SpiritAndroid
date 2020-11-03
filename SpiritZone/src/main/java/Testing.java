@@ -1,37 +1,6 @@
-import java.text.SimpleDateFormat;
-import java.io.*;
-import java.nio.file.*;
-import java.security.spec.KeySpec;
-import java.util.Date;
-import java.util.Properties;
-import java.util.zip.*;
+import java.util.ArrayList;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESedeKeySpec;
-import javax.mail.Authenticator;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-
-import org.apache.commons.codec.binary.Base64;
-
-import com.TestSpiritZone.TestLauncher;
-import com.spiritzone.ConfigReader;
-import com.spiritzone.PropertyConfigs;
 import com.spiritzone.StorePassWord;
-import com.spiritzone.ZipUtils;
 
 public class Testing {
 	StorePassWord storedPassword;
@@ -44,6 +13,30 @@ public class Testing {
 		String cap = str.substring(0, 1).toUpperCase() + str.substring(1);
 		
 		System.out.println(cap);
+		ArrayList<String> abc=new ArrayList<String>();  
+		abc.add("750 ml");
+		abc.add("180 ml");
+		abc.add("1 Litre");
+		abc.add("90 ml");
+		abc.add("200 ml");
+		abc.add("50 ml");
+		abc.add("60 ml");
+		abc.add("700 ml");
+		abc.add("2 Litre");
+		abc.add("330 ml");
+		abc.add("275 ml");
+		abc.add("500 ml");
+		abc.add("650 ml");
+		abc.add("3 Litre");
+		abc.add("330 ml-Can");
+		abc.add("330 ml-Pint");
+		abc.add("capa");
+		abc.add("250 ml");
+		abc.add("70 ml");
+
+		
+		
+		
 		
 		
 	}

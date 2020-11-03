@@ -36,7 +36,13 @@ public class FunctionalKeyword extends KeywordHelper {
 				
 			case "CreateCategory":
 				CreateCategory(stepGroup);
-				break;		
+				break;	
+				
+				
+			case "CreateExclusiveReserve":
+				CreateExclusiveReserve(stepGroup);
+				break;	
+				
 				
 			case "CreateCategoryProductDescription":
 				ProductDescription(stepGroup);

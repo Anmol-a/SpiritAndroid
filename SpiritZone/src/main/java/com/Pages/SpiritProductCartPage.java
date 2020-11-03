@@ -78,12 +78,13 @@ public class SpiritProductCartPage {
 				Assert.assertEquals(true, false,"Failed to Traverse CART properly");
 			}
 			
-			
+			if(!CustomProductName.equalsIgnoreCase("N/A"))
+			{
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+CustomProductName+"']")).size()==0)			
 			{
 				Assert.assertEquals(true, false,"Product Not Matching at Cart ");
 			}
-			
+			}
 			
 			
 			if(objPojo.getEntityRunner().getBooleanValueForField("ConfigPerformAction"))
