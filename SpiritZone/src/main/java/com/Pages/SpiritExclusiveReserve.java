@@ -127,6 +127,8 @@ public class SpiritExclusiveReserve {
 			
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigReserveViewAll")) 
 			{
+				
+				System.out.println();
 				//Clicking on View All
 				objPojo.getObjUtilities().logReporter("Clicked On ViewAll For Reserve",
 						objPojo.getObjWrapperFunctions().clickException(ViewAll,"View All on Reserve"));

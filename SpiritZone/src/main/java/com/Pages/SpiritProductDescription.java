@@ -46,7 +46,7 @@ public class SpiritProductDescription {
 			//TO PRODUCT DESCRIPTION
 			public void TraverseToPrductDescription() throws InterruptedException
 			{
-					
+					System.out.println();
 					//Wait for 3 seconds
 					Thread.sleep(4000);
 					String Price = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[5]")).getText();

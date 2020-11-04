@@ -67,7 +67,7 @@ public class SpiritProductCartPage {
 		
 		//TRAVERSE TO CART
 		public void TraversingToCartDetails() throws InterruptedException {
-			
+			System.out.println();
 			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("(//android.widget.TextView[@text='CART'])[1]"));
 			String CustomProductName = objPojo.getEntityRunner().getStringValueForField("CartTraverseProductName");
 			
