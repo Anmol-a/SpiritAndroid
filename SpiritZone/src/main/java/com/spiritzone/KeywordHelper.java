@@ -8,6 +8,7 @@ import com.Pages.SpiritSupport;
 import com.Pages.SpiritZoneHomeAddress;
 import com.Pages.SpiritZoneHomeOrder;
 import com.Pages.SpiritZoneMyProfile;
+import com.Pages.SpiritZonePopularBrands;
 import com.Pages.SpiritExclusiveReserve;
 import com.Pages.SpiritProductCartPage;
 import com.codoid.products.exception.FilloException;
@@ -72,6 +73,21 @@ public class KeywordHelper extends Pojo {
 				this.setEntityRunner(recordset);
 				SpiritExclusiveReserve login1 = new SpiritExclusiveReserve(this);
 				login1.fillAndSubmitExclusiveReserve();
+				this.setEntityRunner(recordset);
+			}
+
+		}
+		return recordset.getField("Action").toString();
+	}
+	
+	public String CreatePopularBrands(String stepGroup) throws FilloException, InterruptedException 
+	{
+		Recordset recordset = EntityRunner.getEntityObject("DT_PopularBrands", this,stepGroup);
+		while (recordset.next()) {
+			if (recordset.getField("Action").equals("add")) {
+				this.setEntityRunner(recordset);
+				SpiritZonePopularBrands obj = new SpiritZonePopularBrands(this);
+				obj.fillAndSubmitPopularBrands();
 				this.setEntityRunner(recordset);
 			}
 

@@ -57,7 +57,6 @@ public class SpiritProductDescription {
 					objPojo.getObjUtilities().logReporter("Name of The Product is "+ProductName,true);
 			
 					//Scroll-Down
-					Thread.sleep(3500);
 					String Availibility = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[6]")).getText();
 					objPojo.getObjUtilities().logReporter("Availability status : "+Availibility,true);
 					objPojo.getObjWrapperFunctions().scrollDown();	
@@ -128,7 +127,7 @@ public class SpiritProductDescription {
 						
 					}
 					
-					if(objPojo.getEntityRunner().getBooleanValueForField("ConfigMakeARequest"))
+					else if(objPojo.getEntityRunner().getBooleanValueForField("ConfigMakeARequest"))
 					{
 						if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='MAKE A REQUEST']")).size() > 0)
 						{

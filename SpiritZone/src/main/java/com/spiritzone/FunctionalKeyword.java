@@ -44,6 +44,11 @@ public class FunctionalKeyword extends KeywordHelper {
 				break;	
 				
 				
+			case "CreatePopularBrands":
+				CreatePopularBrands(stepGroup);
+				break;
+				
+				
 			case "CreateCategoryProductDescription":
 				ProductDescription(stepGroup);
 				break;	

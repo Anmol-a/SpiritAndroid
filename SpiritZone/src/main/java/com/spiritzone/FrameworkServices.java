@@ -58,6 +58,7 @@ public class FrameworkServices {
 		cap.setCapability("os_version", "9.0");
 		cap.setCapability("browserstack.local", browserstackLocal);
 		cap.setCapability("browserstack.localIdentifier", browserstackLocalIdentifier);
+		cap.setCapability("–session-override", true);
 		}
 		
 		else if (BrowserStackDevice.equalsIgnoreCase("No"))
@@ -70,9 +71,11 @@ public class FrameworkServices {
 		}
 		
 		cap.setCapability("gpsEnabled", true);
-		cap.setCapability("newCommandTimeout", 320);
+		cap.setCapability("newCommandTimeout", 150);
 		cap.setCapability("appPackage", "com.boxwishlabs.spiritzone");
 		cap.setCapability("noReset", false);
+		cap.setCapability("–session-override", true);
+		cap.setCapability("testdroid_testTimeout", 1200);
 
 
 
