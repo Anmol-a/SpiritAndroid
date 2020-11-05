@@ -17,30 +17,27 @@ public class SpiritZonePopularBrands {
 	EntityRunner EntityRunner;
 	 ArrayList<String> SubCategoriesTypeList;
 	 
-	 
+	 By BrandName;
+	 By Bacardi;
+	 By OldMonk;
 	 By Vodka;
 	 
 		public SpiritZonePopularBrands(Pojo objPojo) {
 			this.objPojo = objPojo;
 			EntityRunner = objPojo.getEntityRunner();
 			
-			
+			BrandName = By.xpath("(//android.widget.TextView[@text='Popular Brands']//ancestor::android.view.ViewGroup)[9]/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]");
+			OldMonk = By.xpath("(//android.widget.TextView[@text='Popular Brands']//ancestor::android.view.ViewGroup)[9]/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]");
+			Bacardi = By.xpath("(//android.widget.TextView[@text='Popular Brands']//ancestor::android.view.ViewGroup)[9]/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[3]");
 			Vodka = By.xpath("//android.widget.TextView[@text='VODKA']");
 			
 		}
 
 		
 		
-		public void FillHomeOrderForPopularBrand() throws InterruptedException
+		public void FillBacardiorOldMonk() throws InterruptedException
 		{
 			
-			//Wait for any Operation Till Page is Loaded
-			objPojo.getObjWrapperFunctions().waitForElementPresence(Vodka);
-			//Scrolling to 
-			for(int x=0 ;x<3;x++)
-			{
-			objPojo.getObjWrapperFunctions().scrollDown();
-			}
 			
 			Thread.sleep(2800);
 			HashMap< String, Integer> PopularBrandsHash = new HashMap<String, Integer>();
@@ -80,14 +77,6 @@ public class SpiritZonePopularBrands {
 					}
 				}
 			}
-			
-			//Clicking on our Brand
-			By BrandName;
-			By Bacardi;
-			//BrandName = By.xpath("(//android.widget.ImageView)[4]");
-			//for Bigger SmartPhones
-			BrandName = By.xpath("(//android.widget.TextView[@text='Popular Brands']//ancestor::android.view.ViewGroup)[9]/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]");
-			Bacardi = By.xpath("(//android.widget.TextView[@text='Popular Brands']//ancestor::android.view.ViewGroup)[9]/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[3]");
 			
 			
 			Thread.sleep(2500);
@@ -134,14 +123,116 @@ public class SpiritZonePopularBrands {
 			
 			}		
 			
+		public void SamplePopularBrands() throws InterruptedException
+		{
+			
+			//Wait for any Operation Till Page is Loaded
+			objPojo.getObjWrapperFunctions().waitForElementPresence(Vodka);
+			Thread.sleep(2800);
+			//Scrolling to 
+			for(int x=0 ;x<2;x++)
+			{
+			objPojo.getObjWrapperFunctions().scrollDown();
+			}
+			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("//android.widget.TextView[@text='Popular Brands']"));
+			
+			By ScrollingLiquorContainer;
+			ScrollingLiquorContainer = By.xpath("((//androidx.recyclerview.widget.RecyclerView)[3]//android.view.ViewGroup[@clickable='true'])[2]");
+
+		
+			String PopularBrandName = objPojo.getEntityRunner().getStringValueForField("BrandName").toUpperCase();	
+			String PopularBrandProductName = objPojo.getEntityRunner().getStringValueForField("ProductName");	
+
+			
+			
+			if(PopularBrandName.equalsIgnoreCase("Old Monk") || PopularBrandName.equalsIgnoreCase("Bacardi") || PopularBrandName.equalsIgnoreCase("Tuborg"))
+			{
+				for(int x= 1; x<=14;x++)
+				{	
+					
+					objPojo.getObjWrapperFunctions().scrollRightForPopularBrand(ScrollingLiquorContainer);	
+					Thread.sleep(1500);
+				}
+				
+				
+				
+				if(PopularBrandName.equalsIgnoreCase("Old Monk"))
+				{
+					objPojo.getObjWrapperFunctions().click(OldMonk);
+				}
+				
+				if(PopularBrandName.equalsIgnoreCase("Bacardi"))
+				{
+					objPojo.getObjWrapperFunctions().click(Bacardi);
+				}
+				
+				if(PopularBrandName.equalsIgnoreCase("Tuborg"))
+				{
+					objPojo.getObjWrapperFunctions().click(BrandName);
+				}
+			}
+			
+
+			
+			else 
+			{
+				//Remove this scroll on Production App
+				for(int x = 0 ; x<2;x++)
+				{
+					objPojo.getObjWrapperFunctions().scrollRightForPopularBrand(ScrollingLiquorContainer);	
+				}
+				
+				
+			 while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+PopularBrandName+"']")).size()==0)
+			{
+				objPojo.getObjWrapperFunctions().click(BrandName);
+				Thread.sleep(2000);
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+PopularBrandName+"']")).size()!=0)
+				{
+					break;
+				}
+				//Click Back and Scroll
+				objPojo.getDriver().findElement(By.xpath("(//android.widget.ImageView)[1]")).click();
+				objPojo.getObjWrapperFunctions().scrollRightForPopularBrandSample(ScrollingLiquorContainer);
+			}
+		}
+			
+			//Click On Specified Product    
+			Thread.sleep(2700);
+			
+			if(PopularBrandName.equalsIgnoreCase("Jack Daniels"))
+			{
+			objPojo.getObjWrapperFunctions().click(By.xpath("(//android.widget.TextView[@text='Whiskey']/following-sibling::android.widget.TextView)[3]"));	
+			}
+			
+			else 
+			{
+			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+PopularBrandProductName+"']")).size()==0)
+			{
+				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+			}
+			
+			objPojo.getObjWrapperFunctions().clickException(By.xpath("//android.widget.TextView[@text='"+PopularBrandProductName+"']"), "Clicked on Product As: "+PopularBrandProductName+"For BrandName as : "+PopularBrandName);
+		
+			
+			}	
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
 		public void fillAndSubmitPopularBrands() throws InterruptedException {
-			
 			Reporter.log("Traversed to Popular Brands ",true);
-			Thread.sleep(4000);
-			FillHomeOrderForPopularBrand();
+			Thread.sleep(3000);
+			
+			SamplePopularBrands();
+
 		}
 		
 		

@@ -31,6 +31,8 @@ public class SpiritProductCartPage {
 	 By PayonDelivery;
 	 By COD;
 	 By OnlineOnDelivery;
+	 By CARTBottom;
+	 By ExploreMyBar;
 	 
 	 
 	 
@@ -59,9 +61,8 @@ public class SpiritProductCartPage {
 			SubmitBTN = By.xpath("//android.widget.Button[@text='SUBMIT']");
 			OrderStatusBtn = By.xpath("//android.widget.Button[@text='ORDER DETAILS']");
 			
-
-		
-			
+			ExploreMyBar = By.xpath("//android.widget.Button[@text='EXPLORE MY BAR']");
+			CARTBottom = By.xpath("(//android.widget.TextView[@text='CART'])[2]");			
 		}
 		
 		
@@ -204,6 +205,27 @@ public class SpiritProductCartPage {
 			
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CURRENTLY UNAVAILABLE']")).size()==0)
 				{
+				//Explore My Bar
+				
+				if(objPojo.getEntityRunner().getBooleanValueForField("ConfigExploreMyBar"))
+				{
+					objPojo.getObjWrapperFunctions().click(CartTravserse);
+					objPojo.getObjWrapperFunctions().clickException(ExploreMyBar,"Explore My BAR Button");
+					
+					Thread.sleep(1700);
+					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='VODKA']")).size()==0)
+					{
+					Assert.assertEquals(true,false,"Failed To Click on Explore BAR");
+					}
+				}
+				
+				
+				
+				
+				
+				
+				
+				
 				TraversingToCartDetails();
 				}
 		}

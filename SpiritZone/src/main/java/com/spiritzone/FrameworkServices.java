@@ -33,7 +33,7 @@ public class FrameworkServices {
 		String browserstackLocal = System.getenv("BROWSERSTACK_LOCAL");
 		String browserstackLocalIdentifier = System.getenv("BROWSERSTACK_LOCAL_IDENTIFIER");
 		
-		String apkpath=System.getProperty("user.dir")+"/Application-APK/SpiritZoneAlpha1.5.40.apk";
+		String apkpath=System.getProperty("user.dir")+"/Application-APK/SpiritZoneAlpha1.5.44.apk";
 		File app=new File(apkpath);
 		System.out.println("CAPABILITIES  ------------");
 		DesiredCapabilities cap = new DesiredCapabilities();
@@ -71,7 +71,7 @@ public class FrameworkServices {
 		}
 		
 		cap.setCapability("gpsEnabled", true);
-		cap.setCapability("newCommandTimeout", 150);
+		//cap.setCapability("newCommandTimeout", 150);
 		cap.setCapability("appPackage", "com.boxwishlabs.spiritzone");
 		cap.setCapability("noReset", false);
 		cap.setCapability("–session-override", true);

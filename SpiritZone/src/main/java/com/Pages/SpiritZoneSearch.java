@@ -378,11 +378,6 @@ public class SpiritZoneSearch {
 				
 			}
 			
-//			else
-//			{
-			
-			
-			
 			
 		//waiting for 2 seconds		
 		Thread.sleep(2700);
@@ -476,9 +471,7 @@ public class SpiritZoneSearch {
 			
 			
 				Thread.sleep(2000);		
-		}		
-	//}
-	
+		}			
 }	
 	public void TraversingToCartDetails() throws InterruptedException 
 	{

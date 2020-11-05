@@ -641,6 +641,27 @@ public class WrapperFunctions {
 		}
 	}
 	
+	public void scrollRightForPopularBrandSample(By locator)
+	{
+		try
+		{
+		waitForElementPresence(locator);
+		Thread.sleep(1000);
+		@SuppressWarnings("rawtypes")
+		TouchAction action = new TouchAction(objPojo.getDriver());
+		MobileElement mobileElement = objPojo.getDriver().findElement(locator);
+		int i = mobileElement.getLocation().getY() + (mobileElement.getSize().getHeight() / 2);
+		int j = mobileElement.getSize().getWidth() + 80;
+		
+		action.press(PointOption.point(j, i)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+				.moveTo(PointOption.point(200, i)).release().perform();
+		}
+		catch (Exception e) 
+		{
+			objPojo.setCustomException("Unable to Scroll Right");
+		}
+	}
+	
 	public void SwipeForCategoryFilter(By locator)
 	{
 		try
