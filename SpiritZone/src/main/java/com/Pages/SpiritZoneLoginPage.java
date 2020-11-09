@@ -28,6 +28,7 @@ public class SpiritZoneLoginPage {
 	By logInBtn;
 	By AllowPopup;
 	By AllownewVersionPopUp;
+	By NewAllownewVersionPopUp;
 	By SkipBTN;
 	By ForgetPasswd;
 	By ForgetPasswdInput;
@@ -78,6 +79,7 @@ public class SpiritZoneLoginPage {
 		passwd = By.xpath("(//android.widget.EditText[@class='android.widget.EditText'])[2]");
 		AllowPopup = By.xpath("//android.widget.Button[@resource-id='com.android.packageinstaller:id/permission_allow_button']");
 		AllownewVersionPopUp = By.xpath("//android.widget.Button[@resource-id='com.android.permissioncontroller:id/permission_allow_foreground_only_button']");
+		NewAllownewVersionPopUp = By.xpath("");
 		logInBtn = By.xpath("//android.widget.Button");
 		SkipBTN = By.xpath("(//*[@class='android.widget.TextView'])[1]");
 		ForgetPasswd = By.xpath("//android.widget.TextView[@text='Forgot your password?']");
@@ -137,6 +139,11 @@ public class SpiritZoneLoginPage {
 		{
 
 		GenericMethods.click(AllownewVersionPopUp);
+		}
+		else if(objPojo.getDriver().findElements(By.xpath("//android.widget.Button[@text='ALLOW ONLY WHILE USING THE APP']")).size()!=0)
+		{
+
+		GenericMethods.click(NewAllownewVersionPopUp);
 		}
 		
 		//Skip 

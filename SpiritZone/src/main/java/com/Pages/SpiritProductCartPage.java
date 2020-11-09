@@ -33,7 +33,8 @@ public class SpiritProductCartPage {
 	 By OnlineOnDelivery;
 	 By CARTBottom;
 	 By ExploreMyBar;
-	 
+	 By CrossBtn;
+	 By MinusBtn;
 	 
 	 
 		public SpiritProductCartPage(Pojo objPojo) {
@@ -63,11 +64,15 @@ public class SpiritProductCartPage {
 			
 			ExploreMyBar = By.xpath("//android.widget.Button[@text='EXPLORE MY BAR']");
 			CARTBottom = By.xpath("(//android.widget.TextView[@text='CART'])[2]");			
+			
+			CrossBtn = By.xpath("(//android.widget.TextView[starts-with(@text,'₹ ')]//parent::android.view.ViewGroup[1]//parent::android.view.ViewGroup[1]//parent::android.view.ViewGroup//following-sibling::android.widget.ImageView)[3]");
+			MinusBtn = By.xpath("((//android.widget.TextView[starts-with(@text,'₹ ')]//preceding::android.view.ViewGroup)[13]/android.widget.FrameLayout/android.widget.ImageView)[1]");
 		}
 		
 		
 		//TRAVERSE TO CART
-		public void TraversingToCartDetails() throws InterruptedException {
+		public void TraversingToCartDetails() throws InterruptedException
+		{
 			System.out.println();
 			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("(//android.widget.TextView[@text='CART'])[1]"));
 			String CustomProductName = objPojo.getEntityRunner().getStringValueForField("CartTraverseProductName");
@@ -165,7 +170,8 @@ public class SpiritProductCartPage {
 			}
 			
 			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigPayOnDelivery")) {
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigPayOnDelivery"))
+			{
 				objPojo.getObjUtilities().logReporter("Click on Pay On Delivery ",
 				objPojo.getObjWrapperFunctions().clickException(PayonDelivery,"Pay On Delivery Button"));
 				
@@ -206,6 +212,18 @@ public class SpiritProductCartPage {
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CURRENTLY UNAVAILABLE']")).size()==0)
 				{
 				//Explore My Bar
+				if(objPojo.getEntityRunner().getBooleanValueForField("ConfigSubtract"))
+				{
+					
+					String ProductCount = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'₹ ')]//preceding::android.view.ViewGroup)[13]/android.widget.TextView")).getText();
+					for(int i =0;i<Integer.parseInt(ProductCount);i++)
+					{
+						objPojo.getObjWrapperFunctions().clickException(MinusBtn,"Minus Button");
+					}	
+				}
+				
+				
+				
 				
 				if(objPojo.getEntityRunner().getBooleanValueForField("ConfigExploreMyBar"))
 				{

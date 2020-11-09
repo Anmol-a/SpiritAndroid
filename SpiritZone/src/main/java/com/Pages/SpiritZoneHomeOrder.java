@@ -931,7 +931,7 @@ public class SpiritZoneHomeOrder {
 		{
 			
 		objPojo.getObjUtilities().logReporter("<B>Traversed TO Home Page to Perform Liquor Category Updates </B>",true);	
-
+		FillHomeOrderForCategoryModules();
 		Filters();
 		TraverseAllProducts();
 		}
