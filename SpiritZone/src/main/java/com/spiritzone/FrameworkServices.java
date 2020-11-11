@@ -71,7 +71,7 @@ public class FrameworkServices {
 		}
 		
 		cap.setCapability("gpsEnabled", true);
-		//cap.setCapability("newCommandTimeout", 150);
+		cap.setCapability("newCommandTimeout", 150);
 		cap.setCapability("appPackage", "com.boxwishlabs.spiritzone");
 		cap.setCapability("noReset", false);
 		cap.setCapability("–session-override", true);

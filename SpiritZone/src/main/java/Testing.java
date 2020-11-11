@@ -108,9 +108,9 @@ public class Testing {
 		String a = "Anmol";
 		char[] y = a.toCharArray();
 		
-		for(int x = y.length-1;x>=0;x--)
+		for(int x =0;x<y.length;x++)
 		{
-		System.out.print(y[x]);	
+		System.out.println(y[x]);
 		}
 		
 		

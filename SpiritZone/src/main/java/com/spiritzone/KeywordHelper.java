@@ -56,8 +56,8 @@ public class KeywordHelper extends Pojo {
 		while (recordset.next()) {
 			if (recordset.getField("Action").equals("add")) {
 				this.setEntityRunner(recordset);
-				SpiritZoneHomeOrder login1 = new SpiritZoneHomeOrder(this);
-				login1.fillAndSubmitHomeOrder();
+				SpiritZoneHomeOrder obj = new SpiritZoneHomeOrder(this);
+				obj.fillAndSubmitHomeOrder();
 				this.setEntityRunner(recordset);
 			}
 

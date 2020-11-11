@@ -1,6 +1,7 @@
 package com.Pages;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -9,6 +10,8 @@ import org.testng.Reporter;
 import com.spiritzone.EntityRunner;
 import com.spiritzone.Pojo;
 import com.spiritzone.TestScenarios;
+
+import io.appium.java_client.MobileElement;
 
 public class SpiritProductCartPage {
 
@@ -35,6 +38,7 @@ public class SpiritProductCartPage {
 	 By ExploreMyBar;
 	 By CrossBtn;
 	 By MinusBtn;
+
 	 
 	 
 		public SpiritProductCartPage(Pojo objPojo) {
@@ -73,6 +77,8 @@ public class SpiritProductCartPage {
 		//TRAVERSE TO CART
 		public void TraversingToCartDetails() throws InterruptedException
 		{
+			
+			
 			System.out.println();
 			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("(//android.widget.TextView[@text='CART'])[1]"));
 			String CustomProductName = objPojo.getEntityRunner().getStringValueForField("CartTraverseProductName");
@@ -85,12 +91,12 @@ public class SpiritProductCartPage {
 			}
 			
 			if(!CustomProductName.equalsIgnoreCase("N/A"))
-			{
+		{
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+CustomProductName+"']")).size()==0)			
 			{
 				Assert.assertEquals(true, false,"Product Not Matching at Cart ");
 			}
-			}
+		}
 			
 			
 			if(objPojo.getEntityRunner().getBooleanValueForField("ConfigPerformAction"))
@@ -211,20 +217,27 @@ public class SpiritProductCartPage {
 			
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CURRENTLY UNAVAILABLE']")).size()==0)
 				{
+				
+				
+				
+				
 				//Explore My Bar
+				String MultipleSubtractStr = objPojo.getEntityRunner().getStringValueForField("MultipleSubtractProducts");
+				ArrayList<String> MultipleSubtractStrList= new ArrayList<String>(Arrays.asList(MultipleSubtractStr.split("\\,")));
+						
 				if(objPojo.getEntityRunner().getBooleanValueForField("ConfigSubtract"))
-				{
-					
+				{	
+					for(int x = 0;x<MultipleSubtractStrList.size();x++)
+					{
 					String ProductCount = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'₹ ')]//preceding::android.view.ViewGroup)[13]/android.widget.TextView")).getText();
 					for(int i =0;i<Integer.parseInt(ProductCount);i++)
 					{
 						objPojo.getObjWrapperFunctions().clickException(MinusBtn,"Minus Button");
 					}	
 				}
+			}
 				
-				
-				
-				
+
 				if(objPojo.getEntityRunner().getBooleanValueForField("ConfigExploreMyBar"))
 				{
 					objPojo.getObjWrapperFunctions().click(CartTravserse);
@@ -236,14 +249,45 @@ public class SpiritProductCartPage {
 					Assert.assertEquals(true,false,"Failed To Click on Explore BAR");
 					}
 				}
+			
 				
 				
+				if(objPojo.getEntityRunner().getBooleanValueForField("ConfigAddButton"))
+				{	
+					
+					String Add =  objPojo.getEntityRunner().getStringValueForField("AddupBtnClick");
+					int addclick = Integer.parseInt(Add);
+					
+					
+					
+					for(int x = 0;x<MultipleSubtractStrList.size();x++)
+					{
+						String CurrentSpecificProductCoststrstatic = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[@text='1']/parent::android.view.ViewGroup//following-sibling::android.widget.TextView)[2]")).getText().replace("₹ ", "");
+						int ActualProductCostintStatic = Integer.parseInt(CurrentSpecificProductCoststrstatic);
+						
+					//Wait for 3 seconds
+					Thread.sleep(3000);
+					for(int y = 1; y<=addclick;y++)
+					{
+						String CurrentSpecificProductCoststr = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[@text='"+y+"']/parent::android.view.ViewGroup//following-sibling::android.widget.TextView)[2]")).getText().replace("₹ ", "");
+						int ActualProductCostint = Integer.parseInt(CurrentSpecificProductCoststr);
+						AddBtn = By.xpath("//android.widget.TextView[@text='"+y+"']//following-sibling::android.widget.FrameLayout[1]");
+						objPojo.getObjWrapperFunctions().clickException(AddBtn,"Add Button");
+						//Wait for 1 second
+						Thread.sleep(1000);
+						
+						int ExpectedProductCostint = ActualProductCostintStatic * y;
+						if(ActualProductCostint!=ExpectedProductCostint)
+						{
+							Assert.assertEquals(false, true,"Price After Addup Button Mis Match");
+						}
+					
+					}
+				}
+			}
 				
 				
-				
-				
-				
-				
+				//Product Cart Actions
 				TraversingToCartDetails();
 				}
 		}

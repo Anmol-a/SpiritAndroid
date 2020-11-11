@@ -432,11 +432,10 @@ public class SpiritZoneHomeOrder {
 			}
 			
 			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigCartTraverse")) {	
-				
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigCartTraverse")) 
+			{	
 				
 				String CustomProductName = objPojo.getEntityRunner().getStringValueForField("CartTraverseProductName");
-				
 				
 				//Scroll to Last and Get Price for Highest
 				if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+CustomProductName+"']")).size()!=0)
@@ -446,7 +445,8 @@ public class SpiritZoneHomeOrder {
 
 				}
 				
-				else {
+				else
+				{
 				while(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+CustomProductName+"']")).size()==0)
 				{
 					objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
@@ -457,14 +457,8 @@ public class SpiritZoneHomeOrder {
 						break;
 					}
 				}
-			}	
-				
-				
-				
-				
-				
-				
-			}
+			}		
+		}
 			
 		
 	
@@ -692,7 +686,8 @@ public class SpiritZoneHomeOrder {
 	
 	
 	//RESERVE 
-	public void FillHomeOrderForReserve() throws InterruptedException {
+	public void FillHomeOrderForReserve() throws InterruptedException 
+	{
 	
 		By ViewAll;
 		By FirstProduct;
@@ -733,7 +728,8 @@ public class SpiritZoneHomeOrder {
 					objPojo.getObjWrapperFunctions().clickException(SecondProduct,"Second Product On Reservce"));
 		}
 		
-		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigReservceViewAll")) {
+		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigReservceViewAll")) 
+		{
 			//Clicking on View All
 			objPojo.getObjUtilities().logReporter("Clicked On ViewAll For Reserve",
 					objPojo.getObjWrapperFunctions().clickException(ViewAll,"View All on Reserve"));
@@ -778,7 +774,7 @@ public class SpiritZoneHomeOrder {
 					System.out.println("No RESERVE PRODUCT MATCHING");
 				}
 			}
-			}
+		}
 	}
 	
 	//RESERVE PRODUCT DESCRIPTION
@@ -907,7 +903,8 @@ public class SpiritZoneHomeOrder {
 		PopularSecondProduct = By.xpath("(//android.widget.ImageView)[4]");
 		
 		
-		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigPopularProductOne")) {	
+		if (objPojo.getEntityRunner().getBooleanValueForField("ConfigPopularProductOne")) 
+		{	
 			//Applying High Filter 
 			objPojo.getObjUtilities().logReporter("Clicked On First Product For Popular Module",
 					objPojo.getObjWrapperFunctions().clickException(PopularFirstProduct ,"First Popular Product"));
