@@ -90,7 +90,8 @@ public class Uploader {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void launchExecution() {
+	public void launchExecution()
+	{
 
 		for (int i = 0; i < arrTestSuites.size(); i++) 
 		{

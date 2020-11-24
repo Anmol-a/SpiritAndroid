@@ -97,7 +97,8 @@ public class KeywordHelper extends Pojo {
 	
 	
 	
-	public String ProductDescription(String stepGroup) throws FilloException , Exception{
+	public String ProductDescription(String stepGroup) throws FilloException , Exception
+	{
 		Recordset recordset = EntityRunner.getEntityObject("DT_ProductDescription", this,stepGroup);
 		while (recordset.next()) {
 			if (recordset.getField("Action").equals("add")) {
@@ -112,7 +113,8 @@ public class KeywordHelper extends Pojo {
 	}
 	
 	
-	public String SpiritProductCartPage(String stepGroup) throws FilloException , Exception{
+	public String SpiritProductCartPage(String stepGroup) throws FilloException , Exception
+	{
 		Recordset recordset = EntityRunner.getEntityObject("DT_CartPage", this,stepGroup);
 		while (recordset.next()) {
 			if (recordset.getField("Action").equals("add")) {

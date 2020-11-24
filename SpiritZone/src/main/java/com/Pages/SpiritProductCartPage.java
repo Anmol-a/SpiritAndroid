@@ -54,7 +54,7 @@ public class SpiritProductCartPage {
 			
 			
 			//Payment Options
-			PayonOrder= By.xpath("//android.widget.TextView[@text='Pay On Order']");
+			PayonOrder= By.xpath("//android.widget.TextView[@text='Pay Now']");
 			PayonDelivery= By.xpath("//android.widget.TextView[@text='Pay On Delivery']");
 			COD= By.xpath("//android.widget.TextView[@text='Cash On Delivery']");
 			OnlineOnDelivery= By.xpath("//android.widget.TextView[@text='Online On Delivery']");
@@ -101,30 +101,33 @@ public class SpiritProductCartPage {
 			
 			if(objPojo.getEntityRunner().getBooleanValueForField("ConfigPerformAction"))
 			{
-			String Add =  objPojo.getEntityRunner().getStringValueForField("AddupBtnClick");
-			int addclick = Integer.parseInt(Add);
-
-			//Wait for 3 seconds
-			Thread.sleep(3000);
-			for(int x = 1; x<=addclick;x++)
-			{
-				AddBtn = By.xpath("//android.widget.TextView[@text='"+x+"']//following-sibling::android.widget.FrameLayout[1]");
-				objPojo.getObjWrapperFunctions().clickException(AddBtn,"Add Button");
-				//Wait for 1 second
-				Thread.sleep(1000);
-			
-			}
-			
+//			String Add =  objPojo.getEntityRunner().getStringValueForField("AddupBtnClick");
+//			int addclick = Integer.parseInt(Add);
+//
+//			//Wait for 3 seconds
+//			Thread.sleep(3000);
+//			for(int x = 1; x<=addclick;x++)
+//			{
+//				AddBtn = By.xpath("//android.widget.TextView[@text='"+x+"']//following-sibling::android.widget.FrameLayout[1]");
+//				objPojo.getObjWrapperFunctions().clickException(AddBtn,"Add Button");
+//				//Wait for 1 second
+//				Thread.sleep(1000);
+//			
+//			}
+		
 			//PERMIT APPLICABLE
 			String Permit = objPojo.getEntityRunner().getStringValueForField("IFPermit");
-			if(Permit.equalsIgnoreCase("Yes"))
+			if(Permit.equalsIgnoreCase("Yes") || Permit.equalsIgnoreCase("Negative-Permit"))
 			{
 				String text = objPojo.getEntityRunner().getStringValueForField("PermitNumber");
 				objPojo.getObjUtilities().logReporter("Typed on Permit no as "+text,
-							objPojo.getObjWrapperFunctions().clearAndSendKeysCustomException(PermitNoInput,
+							objPojo.getObjWrapperFunctions().clearAndSendKeysNull(PermitNoInput,
 									text,"Permit Number Input"));
 				
 			}
+			
+			
+			
 			if(Permit.equalsIgnoreCase("No"))
 			{
 				
@@ -135,6 +138,17 @@ public class SpiritProductCartPage {
 			//PRINTING TOTAL AMOUNT AND ONE DAY PERMIT COST
 			String onedayPermitCostStr=objPojo.getDriver().findElementByXPath("//android.widget.TextView[@text='One-day Permit Cost']//following-sibling::android.widget.TextView").getText();
 			String TotalAmountStr= objPojo.getDriver().findElementByXPath("//android.widget.TextView[@text='Total Amount']//following-sibling::android.widget.TextView").getText();
+			if(Permit.equalsIgnoreCase("Yes"))
+			{
+				Assert.assertEquals(onedayPermitCostStr,"₹ 0" , "Error in Permit Amount Cost after Applying Permit no");
+			}
+			else if((Permit.equalsIgnoreCase("No")))
+			{
+				Assert.assertEquals(onedayPermitCostStr,"₹ 5" , "Error in Permit Amount Cost after Not Applying Permit no");
+			}
+			
+			
+			
 			objPojo.getObjUtilities().logReporter("One Day Permit Cost is "+onedayPermitCostStr,true);
 			objPojo.getObjUtilities().logReporter("Total Amount is "+TotalAmountStr,true);
 			System.out.println("One Day Permit Cost is "+onedayPermitCostStr);
@@ -142,23 +156,36 @@ public class SpiritProductCartPage {
 			
 			
 			// Wait for 2.5 second
-			Thread.sleep(2500);
+			Thread.sleep(2000);
 			objPojo.getObjWrapperFunctions().scrollDown();
 			
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigPayOnOrder")) {
 				
 				objPojo.getObjUtilities().logReporter("Clicked on Pay On Order ",
-				objPojo.getObjWrapperFunctions().clickException(PayonOrder,"Pay On Order Button"));
+						objPojo.getObjWrapperFunctions().clickException(PayonOrder,"Pay On Order Button"));
 				
-				if (objPojo.getEntityRunner().getStringValueForField("TestType").equalsIgnoreCase("Negative-Amount") ||objPojo.getEntityRunner().getStringValueForField("TestType").equalsIgnoreCase("Negative-Permit")) 
+				if (objPojo.getEntityRunner().getStringValueForField("TestType").equalsIgnoreCase("Negative-Amount") ||Permit.equalsIgnoreCase("Negative-Permit")) 
 				{		
+					
+					//Submitting Final Order
+					objPojo.getObjWrapperFunctions().scrollDown();
+					objPojo.getObjUtilities().logReporter("Clicked Submit Button ",
+					objPojo.getObjWrapperFunctions().clickException(SubmitBTN,"Submit Button "));
+					
+					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text = 'Test Wallet']")).size()==0)
+					{
 					Reporter.log("<B>--------------------------------------------------------------</B>",true);
 					Reporter.log("<B> Negative Scanerio</B>",true);
 					Reporter.log("<B>--------------------------------------------------------------</B>",true);
-					objPojo.getDriver().close();
+					}
+					else
+					{
+						Assert.assertEquals(false,true,"Negative Permit No");
+					}
 				}
 				
-				
+				else
+				{
 				//Submitting Final Order
 				objPojo.getObjWrapperFunctions().scrollDown();
 				objPojo.getObjUtilities().logReporter("Clicked Submit Button ",
@@ -172,7 +199,7 @@ public class SpiritProductCartPage {
 				//ConnfirmOrder
 				objPojo.getObjUtilities().logReporter("Clicked on Orderstatus Button ",
 				objPojo.getObjWrapperFunctions().clickException(OrderStatusBtn,"Order Status Button"));				
-				
+				}		
 			}
 			
 			
@@ -183,12 +210,26 @@ public class SpiritProductCartPage {
 				
 				if (objPojo.getEntityRunner().getStringValueForField("TestType").equalsIgnoreCase("Negative-Amount") ||objPojo.getEntityRunner().getStringValueForField("TestType").equalsIgnoreCase("Negative-Permit")) 
 				{		
+					
+					//Submitting Final Order
+					objPojo.getObjWrapperFunctions().scrollDown();
+					objPojo.getObjUtilities().logReporter("Clicked Submit Button ",
+					objPojo.getObjWrapperFunctions().clickException(SubmitBTN,"Submit Button "));
+					
+					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text = 'Test Wallet']")).size()==0)
+					{
 					Reporter.log("<B>--------------------------------------------------------------</B>",true);
 					Reporter.log("<B> Negative Scanerio</B>",true);
 					Reporter.log("<B>--------------------------------------------------------------</B>",true);
-					objPojo.getDriver().close();
-				}
+					}
+					else
+					{
+						Assert.assertEquals(false,true,"Negative Permit No");
+					}
 				
+				}
+				else
+				{
 				
 				//Submitting Final Order
 				objPojo.getObjWrapperFunctions().scrollDown();
@@ -198,22 +239,15 @@ public class SpiritProductCartPage {
 				objPojo.getObjUtilities().logReporter("Clicked on Orderstatus Button ",
 				objPojo.getObjWrapperFunctions().clickException(OrderStatusBtn,"Order Status Button"));					
 			}
-			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigCOD")) {
-				objPojo.getObjUtilities().logReporter("Click on Pay On Delivery ",
-				objPojo.getObjWrapperFunctions().clickException(COD,"Cash On Delivery Button"));
-			}
-			
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigOnlinonDelivery")) {
-				objPojo.getObjUtilities().logReporter("Click on Pay On Delivery ",
-				objPojo.getObjWrapperFunctions().clickException(OnlineOnDelivery,"Pay On Delivery Button"));
-			}
-			
-			//Wait for 5 seconds
-			Thread.sleep(5000);
 		}
+	}	//Wait for 5 seconds
+			Thread.sleep(5000);
+		
 	}
-		public void fillCartOrder() throws InterruptedException{
+		
+		
+		public void fillCartOrder() throws InterruptedException
+		{
 			
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CURRENTLY UNAVAILABLE']")).size()==0)
 				{
@@ -270,11 +304,11 @@ public class SpiritProductCartPage {
 					for(int y = 1; y<=addclick;y++)
 					{
 						String CurrentSpecificProductCoststr = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[@text='"+y+"']/parent::android.view.ViewGroup//following-sibling::android.widget.TextView)[2]")).getText().replace("₹ ", "");
-						int ActualProductCostint = Integer.parseInt(CurrentSpecificProductCoststr);
+						int ActualProductCostint = Integer.parseInt(CurrentSpecificProductCoststr.replace(",", ""));
 						AddBtn = By.xpath("//android.widget.TextView[@text='"+y+"']//following-sibling::android.widget.FrameLayout[1]");
 						objPojo.getObjWrapperFunctions().clickException(AddBtn,"Add Button");
 						//Wait for 1 second
-						Thread.sleep(1000);
+						Thread.sleep(1300);
 						
 						int ExpectedProductCostint = ActualProductCostintStatic * y;
 						if(ActualProductCostint!=ExpectedProductCostint)
