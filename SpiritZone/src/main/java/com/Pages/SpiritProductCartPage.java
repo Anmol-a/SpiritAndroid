@@ -241,9 +241,8 @@ public class SpiritProductCartPage {
 			}
 		}
 	}	//Wait for 5 seconds
-			Thread.sleep(5000);
-		
-	}
+			Thread.sleep(5000);		
+}
 		
 		
 		public void fillCartOrder() throws InterruptedException
@@ -319,8 +318,7 @@ public class SpiritProductCartPage {
 					}
 				}
 			}
-				
-				
+					
 				//Product Cart Actions
 				TraversingToCartDetails();
 				}

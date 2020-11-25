@@ -3,11 +3,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.tools.ant.taskdefs.condition.Or;
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 
 import com.spiritzone.StorePassWord;
+
+import sun.awt.SunHints.Value;
 
 public class Testing {
 	StorePassWord storedPassword;
@@ -105,15 +109,72 @@ public class Testing {
 		
 		
 		
-		String a = "Anmol";
-		char[] y = a.toCharArray();
+//	HashMap<String, Integer> Age = new  HashMap<String, Integer>();
+//	Age.put("Anmol", 21);
+//	Age.put("jay", 22);
+//	Age.put("Yuo", 23);
+//	Age.put("Anu", 24);
+//
+//
+//	for(Entry<String, Integer> Age1  : Age.entrySet())
+//	{
+//	String Name = Age1.getKey();
+//	int Value = Age1.getValue();
+//	
+//	System.out.println("In for Loop Name is  "+Name +" Value "+Value);
+//	}
+	
 		
-		for(int x =0;x<y.length;x++)
+		
+		
+		
+//	String Original , Reverse="";
+//	Original = "Anmol";
+//	
+//	int length = Original.length();
+//	
+//	for(int i= length-1;i>=0;i--)
+//	{
+//		Reverse = Reverse + Original.charAt(i);
+//	}
+//	
+//	
+//	if(Original.equalsIgnoreCase(Reverse))
+//	{		
+//		System.out.println("Palindrome");
+//	}
+//	
+//	else
+//	{
+//		System.out.println("Not a Palindrome");
+//	}
+	
+		
+		
+		
+		int x[] = {10,23,32,1,22,3,4,5,555,111};
+		
+		int one ,two = 0 ;
+		
+		for(int i =0;i<x.length-1;i++)
 		{
-		System.out.println(y[x]);
+			one = x[i];
+			for(int j =0;j<x.length-1;j++)
+			{
+				if(one > x[j])
+				{
+					two=x[j];
+				}
+				else
+				{
+					two = one;
+				}
+			}
+			
+			
 		}
-		
-		
-		
+		System.out.println(two);
+			
+	
 	}
 }
