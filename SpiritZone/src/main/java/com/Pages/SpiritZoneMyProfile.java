@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 
 import com.spiritzone.EntityRunner;
 import com.spiritzone.Pojo;
@@ -35,12 +36,20 @@ public class SpiritZoneMyProfile {
 	By TrackOUTOrderDetails;
 	By MyProfileText;
 	
+	
+	//Traverse from 
+	By Cart;
+	By Favourites;
+	By Support;
+	
+	
 	//Mr Order Moudles 
 	By Myordertext;
 	By Customercare;
 	By InprocessOrder;
 	By FailedOrder;
 	By CancelOrderType;
+	By IssueInitiatedOrder;
 	By BackToStoreOrder;
 	By RetryOrder;
 	By ContinueReorder;
@@ -57,6 +66,10 @@ public class SpiritZoneMyProfile {
 	By reasoncancelvalueOKbtn;
 	By reasonCancelSubmitBtn;
 	By orderStatusText;
+	By CancelBTN;
+	By ReconfirmCancel;
+	By SubmitCancel;
+	
 	
 	
 	//FeedBacck
@@ -103,7 +116,14 @@ public class SpiritZoneMyProfile {
 		this.objPojo = objPojo;
 		EntityRunner = objPojo.getEntityRunner();
 		
-	
+		
+		//Traversing from 
+		Cart = By.xpath("//android.widget.TextView[@text='CART']");
+		Favourites = By.xpath("//android.widget.TextView[@text='FAVORITES']");
+		Support = By.xpath("//android.widget.TextView[@text='SUPPORT']");
+		
+		
+		
 		//Xpaths
 		MyProfileButton = By.xpath("//android.widget.TextView[@text='MY PROFILE']");
 		MyOrdersButton = By.xpath("//android.widget.TextView[@text = 'Your Orders']");
@@ -128,7 +148,7 @@ public class SpiritZoneMyProfile {
 		ContinueReorder = By.xpath("//android.widget.TextView[@text='CONTINUE']");
 		
 		BackToStoreOrder = By.xpath("//android.widget.TextView[@text='BackToStore']");
-		CancelOrderType = By.xpath("//android.widget.TextView[@text='Cancel']");
+		CancelOrderType = By.xpath("//android.widget.TextView[@text='Cancelled']");
 		DeliveredOrder = By.xpath("//android.widget.TextView[@text='Delivered']");
 		InvoiceOut = By.xpath("//android.widget.TextView[@text='INVOICE']");
 		InvoiceIn = By.xpath("//android.widget.TextView[@text='DOWNLOAD INVOICE']");
@@ -136,7 +156,9 @@ public class SpiritZoneMyProfile {
 		
 		orderStatusText = By.xpath("(//android.widget.TextView)[5]");
 		
-		
+		CancelBTN = By.xpath("//android.widget.TextView[@text='CANCEL ORDER']");
+		ReconfirmCancel = By.xpath("//android.widget.Button[@text='Reason for cancelling order.']");
+		SubmitCancel = By.xpath("//android.widget.TextView[@text='SUBMIT']");
 		//Feedback 
 		SuperFastDelivery = By.xpath("//android.widget.TextView[@text='Super-Fast Delivery']");
 		AmazingDeals = By.xpath("//android.widget.TextView[@text='Amazing Deals']");
@@ -149,6 +171,7 @@ public class SpiritZoneMyProfile {
 		OutForDelivery = By.xpath("//android.widget.TextView[@text='Out For Delivery']");
 		CancelOrder = By.xpath("//android.widget.TextView[@text='CANCEL ORDER']");
 		reasonforCancelBtn = By.xpath("//android.widget.Button[@text='Reason for cancelling order.']");
+		IssueInitiatedOrder = By.xpath("//android.widget.TextView[@text='IssueInitiated']");
 		reasonCancelvalue = By.xpath("//android.widget.EditText[@text='Not Needed']");
 		reasoncancelvalueOKbtn = By.xpath("//android.widget.Button[@text='OK']");
 		reasonCancelSubmitBtn = By.xpath("//android.widget.TextView[@text='SUBMIT']");
@@ -199,6 +222,7 @@ public class SpiritZoneMyProfile {
 		objPojo.getObjUtilities().logReporter("Clicked On My Orders Button ",objPojo.getObjWrapperFunctions().click(MyOrdersButton));
 		
 		//Assert My Orders Section
+		objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
 		String myordertextString = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='MY ORDERS']")).getText();
 		if(myordertextString.equalsIgnoreCase("MY ORDERS"))
 		{
@@ -213,7 +237,7 @@ public class SpiritZoneMyProfile {
 		//Order type
 		String OrderType = objPojo.getEntityRunner().getStringValueForField("OrderType");
 		
-		if(OrderType.equalsIgnoreCase("Cancel"))
+		if(OrderType.equalsIgnoreCase("Cancelled"))
 		{
 			objPojo.getObjUtilities().logReporter("Traversing TO Cancel Order Section",true);
 			//Clicking On Failed 
@@ -222,7 +246,7 @@ public class SpiritZoneMyProfile {
 			
 			
 			
-			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Cancel']")).size() == 0)
+			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Cancelled']")).size() == 0)
 			{
 				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
 				
@@ -237,9 +261,16 @@ public class SpiritZoneMyProfile {
 			
 			objPojo.getObjUtilities().logReporter("Clicked On Cancel Orders Button",objPojo.getObjWrapperFunctions().clickException(CancelOrderType,"Cancel Order Product"));
 			Thread.sleep(3000);
-			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Cancel']")).getText();
+			//Checking if PROducts,Shipping address,Order No are there or not
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Volume')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Order No.')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[ends-with(@text,'India')]")).size()==0	&& objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'₹')]")).size()==0)
+			{
+				Assert.assertEquals(false, true,"Error in   BACKSTORE ORDER");
+			}
+			
+			
+			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Cancelled']")).getText();
 			//Assert 
-			if(ProcessText.equalsIgnoreCase("Cancel"))
+			if(ProcessText.equalsIgnoreCase("Cancelled"))
 			{
 				objPojo.getObjUtilities().logReporter(" Traversed to Cancel Orders Succesfull",true);
 			}
@@ -248,6 +279,8 @@ public class SpiritZoneMyProfile {
 				objPojo.getObjUtilities().logReporter(" Failed Traversed to Cancel Orders Succesfull",false);
 			}	
 			
+			
+			
 			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
 			System.out.println("Your Order type is "+ProcessText);
 			
@@ -255,7 +288,30 @@ public class SpiritZoneMyProfile {
 			String OrderNo = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[2]")).getText();
 			objPojo.getObjUtilities().logReporter(" "+OrderNo,true);
 
-			
+			//TO retry
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigReorder"))
+			{
+				objPojo.getObjUtilities().logReporter("Clicked On Retry Button ",	objPojo.getObjWrapperFunctions().clickException(RetryOrder,"Reorder button"));
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CONTINUE']")).size()!=0)
+				{
+					for(int x=0 ; x <2;x++)
+					{
+				objPojo.getObjUtilities().logReporter("Clicked On Continue Button ",	objPojo.getObjWrapperFunctions().clickException(ContinueReorder,"Reorder button"));
+				}
+				}
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='This Item is Out Of Stock']")).size()!=0)
+                {
+					objPojo.getObjUtilities().logReporter("--------------------------------------------------- ",true);
+					objPojo.getObjUtilities().logReporter("Scanerio Passed But Order is Out Of Stock!!!!!!!!!! ",true);
+					objPojo.getObjUtilities().logReporter("--------------------------------------------------- ",true);
+					
+					objPojo.getDriver().close();
+                 }
+				
+				
+			}
 			
 		}
 		
@@ -295,7 +351,11 @@ public class SpiritZoneMyProfile {
 				objPojo.getObjUtilities().logReporter(" Failed Traversed to BackToStore Orders Succesfull",false);
 			}
 			
-			
+			//Checking if PROducts,Shipping address,Order No are there or not
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Volume')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Order No.')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[ends-with(@text,'India')]")).size()==0	&& objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'₹')]")).size()==0)
+			{
+				Assert.assertEquals(false, true,"Error in   BACKSTORE ORDER");
+			}
 			
 			
 			
@@ -309,14 +369,6 @@ public class SpiritZoneMyProfile {
 			
 			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -345,9 +397,13 @@ public class SpiritZoneMyProfile {
 			
 			objPojo.getObjUtilities().logReporter("Clicked On FailedOrders Button",objPojo.getObjWrapperFunctions().clickException(FailedOrder,"Failed Order Product"));
 			Thread.sleep(3000);
-			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='RETRY']")).getText();
-			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
-			System.out.println("Your Order type is "+ProcessText);
+			
+			//Checking if PROducts,Shipping address,Order No are there or not
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Volume')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Order No.')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[ends-with(@text,'India')]")).size()==0	&& objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'₹')]")).size()==0)
+			{
+				Assert.assertEquals(false, true,"Error in   INPROCESS ORDER");
+			}
+			
 			
 			//Order No
 			String OrderNo = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[2]")).getText();
@@ -568,6 +624,44 @@ public class SpiritZoneMyProfile {
 			{
 			objPojo.getObjUtilities().logReporter("Clicked On InProcess Button ",objPojo.getObjWrapperFunctions().click(InprocessOrder));
 			
+			//Checking if PROducts,Shipping address,Order No are there or not
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Volume')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Order No.')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[ends-with(@text,'India')]")).size()==0	&& objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'₹')]")).size()==0)
+			{
+				Assert.assertEquals(false, true,"Error in   INPROCESS ORDER");
+			}
+			
+			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigCancel"))
+			{
+				objPojo.getObjUtilities().logReporter("Clicked On Cancelled Button ",objPojo.getObjWrapperFunctions().click(CancelBTN));
+				objPojo.getObjUtilities().logReporter("Reconfirmed Cancellation ",objPojo.getObjWrapperFunctions().click(ReconfirmCancel));
+				String CancellationReason = objPojo.getEntityRunner().getStringValueForField("CancellationReason");
+				
+				
+				for(int x =1;x<7;x++)
+				{
+					if(objPojo.getDriver().findElements(By.xpath("//android.widget.EditText[@text='"+CancellationReason+"']")).size()==0)
+					{
+						objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.EditText[@resource-id='android:id/numberpicker_input']//following-sibling::android.widget.Button"));
+					}
+					else
+					{
+						objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.EditText[@text='"+CancellationReason+"']"));
+						objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.Button[@text='OK']"));
+						objPojo.getObjWrapperFunctions().click(SubmitCancel);
+						break;
+						
+					}
+				}
+				
+				Thread.sleep(2000);
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Cancelled']")).size()==0)
+				{
+					Assert.assertEquals(false, true);
+				}
+				
+			}
+			
+			
 			
 			
 			
@@ -604,6 +698,67 @@ public class SpiritZoneMyProfile {
 			
 		}		
 	}
+		
+		//ISSUE INITIATED-------------------------
+		if(OrderType.equalsIgnoreCase("IssueInitiated"))
+		{
+			objPojo.getObjUtilities().logReporter("Traversing TO IssueInitiated Order Section",true);
+			//Clicking On Failed 
+			//Scroll
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
+			
+			
+			
+			while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='IssueInitiated']")).size() == 0)
+			{
+				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+				
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='August 03, 10:13 PM']")).size() != 0)
+				{
+					objPojo.getObjUtilities().logReporter("<B> Sorry No IssueInitiated Product here in your Ordered Items </B>",false);
+					break;	
+				}
+			}
+			
+			
+			
+			objPojo.getObjUtilities().logReporter("Clicked On IssueInitiated Orders Button",objPojo.getObjWrapperFunctions().clickException(IssueInitiatedOrder,"Issue Initiated Order Product"));
+			Thread.sleep(3000);
+			//Checking if PROducts,Shipping address,Order No are there or not
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Volume')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Order No.')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[ends-with(@text,'India')]")).size()==0	&& objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'₹')]")).size()==0)
+			{
+				Assert.assertEquals(false, true,"Error in  IssueInitiatedOrder ORDER");
+			}
+			
+			
+			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='IssueInitiated']")).getText();
+			//Assert 
+			if(ProcessText.equalsIgnoreCase("IssueInitiated"))
+			{
+				objPojo.getObjUtilities().logReporter(" Traversed to IssueInitiatedOrder Orders Succesfull",true);
+			}
+			else
+			{
+				objPojo.getObjUtilities().logReporter(" Failed Traversed to IssueInitiatedOrder Orders Succesfull",false);
+			}	
+			
+			
+			
+			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
+			System.out.println("Your Order type is "+ProcessText);
+			
+			//Order No
+			String OrderNo = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView)[2]")).getText();
+			objPojo.getObjUtilities().logReporter(" "+OrderNo,true);
+
+			
+		}
+
+		
+		
+		
+		
+		
 }	
 	public void CustomerService() {
 		
@@ -878,8 +1033,35 @@ public class SpiritZoneMyProfile {
 		objPojo.getObjUtilities().logReporter("<B>Traversed to My Profiles</B>",true);
 		
 		//CLICKING ON MY PROFILE SECTION
+		String Traversefrom = objPojo.getEntityRunner().getStringValueForField("TraverseFrom");
+		if(Traversefrom.equalsIgnoreCase("CART"))
+		{
+			objPojo.getObjWrapperFunctions().click(Cart);
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("(//android.widget.TextView[@text='CART'])[1]"));	
+		}
+		else if(Traversefrom.equalsIgnoreCase("FAVORITES"))
+		{
+			objPojo.getObjWrapperFunctions().click(Favourites);
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("(//android.widget.TextView[@text='FAVORITES'])[1]"));	
+		}
+		else if(Traversefrom.equalsIgnoreCase("SUPPORT"))
+		{
+			objPojo.getObjWrapperFunctions().click(Support);
+			objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("(//android.widget.TextView[@text='SUPPORT'])[1]"));	
+		}	
+		
 		objPojo.getObjUtilities().logReporter("Clicked On My Profile ",objPojo.getObjWrapperFunctions().click(MyProfileButton));
 		objPojo.getObjWrapperFunctions().waitForElementToBeClickable(SettingsButton);
+		
+		//Asserting UserName and Password 
+		int NameSize = objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+objPojo.getEntityRunner().getStringValueForField("UserName")+"']")).size();
+		int EmailSize = objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+objPojo.getEntityRunner().getStringValueForField("Email")+"']")).size();
+		if(NameSize==0 && EmailSize==0)
+		{
+			Assert.assertEquals(false, true,"Error in UserName and Email ID");
+		}
+		
+		
 		
 		
 		//Asserting if we're traversed to MY PROFILE
