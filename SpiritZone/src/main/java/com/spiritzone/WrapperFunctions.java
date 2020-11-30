@@ -46,6 +46,99 @@ public class WrapperFunctions {
 		this.objPojo = objPojo;
 		objWebDriverWait = new WebDriverWait(objPojo.getDriver(), webDriverWait);
 	}
+	
+	
+	
+	
+	
+	public void Ratings(String RatingsStr,int Stars) throws InterruptedException
+	{
+		TouchAction action = new TouchAction(objPojo.getDriver());
+		if(Stars==4)
+		{
+			action.press(PointOption.point(920, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(720, 1140)).release().perform();
+			
+			Thread.sleep(700);
+		}
+		if(Stars==3)
+		{
+			action.press(PointOption.point(920, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(720, 1140)).release().perform();
+			Thread.sleep(700);
+			
+			action.press(PointOption.point(728, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(545, 1140)).release().perform();
+			Thread.sleep(700);
+			
+		}
+		if(Stars==2)
+		{
+			
+			action.press(PointOption.point(920, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(720, 1140)).release().perform();
+			Thread.sleep(700);
+			
+			action.press(PointOption.point(728, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(545, 1140)).release().perform();
+			Thread.sleep(700);
+			
+			
+			action.press(PointOption.point(372, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(545, 1140)).release().perform();
+			Thread.sleep(700);
+			
+		}
+		if(Stars==1)
+		{
+			action.press(PointOption.point(920, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(720, 1140)).release().perform();
+			Thread.sleep(700);
+			
+			action.press(PointOption.point(728, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(545, 1140)).release().perform();
+			Thread.sleep(700);
+			
+			action.press(PointOption.point(372, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(545, 1140)).release().perform();
+			Thread.sleep(700);
+			
+			action.press(PointOption.point(382, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(336, 1140)).release().perform();
+			Thread.sleep(700);
+			
+		}
+		
+		if(RatingsStr.equalsIgnoreCase("Super-Fast Delivery") || RatingsStr.equalsIgnoreCase("Amazing Deals") || RatingsStr.equalsIgnoreCase("Good Options"))
+		{
+			
+			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='"+RatingsStr+"']")).click();
+		}
+		
+		if(RatingsStr.equalsIgnoreCase("Had to wait a lot") || RatingsStr.equalsIgnoreCase("Delivery guy was lost") || RatingsStr.equalsIgnoreCase("Not what I ordered") || RatingsStr.equalsIgnoreCase("My order was tampered"))
+		{
+			
+			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='"+RatingsStr+"']")).click();
+		}
+		
+		if(RatingsStr.equalsIgnoreCase("Other"))
+		{
+			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Other']")).click();
+			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Other']")).sendKeys("This isn't very good style, though, and can lead to some devilish bugs that are hard to find. People aren't used to looking for modifications to the loop control variable inside the for loop because it's one of those things that You. Just. Don't. Do.");	
+		}
+		
+		//Clicking Submit
+		objPojo.getDriver().findElement(By.xpath("//android.widget.Button[@text='SUBMIT']")).click();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	public void waitForElementPresence(By locator) throws NotFoundException {
 		objWebDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
@@ -425,6 +518,50 @@ public class WrapperFunctions {
 		}
 	}
 	
+	public boolean clickWebElement (WebElement web)
+	{
+
+
+		try {
+
+			waitForElementVisibility(web);
+			web.click();
+			// waitAfterEachClick();
+			return true;
+		} catch (NoSuchElementException exception) {
+			objPojo.setCustomException("Timeout & NoSuchElement Exception at this point");
+			System.out.println("I got no such " + exception.getMessage());
+			exception.printStackTrace();
+			return false;
+		} catch (TimeoutException exception) {
+			objPojo.setCustomException("Timeout & NoSuchElement Exception");
+			System.out.println("I got timeout " + exception.getMessage());
+			exception.printStackTrace();
+			return false;
+		} catch (NotFoundException exception) {
+			objPojo.setCustomException("NotFound Exception");
+			System.out.println("I got timeout " + exception.getMessage());
+			exception.printStackTrace();
+			return false;
+		} catch (ElementNotVisibleException exception) {
+			objPojo.setCustomException("ElementNotVisibleException");
+			System.out.println("I got timeout " + exception.getMessage());
+			exception.printStackTrace();
+			return false;
+		} catch (ElementNotInteractableException exception) {
+			objPojo.setCustomException("ElementNotInteractableException Exception");
+			System.out.println("I got timeout " + exception.getMessage());
+			exception.printStackTrace();
+			return false;
+		} catch (Exception exceptionJavascript) {
+			objPojo.setCustomException("NoSuchElement Exception");
+			return false;
+		}
+	
+	}
+	
+	
+	
 	public boolean click(By locator) {
 
 		try {
@@ -577,6 +714,11 @@ public class WrapperFunctions {
 		TouchAction action = new TouchAction(objPojo.getDriver());
 		action.longPress(PointOption.point(0, scrollStart)).moveTo(PointOption.point(0, scrollEnd)).release().perform();
 	}
+	
+	
+	
+	
+	
 	
 	public void scrollDownCustomForProuctList() {
 		Dimension dimensions = objPojo.getDriver().manage().window().getSize();

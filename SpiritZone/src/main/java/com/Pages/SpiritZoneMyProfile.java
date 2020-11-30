@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -71,6 +72,10 @@ public class SpiritZoneMyProfile {
 	By SubmitCancel;
 	
 	
+	//Back Button 
+	By MyOrdersBack;
+	
+	
 	
 	//FeedBacck
 	By SuperFastDelivery;
@@ -122,6 +127,8 @@ public class SpiritZoneMyProfile {
 		Favourites = By.xpath("//android.widget.TextView[@text='FAVORITES']");
 		Support = By.xpath("//android.widget.TextView[@text='SUPPORT']");
 		
+		
+		MyOrdersBack = By.xpath("(//android.widget.TextView[@text='ORDER DETAILS']//ancestor::android.view.ViewGroup)[8]/android.view.ViewGroup/android.widget.ImageView");
 		
 		
 		//Xpaths
@@ -459,31 +466,89 @@ public class SpiritZoneMyProfile {
 				
 		   }
 			
-//			else
-//			{
-//				objPojo.getObjUtilities().logReporter("No Delivered Porducts in cart ",true);
-//			}
 		
 			//Outside Invoice
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigDownloadInvoiceOutside"))
 			{
 				//Download Invoice Outside
 				Thread.sleep(2000);
+				objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
 				objPojo.getObjUtilities().logReporter("Clicked On Invoice Download Button ",objPojo.getObjWrapperFunctions().clickException(InvoiceOut,"OutSide Invoice Download Button"));
 				
 				   // waiting for 5 seconds
 					Thread.sleep(5000);
+					
+					//Verify
+					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='INVOICE']")).size()!=0)
+					{
+						Assert.assertEquals(false, true,"Error in Downloading INVOICE");
+					}
 				
 			}	
 			
 			else
 			{
 				
+				List<MobileElement> Delivered;
+				//-----------------------------------FEEDBACK
+				if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedback"))
+				{
+					objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+//					for(int x = 0;x<objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size();x++)
+//					{
+//						int occur = 1;
+//						objPojo.getObjWrapperFunctions().clickWebElement(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).get(x));
+//						
+//						 if(x==objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size()-1 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='FEEDBACK']")).size()!=0)
+//						{
+//							 objPojo.getObjWrapperFunctions().click(MyOrdersBack);
+//								objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+//								objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+//								while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size() == 0)
+//								{
+//									objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+//								}
+//						
+//								x=0;
+//								
+//								
+//						}
+//						
+//						if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='FEEDBACK']")).size()!=0)
+//						{
+//							objPojo.getObjWrapperFunctions().click(MyOrdersBack);
+//						}
+//						else if (objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='FEEDBACK']")).size()==0)
+//						{
+//							//Do your Rating stuffs
+//						}
+//
+//							
+//					}
+					
+					
+					
+					while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size() == 0)
+					{
+						
+						objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+						
+					}
+				
+					
+					
+					
+				}
+				
 			objPojo.getObjUtilities().logReporter("Clicked On Delivered Orders Button",objPojo.getObjWrapperFunctions().clickException(DeliveredOrder,"Delivered Order Product"));
 			Thread.sleep(2000);
-			String ProcessText  = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='REORDER']")).getText();
-			objPojo.getObjUtilities().logReporter("Your Order type is "+ProcessText,true);
-			System.out.println("Your Order type is "+ProcessText);
+			//Checking if PROducts,Shipping address,Order No are there or not
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Volume')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Order No.')]")).size()==0 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[ends-with(@text,'India')]")).size()==0	&& objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'₹')]")).size()==0)
+			{
+				Assert.assertEquals(false, true,"Error in DELIVERED ORDER");
+			}
+			
+
 			
 			
 			//Order No
@@ -492,55 +557,55 @@ public class SpiritZoneMyProfile {
 			
 			
 			//Leave FeedBack
-			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedBack"))
-			{
-				//App Crashes
-				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='LEAVE FEEDBACK']")).size()!=0)
-				{
-					
-				
-				objPojo.getObjUtilities().logReporter("Clicked On LeaveFeedBack Button ",objPojo.getObjWrapperFunctions().clickException(LeaveFeedback,"Leave FeedBack Button"));
-				
-				//As of Now only one option
-				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Super-Fast Delivery']")).size()!=0)
-				{
-				objPojo.getObjUtilities().logReporter("Clicked On SuperFastDelivery Button ",objPojo.getObjWrapperFunctions().clickException(SuperFastDelivery,"Super Fast Delivery Button"));
-				
-
-				
-				if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedBackOther"))
-				{
-					
-					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Other']")).size()!=0)
-					{
-					objPojo.getObjUtilities().logReporter("Clicked On Other Feed Back Button ",objPojo.getObjWrapperFunctions().clickException(Other,"Other Button"));
-					
-					objPojo.getObjWrapperFunctions().clearAndSendKeysCustomException(CustomTextFieldFeedBack, "Keep You Spirits High !!", "Custom Field TextField");
-					//SendKeys	
-				}
-				}
-				if(objPojo.getDriver().findElements(By.xpath("//android.widget.Button[@text='SUBMIT']")).size()!=0)
-				{
-				objPojo.getObjUtilities().logReporter("Clicked On LeaveFeedBack Button ",objPojo.getObjWrapperFunctions().clickException(FeedBackSubmit,"FeedBackSUbmit"));
-				}
-				}
-				else
-				{
-					objPojo.getObjUtilities().logReporter("<B>  Already Given FeedBack  </B>", true);
-				}
-				
-				
-				
-				
-				
-				
-				}	
-				else
-				{
-					objPojo.getObjUtilities().logReporter("<B>  Already Given FeedBack  </B>", true);
-				}
-				
-			}
+//			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedBack"))
+//			{
+//				//App Crashes
+//				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='LEAVE FEEDBACK']")).size()!=0)
+//				{
+//					
+//				
+//				objPojo.getObjUtilities().logReporter("Clicked On LeaveFeedBack Button ",objPojo.getObjWrapperFunctions().clickException(LeaveFeedback,"Leave FeedBack Button"));
+//				
+//				//As of Now only one option
+//				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Super-Fast Delivery']")).size()!=0)
+//				{
+//				objPojo.getObjUtilities().logReporter("Clicked On SuperFastDelivery Button ",objPojo.getObjWrapperFunctions().clickException(SuperFastDelivery,"Super Fast Delivery Button"));
+//				
+//
+//				
+//				if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedBackOther"))
+//				{
+//					
+//					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Other']")).size()!=0)
+//					{
+//					objPojo.getObjUtilities().logReporter("Clicked On Other Feed Back Button ",objPojo.getObjWrapperFunctions().clickException(Other,"Other Button"));
+//					
+//					objPojo.getObjWrapperFunctions().clearAndSendKeysCustomException(CustomTextFieldFeedBack, "Keep You Spirits High !!", "Custom Field TextField");
+//					//SendKeys	
+//				}
+//				}
+//				if(objPojo.getDriver().findElements(By.xpath("//android.widget.Button[@text='SUBMIT']")).size()!=0)
+//				{
+//				objPojo.getObjUtilities().logReporter("Clicked On LeaveFeedBack Button ",objPojo.getObjWrapperFunctions().clickException(FeedBackSubmit,"FeedBackSUbmit"));
+//				}
+//				}
+//				else
+//				{
+//					objPojo.getObjUtilities().logReporter("<B>  Already Given FeedBack  </B>", true);
+//				}
+//				
+//				
+//				
+//				
+//				
+//				
+//				}	
+//				else
+//				{
+//					objPojo.getObjUtilities().logReporter("<B>  Already Given FeedBack  </B>", true);
+//				}
+//				
+//			}
 			
 			//Reorder
 			if (objPojo.getEntityRunner().getBooleanValueForField("ConfigReorder"))
@@ -559,9 +624,19 @@ public class SpiritZoneMyProfile {
 					objPojo.getDriver().close();
                  }
 				
+				for(int x =0;x<2;x++)
+				{
 				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CONTINUE']")).size()!=0)
 				{
 					objPojo.getObjWrapperFunctions().click(ContinueReOrder);
+				}
+				}
+				
+				//Verify in Cart
+				Thread.sleep(2000);
+				if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='CART']")).size()==0)
+				{
+					Assert.assertEquals(false, true,"Failed to Traverse to CART in DELIVERED products");
 				}
 				
 				
@@ -578,6 +653,11 @@ public class SpiritZoneMyProfile {
 				
 					Thread.sleep(5000);
 	
+					//Verify
+					if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='DOWNLOAD INVOICE']")).size()!=0)
+					{
+						Assert.assertEquals(false, true,"Error in Downloading INVOICE");
+					}
 			
 			}
 		}
