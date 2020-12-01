@@ -840,16 +840,16 @@ public class SpiritZoneMyProfile {
 		
 		
 }	
-	public void CustomerService() {
+	public void CustomerService() 
+	{
 		
 		//For Customer Service
 		objPojo.getObjUtilities().logReporter("Clicked On My Orders Button ",
 				objPojo.getObjWrapperFunctions().click(MyOrdersButton));
+		
+		
 		objPojo.getObjUtilities().logReporter("Clicked On Customer Care Section ",
 				objPojo.getObjWrapperFunctions().click(Customercare));
-		
-		
-		
 	}
 	
 	
@@ -880,32 +880,11 @@ public class SpiritZoneMyProfile {
 		//Performing Other Actions
 		if(AddressAction.equalsIgnoreCase("AddAddress"))
 		{
+			
+			int AddressintBefore = objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Edit']")).size();
+			
 			objPojo.getObjUtilities().logReporter("Clicked on AddUp Address",
 					objPojo.getObjWrapperFunctions().click(AddupADDRESS));
-			
-			Thread.sleep(1400);
-			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Current Location']")).size()!=0)
-			{
-				Thread.sleep(2400);
-				objPojo.getObjWrapperFunctions().clickException(EnableGPSbutton, "Enable GPS button");
-				Thread.sleep(2400);
-			}
-			
-			Thread.sleep(7400);
-			//Assert 
-			objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("//android.widget.TextView[@text='Select Delivery Location']"));
-			String DeliverLocaationStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Select Delivery Location']")).getText();
-			if(DeliverLocaationStr.equalsIgnoreCase("Select Delivery Location"))
-			{
-				objPojo.getObjUtilities().logReporter("<B> Traversed to Adding Delivery Address Module</B>", true);
-			}
-			else
-			//Traverse To Address Module
-			{
-				objPojo.getObjUtilities().logReporter("<B> Failed to Traverse to Adding Delivery Address Module</B>", true);
-			}
-			
-			
 		}
 		
 		if(AddressAction.equalsIgnoreCase("EditAddress"))
@@ -929,8 +908,22 @@ public class SpiritZoneMyProfile {
 		
 		if(AddressAction.equalsIgnoreCase("DeleteAddress"))
 		{
+			
+			int AddressintBefore = objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Edit']")).size();
+			
 			objPojo.getObjUtilities().logReporter("Clicked on Delete Address Button ",
 					objPojo.getObjWrapperFunctions().click(DeleteAddress));
+			
+			
+			//Verifying 
+			Thread.sleep(700);
+			int AddressintAfter = objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Edit']")).size();
+			
+			if(!(AddressintAfter==AddressintBefore-1))
+			{
+				Assert.assertEquals(false, true,"Address deletion issue ");
+			}
+			
 		}
 		
 		if(AddressAction.equalsIgnoreCase("UseAsShipping"))
@@ -957,9 +950,16 @@ public class SpiritZoneMyProfile {
 		
 		//Asserting if traversed to Settings 
 		String SettingsStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Settings']")).getText();
-		if(SettingsStr.equalsIgnoreCase("Settings"))
+		String FullNameStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Full Name']//preceding::android.widget.FrameLayout/android.view.ViewGroup/android.widget.EditText")).getText();
+		String DOBStr = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Date of Birth']//following-sibling::android.widget.TextView")).getText();
+		String MobileNumberStr = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[@text='Mobile Number']//preceding::android.widget.FrameLayout/android.view.ViewGroup/android.widget.EditText)[2]")).getText();
+
+		
+		
+		
+		if(SettingsStr.equalsIgnoreCase("Settings")  && FullNameStr.length()>1 && DOBStr.length()>1 && MobileNumberStr.length()>1)
 		{
-			objPojo.getObjUtilities().logReporter("<B> Traversed to Settings  SuccessfulLy </B>", true);
+			objPojo.getObjUtilities().logReporter("<B> Traversed to Settings  Successfully </B>", true);
 		}
 		else
 		{
@@ -977,18 +977,18 @@ public class SpiritZoneMyProfile {
 					objPojo.getObjWrapperFunctions().click(OldPasswdField));
 			
 			objPojo.getObjUtilities().logReporter("Typing Old Password.....",
-					objPojo.getObjWrapperFunctions().clearAndSendKeys(OldPasswdField, objPojo.getEntityRunner().getStringValueForField("OldPassword")));
+					objPojo.getObjWrapperFunctions().clearAndSendKeysNull(OldPasswdField, objPojo.getEntityRunner().getStringValueForField("OldPassword") , ""));
 		
 			objPojo.getObjUtilities().logReporter("Clicked On NewPassword Field",
 					objPojo.getObjWrapperFunctions().click(NewPasswdField));
 			
 			objPojo.getObjUtilities().logReporter("Typing New Password.....",
-					objPojo.getObjWrapperFunctions().clearAndSendKeys(NewPasswdField, objPojo.getEntityRunner().getStringValueForField("NewPassword")));
+					objPojo.getObjWrapperFunctions().clearAndSendKeysNull(NewPasswdField, objPojo.getEntityRunner().getStringValueForField("NewPassword") , ""));
 			
 		objPojo.getObjWrapperFunctions().click(RepeatNewPasswdField);
 		
 		objPojo.getObjUtilities().logReporter("ReTyping New Password.....",
-				objPojo.getObjWrapperFunctions().clearAndSendKeys(RepeatNewPasswdField, objPojo.getEntityRunner().getStringValueForField("ConfirmPassword")));
+				objPojo.getObjWrapperFunctions().clearAndSendKeysNull(RepeatNewPasswdField, objPojo.getEntityRunner().getStringValueForField("ConfirmPassword"), "" ));
 		
 		//Save password Button
 		objPojo.getObjWrapperFunctions().click(SavePasswordBtn);
@@ -1016,6 +1016,10 @@ public class SpiritZoneMyProfile {
 		}
 	    if(ScanerioType.equalsIgnoreCase("Negative-Password"))
 		{
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.Button[@text='YES']")).size()!=0)
+			{
+			objPojo.getObjWrapperFunctions().click(YesChangePassword);
+			}
 			Thread.sleep(1800);
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='OK']")).size()==0)
 			{
@@ -1034,10 +1038,35 @@ public class SpiritZoneMyProfile {
 		if(LogoutOption.equalsIgnoreCase("Settings-Notification"))
 		{
 			
-			
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.Switch[@text='OFF']")).size()>0)
+			{
 			objPojo.getObjUtilities().logReporter("Clicked on Sales and Promotions ",
 					objPojo.getObjWrapperFunctions().click(SalesnPromotions));
-		}
+			
+			Thread.sleep(1000);
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.Switch[@text='ON']")).size()==0)
+			{
+				Assert.assertEquals(true, false ,"Error in Switching Sales and promotion");
+			}
+			
+			}
+			
+			
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.Switch[@text='ON']")).size()>0)
+			{
+			objPojo.getObjUtilities().logReporter("Clicked on Sales and Promotions ",
+					objPojo.getObjWrapperFunctions().click(SalesnPromotions));
+			
+			Thread.sleep(1000);
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.Switch[@text='OFF']")).size()==0)
+			{
+				Assert.assertEquals(true, false ,"Error in Switching Sales and promotion");
+			}
+			
+			}
+			
+			
+	}
 	
 	}
 	

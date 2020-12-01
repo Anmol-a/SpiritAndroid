@@ -83,14 +83,17 @@ public class SpiritZoneHomeAddress {
 		
 
 		
-		if(!(TestType.equalsIgnoreCase("Positive-Profie") || (TestType.equalsIgnoreCase("Positive-ProfieEditAddress"))))
+		if(!(TestType.equalsIgnoreCase("Positive-Profie") || (TestType.equalsIgnoreCase("Positive-ProfieEditAddress")   )))
 		{
+			if(!(TestType.equalsIgnoreCase("Positive-Profile")))
+			{
+			
 		objPojo.getObjUtilities().logReporter("Clicked on Home-Page-Address MODULE",
 				GenericMethod.clickException(CurrentLocation,"Home Address Location Icon"));
-		
+			}
 		}	
 		
-		if(!(TypeOfAddress.equalsIgnoreCase("None") || (TestType.equalsIgnoreCase("Positive-ProfieEditAddress"))))
+		if(!(TestType.equalsIgnoreCase("None") || (TestType.equalsIgnoreCase("Positive-ProfieEditAddress"))))
 		{
 		
 			if(ConfigDeliveryInput.equalsIgnoreCase("LocationInput"))
