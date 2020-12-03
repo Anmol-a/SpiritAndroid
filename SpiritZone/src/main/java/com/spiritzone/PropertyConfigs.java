@@ -31,4 +31,5 @@ public class PropertyConfigs {
 	 
 	 public static final String BrowserStackDevice = "BrowserStackDevice";
 
+	 public static final String Wireless = "Wireless";
 }

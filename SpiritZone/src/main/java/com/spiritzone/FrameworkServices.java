@@ -27,6 +27,7 @@ public class FrameworkServices {
 	public static AppiumDriver<MobileElement> getWebDriverInstance() throws Exception {
 		
 		String BrowserStackDevice = ConfigReader.getInstance().getValue(PropertyConfigs.BrowserStackDevice);
+		String Wireless = ConfigReader.getInstance().getValue(PropertyConfigs.Wireless);
 		
 		String userName = "anmol64";
 		String accessKey = "ZPYpJ2azCLPhVEBZmSZW";
@@ -66,9 +67,20 @@ public class FrameworkServices {
 			System.out.println("-------------Real-Device-------------");
 			cap.setCapability("deviceName", "OnePlus 6t");
 			cap.setCapability("platformVersion", "10.0");
+			
+			if(Wireless.equalsIgnoreCase("Yes"))
+			{
+				cap.setCapability("deviceId", "192.168.9.13:5555");
+				cap.setCapability("app",apkpath);
+			}
+			else {
+				
+			
 			cap.setCapability("udid", "eba48b80");
 			cap.setCapability("app",apkpath);
+			}
 		}
+			
 		
 		cap.setCapability("gpsEnabled", true);
 		cap.setCapability("newCommandTimeout", 150);

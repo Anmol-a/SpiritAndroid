@@ -109,13 +109,6 @@ public class Uploader {
 
 				suite.setName(runningTestSuite.getDescription().toString());
 
-				// if (runningTestSuite.getExecutionMode().equalsIgnoreCase("Parallel"))
-				// suite.setParallel("tests");
-				//
-				// else
-				// suite.setParallel("none");
-
-				// recent changes done for testSuiteFilePath!!!
 
 				currentExecutionMasterTestSuiteExcelFilePath = this.TestDataDirectory + "/";
 				String testSuiteFilePath = currentExecutionMasterTestSuiteExcelFilePath
@@ -256,10 +249,11 @@ public class Uploader {
 		// ------------");
 
 		try {
-
-		//	currentExecutionMasterTestSuiteFileInputStreamReference = new FileInputStream(currentExecutionMasterTestSuiteExcelFileReference);
+			
+			//currentExecutionMasterTestSuiteFileInputStreamReference = new FileInputStream(System.getProperty("user.dir")+"\\TestData\\0000_MasterTestSuite.xlsx");
+			currentExecutionMasterTestSuiteFileInputStreamReference = new FileInputStream("D:\\AndroidTestData\\0000_MasterTestSuite.xlsx");
 		
-			currentExecutionMasterTestSuiteFileInputStreamReference = new FileInputStream(System.getProperty("user.dir")+"\\TestData\\0000_MasterTestSuite.xlsx");
+		
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

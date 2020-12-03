@@ -136,7 +136,13 @@ public class WrapperFunctions {
 	
 	
 	
-	
+	public void SendKeysinConcernINput() throws InterruptedException
+	{
+		objPojo.getObjWrapperFunctions().waitForElementPresence(By.xpath("//android.widget.EditText[@text='Type here']"));
+		objPojo.getObjWrapperFunctions().clearAndSendKeysNull(By.xpath("//android.widget.EditText[@text='Type here']"), "XYZ", "Concern Input");
+		objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.EditText[@text='XYZ']//parent::android.view.ViewGroup[1]//following-sibling::android.widget.FrameLayout/android.view.ViewGroup/android.widget.ImageView"));
+		Thread.sleep(5000);
+	}
 	
 	
 
