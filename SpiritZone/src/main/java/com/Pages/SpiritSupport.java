@@ -270,7 +270,7 @@ public class SpiritSupport {
 			objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 			
 			//Assert
-			Thread.sleep(4000);
+			Thread.sleep(5000);
 			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Thank you')]")).size()==0)
 			{
 				Assert.assertEquals(false, true,"Unable to Issue Ticket ");
@@ -290,10 +290,45 @@ public class SpiritSupport {
 		
 		if(objPojo.getEntityRunner().getBooleanValueForField("ConfigOverallCheck"))
 		{
-			String FirstORderID=objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'OrderID is')])[1]")).getText();
+			int X =0;
+			
+			
+			
+			
+			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("First"))
+			{
+				X=1;
+			}
+			
+			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("Second"))
+			{
+				X=2;
+			}
+			
+			
+			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("Third"))
+			{
+				X=3;
+			}
+			
+			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("Forth"))
+			{
+				X=4;
+			}
+			
+			
+			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("Fifth"))
+			{
+				X=5;
+			}
+
+			
+	
+				
+			String FirstORderID=objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'OrderID is')])["+X+"]")).getText();
 			String str = FirstORderID.replaceAll("\\s+$", "");
 			String FirstStringlastWord = str.substring(str.lastIndexOf(" ")+1);
-			
+	
 			
 			String SecondORderID=objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'OrderID is')])[2]")).getText();
 			String str2 = SecondORderID.replaceAll("\\s+$", "");
@@ -313,127 +348,105 @@ public class SpiritSupport {
 			
 			
 			
-			
-			
-			
-			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("First"))
-			{
-				
-			}
-			
-			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("Second"))
-			{
-			//	ORderID = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'OrderID is')])[2]")).getText();
-			}
-			
-			
-			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("Third"))
-			{
-			//	ORderID = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'OrderID is')])[3]")).getText();
-			}
-			
-			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("Forth"))
-			{
-			//	ORderID = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'OrderID is')])[4]")).getText();
-			}
-			
-			
-			if(objPojo.getEntityRunner().getStringValueForField("OrderIDCheckOverall").equalsIgnoreCase("Fifth"))
-			{
-			//	ORderID = objPojo.getDriver().findElement(By.xpath("(//android.widget.TextView[starts-with(@text,'OrderID is')])[]")).getText();
-			}
+			ArrayList<String> OrderIDLastStrings = new ArrayList<>();
+			OrderIDLastStrings.add(FirstStringlastWord);
+			OrderIDLastStrings.add(SecondStringlastWord);
+			OrderIDLastStrings.add(ThirdStringlastWord);
+			OrderIDLastStrings.add(ForthStringlastWord);
+			OrderIDLastStrings.add(FifthStringlastWord);
 			
 			
 			
 			
+
 			
 			
 			if(FirstStringlastWord.equalsIgnoreCase("Canceled"))
 			{
-				Reporter.log("Clicked on Cacelled Type Order ID");
+				objPojo.getObjUtilities().CustomLogger("Clicked on Cacelled Type Order ID");
 				
 				//clicking on CANCELLED
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				//Iterating Over First Cancel Order
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='What is Spiritzone’s cancellation policy?']"));
-				Reporter.log("Selecting and completing for What is Spiritzone’s cancellation policy?");
+				objPojo.getObjUtilities().CustomLogger("Selecting and completing for What is Spiritzone’s cancellation policy?");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
 				
 				
 				//clicking on CANCELLED
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				//Iterating Over Second Cancel Order
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='Why was my order cancelled?']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='Why was my order cancelled?']"));
-				Reporter.log("Why was my order cancelled?");
+				objPojo.getObjUtilities().CustomLogger("Why was my order cancelled?");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
 				
 				
 				//clicking on CANCELLED
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				//Iterating Over Third Cancel Order
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='How can I cancel my order?']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='How can I cancel my order?']"));
-				Reporter.log("How can I cancel my order?");
+				objPojo.getObjUtilities().CustomLogger("How can I cancel my order?");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
 				
 				
 				//clicking on CANCELLED
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				//Iterating Over Third Cancel Order
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I was charged a cancellation fee']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I was charged a cancellation fee']"));
-				Reporter.log("I was charged a cancellation fee");
+				objPojo.getObjUtilities().CustomLogger("I was charged a cancellation fee");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
 				
 				
 				//clicking on CANCELLED
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				//Iterating Over Third Cancel Order
-				Thread.sleep(4000);
+				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I just cancelled my order. When will receive my refund?']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I just cancelled my order. When will receive my refund?']"));
-				Reporter.log("I just cancelled my order. When will receive my refund?");
+				objPojo.getObjUtilities().CustomLogger("I just cancelled my order. When will receive my refund?");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
 			}
 			
 			
-			if(FirstStringlastWord.equalsIgnoreCase("Process") || FirstStringlastWord.equalsIgnoreCase("Packed") || FirstStringlastWord.equalsIgnoreCase("Delivery"))
+			if(FirstStringlastWord.equalsIgnoreCase("Approved") || FirstStringlastWord.equalsIgnoreCase("Process") || FirstStringlastWord.equalsIgnoreCase("Packed") || FirstStringlastWord.equalsIgnoreCase("Delivery"))
 			{
 				//clicking on In Process
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
 				//Iterating Over First In Process Order
 				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='When will I receive my order?']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='When will I receive my order?']"));
-				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='When will I receive my order?']"));
-				Reporter.log("Selecting and completing for When Will I Receieve My Order?");
+				objPojo.getObjUtilities().CustomLogger("Selecting and completing for When Will I Receieve My Order?");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
 				
 				//clicking on In Process
-				if(!FirstStringlastWord.equalsIgnoreCase("Delivery"))
+				if(  !(FirstStringlastWord.equalsIgnoreCase("Delivery")) &&  !(FirstStringlastWord.equalsIgnoreCase("Approved") ))
 				{
 				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
@@ -442,7 +455,7 @@ public class SpiritSupport {
 				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='Why is my order not out for delivery yet?']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='Why is my order not out for delivery yet?']"));
-				Reporter.log("Why is my order not out for delivery yet?");
+				objPojo.getObjUtilities().CustomLogger("Why is my order not out for delivery yet?");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				}
@@ -457,7 +470,7 @@ public class SpiritSupport {
 				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='My order is delayed']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='My order is delayed']"));
-				Reporter.log("My order is delayed");
+				objPojo.getObjUtilities().CustomLogger("My order is delayed");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
@@ -470,7 +483,7 @@ public class SpiritSupport {
 				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I want to cancel my order']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I want to cancel my order']"));
-				Reporter.log("I want to cancel my Order");
+				objPojo.getObjUtilities().CustomLogger("I want to cancel my Order");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
@@ -485,7 +498,7 @@ public class SpiritSupport {
 				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I have placed an incorrect order']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I have placed an incorrect order']"));
-				Reporter.log("I have placed an incorrect order");
+				objPojo.getObjUtilities().CustomLogger("I have placed an incorrect order");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				}
@@ -499,7 +512,7 @@ public class SpiritSupport {
 				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I want to make changes to my order']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I want to make changes to my order']"));
-				Reporter.log("I want to make changes to my order");
+				objPojo.getObjUtilities().CustomLogger("I want to make changes to my order");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
@@ -513,7 +526,7 @@ public class SpiritSupport {
 				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I want to change my delivery location']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I want to change my delivery location']"));
-				Reporter.log("I want to change my delivery location");
+				objPojo.getObjUtilities().CustomLogger("I want to change my delivery location");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 				
@@ -528,14 +541,14 @@ public class SpiritSupport {
 				Thread.sleep(5000);
 				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I want to make an online payment for this order']"));
 				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I want to make an online payment for this order']"));
-				Reporter.log("I want to change my delivery location");
+				objPojo.getObjUtilities().CustomLogger("I want to change my delivery location");
 				//SendKeys in Concern Input
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 			}
 				
 				
 				if(FirstStringlastWord.equalsIgnoreCase("Delivery"))
-				{
+			{
 
 					//clicking on In Process
 					Thread.sleep(5000);
@@ -545,13 +558,231 @@ public class SpiritSupport {
 					Thread.sleep(5000);
 					objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I am unable to contact the delivery agent']"));
 					objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I am unable to contact the delivery agent']"));
-					Reporter.log("I want to change my delivery location");
+					objPojo.getObjUtilities().CustomLogger("I want to change my delivery location");
 					//SendKeys in Concern Input
 					objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 					
-				}
+			}
 		}
+			
+			
+			//DELIVERED-----------------------------------------
+			if(FirstStringlastWord.equalsIgnoreCase("Delivered"))
+			{
+
+				objPojo.getObjUtilities().CustomLogger("Clicked on Delivered Type Order ID");
+				
+				
+				//clicking on DELIVERED
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over First Cancel Order
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I have not received my order']"));
+				objPojo.getObjUtilities().CustomLogger("I have not received my order");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on DELIVERED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over Second Cancel Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I have packaging or spillage issue with my order']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I have packaging or spillage issue with my order']"));
+				objPojo.getObjUtilities().CustomLogger("I have packaging or spillage issue with my order");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on DELIVERED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over Third Cancel Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='Items are missing or incorrect in my order']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='Items are missing or incorrect in my order']"));
+				objPojo.getObjUtilities().CustomLogger("Items are missing or incorrect in my order");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on DELIVERED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over Third Cancel Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I have taste, quality or quantity issue with my order']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I have taste, quality or quantity issue with my order']"));
+				objPojo.getObjUtilities().CustomLogger("I have taste, quality or quantity issue with my order");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on DELIVERED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over Third Cancel Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I have payment and billing related query for my order']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I have payment and billing related query for my order']"));
+				objPojo.getObjUtilities().CustomLogger("I have payment and billing related query for my order");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+			
+				
+				//clicking on DELIVERED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over Third Cancel Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I want an invoice for this order']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I want an invoice for this order']"));
+				objPojo.getObjUtilities().CustomLogger("I want an invoice for this order");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+			}
+			
+			
+			
+			//FAILED-----------------------------------------
+			if(FirstStringlastWord.equalsIgnoreCase("Failed"))
+			{
+				//clicking on FAILED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over FAILED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='The transaction failed but the amount deducted from the bank account']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='The transaction failed but the amount deducted from the bank account']"));
+				objPojo.getObjUtilities().CustomLogger("The transaction failed but the amount deducted from the bank account");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on FAILED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over FAILED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='The transaction was successful, but the amount is not deducted from the bank account']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='The transaction was successful, but the amount is not deducted from the bank account']"));
+				objPojo.getObjUtilities().CustomLogger("The transaction failed but the amount deducted from the bank account");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				
+				//clicking on FAILED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over FAILED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I was not able to make the payment']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I was not able to make the payment']"));
+				objPojo.getObjUtilities().CustomLogger("I was not able to make the payment");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				
+				//clicking on FAILED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over FAILED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='Can I use a different mode of payment for my order?']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='Can I use a different mode of payment for my order?']"));
+				objPojo.getObjUtilities().CustomLogger("Can I use a different mode of payment for my order?");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+			}
+			
+			
 		
+			
+			
+			//Returned-----------------------------------------
+			if(FirstStringlastWord.equalsIgnoreCase("Returned"))
+			{
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='How long does the Spiritzone return process take?']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='How long does the Spiritzone return process take?']"));
+				objPojo.getObjUtilities().CustomLogger("How long does the Spiritzone return process take?");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I have returned my order. When will I receive a refund?']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I have returned my order. When will I receive a refund?']"));
+				objPojo.getObjUtilities().CustomLogger("I have returned my order. When will I receive a refund?");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I returned the wrong items']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I returned the wrong items']"));
+				objPojo.getObjUtilities().CustomLogger("I returned the wrong items");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='Can I get a replacement for the items returned?']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='Can I get a replacement for the items returned?']"));
+				objPojo.getObjUtilities().CustomLogger("Can I get a replacement for the items returned?");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				
+				
+			}
 	}
 		
 		
