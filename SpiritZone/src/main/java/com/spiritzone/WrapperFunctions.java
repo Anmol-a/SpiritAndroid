@@ -19,6 +19,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import com.google.common.base.Function;
 
@@ -54,8 +55,10 @@ public class WrapperFunctions {
 	public void Ratings(String RatingsStr,int Stars) throws InterruptedException
 	{
 		TouchAction action = new TouchAction(objPojo.getDriver());
+		Thread.sleep(3000);
 		if(Stars==4)
 		{
+			
 			action.press(PointOption.point(920, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
 			.moveTo(PointOption.point(720, 1140)).release().perform();
 			
@@ -124,11 +127,20 @@ public class WrapperFunctions {
 		if(RatingsStr.equalsIgnoreCase("Other"))
 		{
 			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Other']")).click();
-			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Other']")).sendKeys("This isn't very good style, though, and can lead to some devilish bugs that are hard to find. People aren't used to looking for modifications to the loop control variable inside the for loop because it's one of those things that You. Just. Don't. Do.");	
+			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Other']")).sendKeys("Keep your Spirits UP!!!!!!!!!!!!!");	
 		}
 		
 		//Clicking Submit
 		objPojo.getDriver().findElement(By.xpath("//android.widget.Button[@text='SUBMIT']")).click();
+		
+		
+		
+		//Assert
+		Thread.sleep(4000);
+		if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+RatingsStr+"']")).size()==0)
+		{
+			Assert.assertEquals(false, true," FEEDBACK AT DELIVERED ITEMS ERROR ");
+		}
 	}
 	
 	

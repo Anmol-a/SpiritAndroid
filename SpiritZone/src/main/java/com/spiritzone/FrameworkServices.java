@@ -40,14 +40,7 @@ public class FrameworkServices {
 		DesiredCapabilities cap = new DesiredCapabilities();
 		
 		cap.setCapability("platformName", "Android");
-		
-//		cap.setCapability("deviceName", "Vidit");
-//		cap.setCapability("platformVersion", "8.1.0");	
-//		cap.setCapability("udid", "5203f32cc072b421");
-		
-//		cap.setCapability("deviceName", "Pixel_2_API_27");
-//		cap.setCapability("platformVersion", "8.1.0");
-//		cap.setCapability("udid", "emulator-5554");
+
 		
 	
 		

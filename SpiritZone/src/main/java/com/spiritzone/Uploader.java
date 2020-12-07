@@ -225,7 +225,6 @@ public class Uploader {
 				String timeStamp = new SimpleDateFormat("dd-yyyy-MM----HH:mm:ss").format(new Date());
 				String Condition = "";
 				String outputDIR = TestLauncher.excutionFolderHTML;
-				//String outputDIR = "/Users/aqmuser/Documents/NSE_Mobile_Automation//RemoteSystemsTempFiles";
 				testNGReference.setOutputDirectory(outputDIR);
 				try {
 					testNGReference.run();

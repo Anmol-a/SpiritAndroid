@@ -226,7 +226,15 @@ public class SpiritZoneMyProfile {
 	{
 		
 		//Click on Your Orders
+		Thread.sleep(2000);
+		if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text = 'My orders']")).size()>0)
+		{
+			objPojo.getObjUtilities().logReporter("Clicked On My Orders Button ",objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text = 'My orders']")));
+		}
+		else
+		{
 		objPojo.getObjUtilities().logReporter("Clicked On My Orders Button ",objPojo.getObjWrapperFunctions().click(MyOrdersButton));
+		}
 		
 		//Assert My Orders Section
 		objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='MY ORDERS']"));
@@ -493,47 +501,70 @@ public class SpiritZoneMyProfile {
 				//-----------------------------------FEEDBACK
 				if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedback"))
 				{
-					objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
-//					for(int x = 0;x<objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size();x++)
-//					{
-//						int occur = 1;
-//						objPojo.getObjWrapperFunctions().clickWebElement(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).get(x));
-//						
-//						 if(x==objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size()-1 && objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='FEEDBACK']")).size()!=0)
-//						{
-//							 objPojo.getObjWrapperFunctions().click(MyOrdersBack);
-//								objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
-//								objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
-//								while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size() == 0)
-//								{
-//									objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
-//								}
-//						
-//								x=0;
-//								
-//								
-//						}
-//						
+					//objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+					int x;
+					int y=1;
+					for( x = 0;x<objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size()+1;x++)
+					{
+						if(y==0)
+						{
+							x=0;
+						}
+						objPojo.getObjWrapperFunctions().clickWebElement(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).get(x));
+						
+						
+						//x==objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size()-1 &&
+						 String OrderID = objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[starts-with(@text,'Order No.')]")).getText().replace("Order No. ", "");
+						 
+						 
+						
+						
+						 if( objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='FEEDBACK']")).size()!=0)
+						{
+							 	objPojo.getObjWrapperFunctions().click(MyOrdersBack);
+							 	
+							 	while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[starts-with(@text,'Order No."+OrderID+"')]")).size()!=0)
+							 	{
+								objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+							 	}
+							 	
+							 	
+							 	
+								while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size() == 0)
+								{
+									objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
+								}
+								
+								if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size()>0)
+								{
+								y=0;
+								x=0;
+								}
+						}
 //						if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='FEEDBACK']")).size()!=0)
 //						{
 //							objPojo.getObjWrapperFunctions().click(MyOrdersBack);
 //						}
-//						else if (objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='FEEDBACK']")).size()==0)
-//						{
-//							//Do your Rating stuffs
-//						}
-//
-//							
-//					}
-					
-					
-					
-					while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Delivered']")).size() == 0)
-					{
-						
-						objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
-						
+
+						 
+						 else if (objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='FEEDBACK']")).size()==0)
+						{
+							objPojo.getObjWrapperFunctions().click(LeaveFeedback);
+							
+							String FeedBackString = objPojo.getEntityRunner().getStringValueForField("FeedBackString");
+							objPojo.getObjWrapperFunctions().Ratings(FeedBackString, Integer.parseInt(objPojo.getEntityRunner().getStringValueForField("RatingsInteger")));
+							break;
+							
+							 
+							 
+							 
 					}
+				}
+					
+					
+					
+					
+					
 				
 					
 					
