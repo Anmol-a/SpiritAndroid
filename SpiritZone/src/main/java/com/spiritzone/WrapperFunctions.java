@@ -52,7 +52,9 @@ public class WrapperFunctions {
 	
 	
 	
-	public void Ratings(String RatingsStr,int Stars) throws InterruptedException
+	
+	
+	public void RatingswithPOPUP(String RatingsStr,int Stars) throws InterruptedException
 	{
 		TouchAction action = new TouchAction(objPojo.getDriver());
 		Thread.sleep(3000);
@@ -87,11 +89,12 @@ public class WrapperFunctions {
 			Thread.sleep(700);
 			
 			
-			action.press(PointOption.point(372, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
-			.moveTo(PointOption.point(545, 1140)).release().perform();
-			Thread.sleep(700);
+			action.press(PointOption.point(545, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(372, 1140)).release().perform();
+			Thread.sleep(1000);
 			
 		}
+		
 		if(Stars==1)
 		{
 			action.press(PointOption.point(920, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
@@ -102,11 +105,11 @@ public class WrapperFunctions {
 			.moveTo(PointOption.point(545, 1140)).release().perform();
 			Thread.sleep(700);
 			
-			action.press(PointOption.point(372, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
-			.moveTo(PointOption.point(545, 1140)).release().perform();
+			action.press(PointOption.point(545, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			.moveTo(PointOption.point(372, 1140)).release().perform();
 			Thread.sleep(700);
 			
-			action.press(PointOption.point(382, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(600)))
+			action.press(PointOption.point(382, 1140)).waitAction(new WaitOptions().withDuration(Duration.ofMillis(800)))
 			.moveTo(PointOption.point(336, 1140)).release().perform();
 			Thread.sleep(700);
 			
@@ -127,7 +130,7 @@ public class WrapperFunctions {
 		if(RatingsStr.equalsIgnoreCase("Other"))
 		{
 			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Other']")).click();
-			objPojo.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Other']")).sendKeys("Keep your Spirits UP!!!!!!!!!!!!!");	
+			objPojo.getDriver().findElement(By.xpath("//*[@text='Write your review']")).sendKeys("Keep your Spirits UP!!!!!!!!!!!!!");	
 		}
 		
 		//Clicking Submit
@@ -137,11 +140,23 @@ public class WrapperFunctions {
 		
 		//Assert
 		Thread.sleep(4000);
+		if(RatingsStr.equalsIgnoreCase("Other"))
+		{
+			if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='Keep your Spirits UP!!!!!!!!!!!!!']")).size()==0)
+			{
+				Assert.assertEquals(false, true," FEEDBACK AT DELIVERED ITEMS ERROR ");
+		 	}
+			
+		}
+		
+		else
+		{
 		if(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+RatingsStr+"']")).size()==0)
 		{
 			Assert.assertEquals(false, true," FEEDBACK AT DELIVERED ITEMS ERROR ");
-		}
-	}
+	 	}
+	    }
+}
 	
 	
 	
@@ -158,25 +173,29 @@ public class WrapperFunctions {
 	
 	
 
-	public void waitForElementPresence(By locator) throws NotFoundException {
+	public void waitForElementPresence(By locator) throws NotFoundException 
+	{
 		objWebDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 
-	public void waitForElementVisibilityLocated(By locator) throws NotFoundException {
+	public void waitForElementVisibilityLocated(By locator) throws NotFoundException 
+	{
 		objWebDriverWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
-	public void waitForElementVisibility(WebElement webElement) throws NotFoundException {
+	public void waitForElementVisibility(WebElement webElement) throws NotFoundException 
+	{
 		objWebDriverWait.until(ExpectedConditions.visibilityOf(webElement));
 	}
 
-	public void waitForElementToBeClickable(By locator) throws NotFoundException {
+	public void waitForElementToBeClickable(By locator) throws NotFoundException 
+	{
 		objWebDriverWait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 
-	public void waitForElementInVisibilityLocated(By locator) throws NotFoundException {
+	public void waitForElementInVisibilityLocated(By locator) throws NotFoundException 
+	{
 		objWebDriverWait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-
 	}
 
 	

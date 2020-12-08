@@ -352,7 +352,9 @@ public class SpiritProductDescription {
 		{
 	
 		objPojo.getObjUtilities().logReporter("<B>Traversed TO Product Description Page </B>",true);
+		if(objPojo.getEntityRunner().getStringValueForField("ConfigExecute").equalsIgnoreCase("Yes"))
+		{
 		TraverseToPrductDescription();
 		}
-	
+	}
 }

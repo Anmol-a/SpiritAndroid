@@ -498,7 +498,7 @@ public class SpiritZoneMyProfile {
 			{
 				
 				List<MobileElement> Delivered;
-				//-----------------------------------FEEDBACK
+				//-------------------------------------------------------------------FEEDBACK
 				if (objPojo.getEntityRunner().getBooleanValueForField("ConfigLeaveFeedback"))
 				{
 					//objPojo.getObjWrapperFunctions().scrollDownCustomForProuctList();
@@ -552,24 +552,15 @@ public class SpiritZoneMyProfile {
 							objPojo.getObjWrapperFunctions().click(LeaveFeedback);
 							
 							String FeedBackString = objPojo.getEntityRunner().getStringValueForField("FeedBackString");
-							objPojo.getObjWrapperFunctions().Ratings(FeedBackString, Integer.parseInt(objPojo.getEntityRunner().getStringValueForField("RatingsInteger")));
+							objPojo.getObjWrapperFunctions().RatingswithPOPUP(FeedBackString, Integer.parseInt(objPojo.getEntityRunner().getStringValueForField("RatingsInteger")));
 							break;
 							
 							 
 							 
 							 
 					}
-				}
-					
-					
-					
-					
-					
-				
-					
-					
-					
-				}
+				}	
+			}
 				
 			objPojo.getObjUtilities().logReporter("Clicked On Delivered Orders Button",objPojo.getObjWrapperFunctions().clickException(DeliveredOrder,"Delivered Order Product"));
 			Thread.sleep(2000);

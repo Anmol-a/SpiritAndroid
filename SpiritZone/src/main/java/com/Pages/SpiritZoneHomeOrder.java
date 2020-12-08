@@ -423,11 +423,13 @@ public class SpiritZoneHomeOrder {
 				objPojo.getObjWrapperFunctions().clickException(PriceFilterHigh,"Low To High Filter");
 				
 				//assert-Low Filter
+				if(!objPojo.getEntityRunner().getStringValueForField("CategoryType").equalsIgnoreCase("OTHERS"))
+		{
 				if(objPojo.getDriver().findElements(By.xpath("(//androidx.recyclerview.widget.RecyclerView)[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2][@text='"+LowestPriceProductName+"']")).size()==0)
 				{
 					Assert.assertEquals(false, true,"Failed at Filter Low High");		
 				}
-				
+		}
 			
 			}
 			

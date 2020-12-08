@@ -716,8 +716,89 @@ public class SpiritSupport {
 				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
 			}
 			
+			//REFUNDED-------------------------------------------
+			if(FirstStringlastWord.equalsIgnoreCase("Refunded"))
+			{
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I want to know the status of my refund']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I want to know the status of my refund']"));
+				objPojo.getObjUtilities().CustomLogger("I want to know the status of my refund");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='I requested for a refund, but I do not see it in my bank account. Where is my refund?']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='I requested for a refund, but I do not see it in my bank account. Where is my refund?']"));
+				objPojo.getObjUtilities().CustomLogger("I requested for a refund, but I do not see it in my bank account. Where is my refund?");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='It has been more than 30 days since I requested a refund and I haven’t received it yet. What should I do now?']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='It has been more than 30 days since I requested a refund and I haven’t received it yet. What should I do now?']"));
+				objPojo.getObjUtilities().CustomLogger("It has been more than 30 days since I requested a refund and I haven’t received it yet. What should I do now?");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='Where can I check my refund status?']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='Where can I check my refund status?']"));
+				objPojo.getObjUtilities().CustomLogger("Where can I check my refund status?");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();
+				
+				
+				
+				//clicking on RETURNED
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='"+FirstORderID+"']"));
+				//Iterating Over RETURNED  Order
+				Thread.sleep(5000);
+				objPojo.getObjWrapperFunctions().waitForElementToBeClickable(By.xpath("//android.widget.TextView[@text='When I issue a refund, are the transaction fees returned?']"));
+				objPojo.getObjWrapperFunctions().click(By.xpath("//android.widget.TextView[@text='When I issue a refund, are the transaction fees returned?']"));
+				objPojo.getObjUtilities().CustomLogger("When I issue a refund, are the transaction fees returned?");
+				//SendKeys in Concern Input
+				objPojo.getObjWrapperFunctions().SendKeysinConcernINput();	
+				
+				
+				
+			}
 			
-		
+			
+			
+			
+			
+			
+			
+			
 			
 			
 			//Returned-----------------------------------------

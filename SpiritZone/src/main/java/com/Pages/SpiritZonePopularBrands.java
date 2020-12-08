@@ -177,10 +177,12 @@ public class SpiritZonePopularBrands {
 			else 
 			{
 				//Remove this scroll on Production App
+				/*
 				for(int x = 0 ; x<2;x++)
 				{
 					objPojo.getObjWrapperFunctions().scrollRightForPopularBrand(ScrollingLiquorContainer);	
 				}
+				*/
 				
 				
 			 while(objPojo.getDriver().findElements(By.xpath("//android.widget.TextView[@text='"+PopularBrandName+"']")).size()==0)
